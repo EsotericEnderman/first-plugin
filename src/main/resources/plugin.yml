@@ -1,0 +1,7 @@
+name: First Plugin
+version: '${project.version}'
+main: net.slqmy.first_plugin.FirstPlugin
+api-version: '1.20'
+prefix: [First Plugin]
+authors: [slqmy]
+description: My first plugin.
