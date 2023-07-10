@@ -41,3 +41,5 @@
     "description": "View a menu that I copied from this random server called mc-complex."
   "fruit":
     "description": "Autocomplete command - it does nothing."
+  "buff":
+    "description": "Get a cool item with a custom attribute."

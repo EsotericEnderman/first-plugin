@@ -50,6 +50,7 @@ public final class FirstPlugin extends JavaPlugin implements Listener {
 		getCommand("menu").setExecutor(new MenuCommand());
 		getCommand("hypixel-menu").setExecutor(new HypixelMenuCommand());
 		getCommand("mc-complex-menu-command").setExecutor(new McComplexMenuCommand());
+		getCommand("buff").setExecutor(new BuffCommand());
 
 		getCommand("fruit").setExecutor(new FruitCommand());
 		getCommand("fruit").setTabCompleter(new FruitTabCompleter());
