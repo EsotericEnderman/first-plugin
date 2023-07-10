@@ -43,3 +43,6 @@
     "description": "Autocomplete command - it does nothing."
   "buff":
     "description": "Get a cool item with a custom attribute."
+  "skull":
+    "description": "Get some custom skulls! (player heads).
+    Despite what people say, this command has nothing to do with the skull emoji."
