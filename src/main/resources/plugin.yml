@@ -46,3 +46,5 @@
   "skull":
     "description": "Get some custom skulls! (player heads).
     Despite what people say, this command has nothing to do with the skull emoji."
+  "custom-skull":
+    "description": "Get a custom skull! Decapitate anyone!"
