@@ -51,6 +51,9 @@ public final class FirstPlugin extends JavaPlugin implements Listener {
 		getCommand("hypixel-menu").setExecutor(new HypixelMenuCommand());
 		getCommand("mc-complex-menu-command").setExecutor(new McComplexMenuCommand());
 
+		getCommand("fruit").setExecutor(new FruitCommand());
+		getCommand("fruit").setTabCompleter(new FruitTabCompleter());
+
 		BossBar bossBar = Bukkit.createBossBar(
 						ChatColor.LIGHT_PURPLE + "Wither Storm",
 						BarColor.RED,
