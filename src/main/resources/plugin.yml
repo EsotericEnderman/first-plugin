@@ -1,7 +1,39 @@
-name: First Plugin
-version: '${project.version}'
-main: net.slqmy.first_plugin.FirstPlugin
-api-version: '1.20'
-prefix: [First Plugin]
-authors: [slqmy]
-description: My first plugin.
+"name": "First-Plugin"
+"version": "${project.version}"
+"main": "net.slqmy.first_plugin.FirstPlugin"
+"api-version": "1.20"
+"prefix": "First Plugin"
+"authors": ["slqmy"]
+"description": "My first plugin."
+"commands":
+  "heal":
+    # Can add permissions, etc.
+    "description": "Heal yourself and restore your hunger and saturation."
+  "broadcast":
+    "description": "Broadcast something to every player on the server."
+  "players":
+    "description": "[Console-only] get the number of online players."
+  "config":
+    "description": "Read data in the config file!"
+  "set-config":
+    "description": "Set data in the config file!"
+  "secret-message":
+    "description": "View the secret message... what could that be?"
+  "vanish":
+    "description": "Disappear forever (or temporarily)."
+  "give-guns":
+    "description": "Give yourself some pretty cool guns."
+  "give-book":
+    "description": "Give yourself a pretty cool book."
+  "give-banner":
+    "description": "Give yourself a fancy banner."
+  "punish":
+    "description": "Punish someone, get revenge >:)"
+  "message":
+    "description": "Message another player."
+  "reply":
+    "description": "Reply to a message from another player."
+  "menu":
+    "description": "View a cool menu."
+  "hypixel-menu":
+    "description": "View a menu that I copied from Hypixel."

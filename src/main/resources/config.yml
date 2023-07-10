@@ -1,0 +1,18 @@
+# This is my word.
+Word: "Banana"
+Number: 42
+
+# Hello, this is a comment!
+
+Boolean: true
+Fruits:
+  - "Banana"
+  - "Apple"
+  - "Strawberry"
+  - "Pear"
+
+# Test:
+#   Test1:
+#   Test2:
+#     Test2.1: "" # Path to here = Test.Test2.Test2.1
+#   Test3: "" # Path to here = Test.Test3
