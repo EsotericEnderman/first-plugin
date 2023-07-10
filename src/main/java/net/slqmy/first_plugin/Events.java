@@ -22,6 +22,7 @@ import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.FireworkMeta;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -67,7 +68,7 @@ public class Events implements Listener {
 	@EventHandler
 	public void OnEntitySpawn(CreatureSpawnEvent event) {
 		// event.setCancelled(true);
-		event.getEntity().setGlowing(true);
+		// event.getEntity().setGlowing(true);
 	}
 
 	@EventHandler
@@ -79,7 +80,7 @@ public class Events implements Listener {
 	public void onEntityDamage(EntityDamageEvent event) {
 
 		if (!(event.getEntity() instanceof Player)) {
-			event.getEntity().remove();
+			// event.getEntity().remove();
 		};
 	}
 
@@ -255,7 +256,7 @@ public class Events implements Listener {
 			double y = location.getY();
 			double z = location.getZ();
 
-			player.sendMessage("You threw a projectile! It landed at the following location: (" + x + ", " + y + ", " + z + ").");
+			player.sendMessage("You threw a projectile! It landed at the following location: (" + x + ", " + y + ", " + z + "). Also, it was going at " + projectile.getVelocity().length() + "m/s.");
 
 			double x0 = playerLocation.getX();
 			double y0 = playerLocation.getY();
@@ -280,9 +281,11 @@ public class Events implements Listener {
 		Player player = event.getPlayer();
 
 		ItemStack mainHand = player.getInventory().getItemInMainHand();
-		String itemName = mainHand.getItemMeta().getDisplayName();
+		ItemMeta mainHandMeta = mainHand.getItemMeta();
 
-		if (mainHand != null) {
+		if (mainHand != null && mainHandMeta != null) {
+			String itemName = mainHand.getItemMeta().getDisplayName();
+
 			Material mainHandMaterial = mainHand.getType();
 
 			if (event.getAction().equals(Action.RIGHT_CLICK_AIR) && mainHandMaterial.equals(Material.DIAMOND_HOE)) {
@@ -304,18 +307,18 @@ public class Events implements Listener {
 					movementDisabled.add(player.getUniqueId());
 				}
 			} else if (mainHandMaterial.equals(Material.WOODEN_HOE) && itemName.equals(ChatColor.AQUA + "Revolver")) {
-				player.launchProjectile(Egg.class, player.getLocation().getDirection().multiply(10));
+				player.launchProjectile(Egg.class, player.getLocation().getDirection().multiply(350));
 				player.sendMessage(ChatColor.GREEN + "You have shot the egg!");
 			} else if (mainHandMaterial.equals(Material.IRON_HOE) && itemName.equals(ChatColor.DARK_BLUE + "Mini-gun")) {
-				player.launchProjectile(Snowball.class, player.getLocation().getDirection().multiply(10));
+				player.launchProjectile(Snowball.class, player.getLocation().getDirection().multiply(350));
 				player.sendMessage(ChatColor.GREEN + "You have shot the snowball!");
 			} else if (mainHandMaterial.equals(Material.NETHERITE_HOE) && itemName.equals(ChatColor.RED + "Shotgun")) {
-				Trident trident = player.launchProjectile(Trident.class, player.getLocation().getDirection().multiply(10));
+				Trident trident = player.launchProjectile(Trident.class, player.getLocation().getDirection().multiply(350));
 
 				trident.setPickupStatus(AbstractArrow.PickupStatus.DISALLOWED);
 				player.sendMessage(ChatColor.GREEN + "You have shot the trident!");
 			} else if (mainHandMaterial.equals(Material.GOLDEN_HOE) && itemName.equals(ChatColor.DARK_GREEN + "Pistol")) {
-				Arrow arrow = player.launchProjectile(Arrow.class, player.getLocation().getDirection().multiply(10));
+				Arrow arrow = player.launchProjectile(Arrow.class, player.getLocation().getDirection().multiply(350));
 
 				arrow.setPickupStatus(AbstractArrow.PickupStatus.DISALLOWED);
 				player.sendMessage(ChatColor.GREEN + "You have shot the arrow!");
@@ -389,7 +392,7 @@ public class Events implements Listener {
 		 inventory.equals(SomeInventoryClassThatICreated);
 		*/
 
-		if (ChatColor.translateAlternateColorCodes('&', event.getView().getTitle()).equals(ChatColor.RED.toString() + ChatColor.BOLD + "ADMIN MENU. USE WITH CAUTION.") && event.getCurrentItem() != null) {
+		if (ChatColor.translateAlternateColorCodes('&', event.getView().getTitle()).equals(ChatColor.RED.toString() + ChatColor.BOLD + "ADMIN MENU") && event.getCurrentItem() != null) {
 			int slot = event.getRawSlot();
 
 			switch (slot) {

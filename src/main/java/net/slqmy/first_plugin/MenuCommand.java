@@ -22,7 +22,7 @@ public class MenuCommand implements CommandExecutor {
 		if (commandSender instanceof Player) {
 			Player player = (Player) commandSender;
 
-			Inventory inventory = Bukkit.createInventory(null, 45, ChatColor.RED.toString() + ChatColor.BOLD + "ADMIN MENU. USE WITH CAUTION.");
+			Inventory inventory = Bukkit.createInventory(null, 45, ChatColor.RED.toString() + ChatColor.BOLD + "ADMIN MENU");
 
 			// RANDOM TELEPORT.
 
@@ -42,7 +42,7 @@ public class MenuCommand implements CommandExecutor {
 			ItemStack killYourself = new ItemStack(Material.LEAD);
 			ItemMeta killYourselfMeta = killYourself.getItemMeta();
 			killYourselfMeta.setDisplayName(ChatColor.RED.toString() + ChatColor.BOLD + "Kill Yourself");
-			killYourselfMeta.setLore(Collections.singletonList(ChatColor.WHITE + "You should kill yourself, " + ChatColor.BOLD + "NOW" + ChatColor.RESET + "!"));
+			killYourselfMeta.setLore(Collections.singletonList(ChatColor.WHITE + "You should kill yourself, " + ChatColor.BOLD + "NOW" + ChatColor.WHITE + "!"));
 			killYourself.setItemMeta(killYourselfMeta);
 
 			inventory.setItem(13, killYourself);
@@ -52,7 +52,7 @@ public class MenuCommand implements CommandExecutor {
 			ItemStack clearInventory = new ItemStack(Material.BUCKET);
 			ItemMeta clearInventoryMeta = clearInventory.getItemMeta();
 			clearInventoryMeta.setDisplayName(ChatColor.GREEN.toString() + ChatColor.BOLD + "Clear Inventory");
-			clearInventoryMeta.setLore(Collections.singletonList(ChatColor.GRAY + "You should clear your inventory, " + ChatColor.BOLD + "NOW" + ChatColor.RESET + "!"));
+			clearInventoryMeta.setLore(Collections.singletonList(ChatColor.GRAY + "You should clear your inventory, " + ChatColor.BOLD + "NOW" + ChatColor.GRAY + "!"));
 			clearInventory.setItemMeta(clearInventoryMeta);
 
 			inventory.setItem(15, clearInventory);
@@ -62,7 +62,7 @@ public class MenuCommand implements CommandExecutor {
 			ItemStack magic = new ItemStack(Material.END_CRYSTAL);
 			ItemMeta magicMeta = magic.getItemMeta();
 			magicMeta.setDisplayName(ChatColor.MAGIC.toString() + ChatColor.BOLD + "Magic Operator /\\*&*/\\");
-			magicMeta.setLore(Arrays.asList(ChatColor.GRAY + "The magic operator is an operator in mathematics used only by the top mathematicians.", ChatColor.BOLD + "Only the most elite mathematicians are capable of understanding this operator", "This operator is also commonly used in code when the programmer is too lazy", "", "This operator does whatever it was intended to do.", "In other words, it is magic. That is why it is called the " + ChatColor.ITALIC + "magic operator" + ChatColor.RESET + "!"));
+			magicMeta.setLore(Arrays.asList(ChatColor.GRAY + "The magic operator is an operator in mathematics used only by the top mathematicians.", ChatColor.BOLD + "Only the most elite mathematicians are capable of understanding this operator", "This operator is also commonly used in code when the programmer is too lazy.", "", "This operator does whatever it was intended to do.", "In other words, it is magic. That is why it is called the " + ChatColor.ITALIC + "magic operator" + ChatColor.RESET + "!"));
 			magic.setItemMeta(magicMeta);
 
 			inventory.setItem(29, magic);
@@ -92,6 +92,7 @@ public class MenuCommand implements CommandExecutor {
 			ItemStack closeButton = new ItemStack(Material.BARRIER);
 			ItemMeta closeButtonMeta = clearInventory.getItemMeta();
 			closeButtonMeta.setDisplayName(ChatColor.RED + "Close Menu");
+			closeButtonMeta.setLore(Collections.singletonList(" "));
 			closeButton.setItemMeta(closeButtonMeta);
 
 			inventory.setItem(0, closeButton);
@@ -100,11 +101,11 @@ public class MenuCommand implements CommandExecutor {
 
 			ItemStack frame = new ItemStack(Material.LIME_STAINED_GLASS);
 			ItemMeta frameMeta = frame.getItemMeta();
-			frameMeta.setDisplayName("");
+			frameMeta.setDisplayName(" ");
 			frame.setItemMeta(frameMeta);
 
-			for (int i = 0; i <= 53; i++) {
-				if ((i % 9 != 0 || i == 0) && i % 9 != 8 && i > 9 && i < 44) {
+			for (int i = 0; i < 45; i++) {
+				if ((i % 9 != 0 || i == 0) && i % 9 != 8 && (i > 9 || i == 0) && i < 35) {
 					continue;
 				}
 
