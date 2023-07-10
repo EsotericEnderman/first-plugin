@@ -3,6 +3,12 @@ package net.slqmy.first_plugin;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.*;
+import org.bukkit.block.Block;
+import org.bukkit.block.BlockState;
+import org.bukkit.block.data.BlockData;
+import org.bukkit.block.data.Rail;
+import org.bukkit.block.data.type.Cake;
+import org.bukkit.block.data.type.GlassPane;
 import org.bukkit.boss.BossBar;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
@@ -184,6 +190,25 @@ public class Events implements Listener {
 			player.playSound(playerLocation, Sound.BLOCK_NOTE_BLOCK_CHIME, 1.0F, 2.0F);
 
 			player.playEffect(playerLocation, Effect.RECORD_PLAY, Material.MUSIC_DISC_PIGSTEP);
+
+			Block targetBlock = player.getTargetBlockExact(5);
+
+			Location targetBlockLocation = targetBlock.getLocation();
+
+			if (targetBlock != null) {
+				if (targetBlock.getType().equals(Material.OAK_SIGN)) {
+					player.sendSignChange(targetBlockLocation, new String[]{
+								"I am a sign!",
+								"",
+							  "And no one else can see this!",
+								""
+					});
+				} else {
+					BlockData targetBlockData = Material.DIAMOND_BLOCK.createBlockData();
+
+					player.sendBlockChange(targetBlockLocation, targetBlockData);
+				}
+			}
 		}
 	}
 
@@ -295,6 +320,28 @@ public class Events implements Listener {
 				arrow.setPickupStatus(AbstractArrow.PickupStatus.DISALLOWED);
 				player.sendMessage(ChatColor.GREEN + "You have shot the arrow!");
 			}
+
+			if (event.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
+				BlockState blockState = event.getClickedBlock().getState();
+				BlockData blockData = blockState.getBlockData();
+
+				if (blockData instanceof Cake) {
+					Cake cake = (Cake) blockData;
+
+					int bites = cake.getBites();
+
+					if (bites == cake.getMaximumBites() - 1) {
+            cake.setBites(0);
+					}
+				} else if (blockData instanceof GlassPane) {
+					((GlassPane) blockData).setWaterlogged(true);
+				} else if (blockData instanceof Rail) {
+					((Rail) blockData).setShape(Rail.Shape.ASCENDING_NORTH);
+				}
+
+				blockState.setBlockData(blockData);
+				blockState.update();
+			}
 		}
 	}
 
@@ -366,12 +413,14 @@ public class Events implements Listener {
 					player.sendMessage(ChatColor.AQUA + "You teleported to (" + x + ", " + y + ", " + z + ").");
 
 					break;
+
 				// KILL YOURSELF.
 				case 13:
 					player.setHealth(0);
 					player.sendMessage(ChatColor.RED + "RIP. You killed yourself.");
 
 					break;
+
 				// CLEAR INVENTORY.
 				case 15:
 					player.closeInventory();
