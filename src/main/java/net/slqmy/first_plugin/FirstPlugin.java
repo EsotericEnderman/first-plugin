@@ -20,6 +20,7 @@ import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.util.Transformation;
+import org.joml.AxisAngle4f;
 import org.joml.Vector3f;
 
 import java.io.*;
@@ -201,9 +202,9 @@ public final class FirstPlugin extends JavaPlugin implements Listener {
 						ChatColor.LIGHT_PURPLE + "Wither Storm",
 						BarColor.RED,
 						BarStyle.SEGMENTED_20,
-						BarFlag.CREATE_FOG,
-						BarFlag.DARKEN_SKY,
-						BarFlag.PLAY_BOSS_MUSIC
+						BarFlag.CREATE_FOG
+					// 	BarFlag.DARKEN_SKY,
+					// 	BarFlag.PLAY_BOSS_MUSIC - seems not to do anything, I might be wrong.
 		);
 
 		bossBar.setProgress(0.5f);
@@ -237,6 +238,32 @@ public final class FirstPlugin extends JavaPlugin implements Listener {
 
 		String worldName = "world";
 		World world = Bukkit.getWorld(worldName);
+
+		// TEXT DISPLAY
+
+		TextDisplay textDisplay = (TextDisplay) world.spawnEntity(world.getBlockAt(-10, 100, 100).getLocation(), EntityType.TEXT_DISPLAY);
+
+		textDisplay.setViewRange(3);
+		textDisplay.setBrightness(new Display.Brightness(14, 14));
+		textDisplay.setShadowed(true);
+		textDisplay.setTransformation(new Transformation(new Vector3f(10, 20, 30), new AxisAngle4f((float) Math.PI / 4, 1, 0, 1), new Vector3f(10, 2, 5), new AxisAngle4f(-(float) Math.PI / 4, 0, 1, 0)));
+		textDisplay.setBillboard(Display.Billboard.CENTER);
+		textDisplay.setText(ChatColor.GREEN.toString() + ChatColor.BOLD + "--THE-SLIMY-SWAMP--");
+		textDisplay.setTextOpacity((byte) 64);
+		textDisplay.setLineWidth(3000);
+		textDisplay.setSeeThrough(true);
+
+		// BLOCK DISPLAY
+
+		BlockDisplay blockDisplay = (BlockDisplay) world.spawnEntity(world.getBlockAt(0, 100, 100).getLocation(), EntityType.BLOCK_DISPLAY);
+		blockDisplay.setBlock(Material.END_PORTAL_FRAME.createBlockData());
+		blockDisplay.setBrightness(new Display.Brightness(10, 10));
+
+		// ITEM DISPLAY
+
+		ItemDisplay itemDisplay = (ItemDisplay) world.spawnEntity(world.getBlockAt(-100, 100, 0).getLocation(), EntityType.ITEM_DISPLAY);
+		itemDisplay.setItemStack(new ItemStack(Material.DIAMOND_SWORD)); // Can use item meta here!
+		itemDisplay.setItemDisplayTransform(ItemDisplay.ItemDisplayTransform.HEAD);
 
 		Entity bee = world.spawnEntity(new Location(world, 0, 120, 0), EntityType.BEE);
 
