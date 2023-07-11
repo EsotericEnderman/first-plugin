@@ -16,8 +16,6 @@ import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.BookMeta;
 import org.bukkit.inventory.meta.CompassMeta;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.persistence.PersistentDataContainer;
-import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.util.Transformation;
 import org.joml.AxisAngle4f;
@@ -209,18 +207,9 @@ public final class FirstPlugin extends JavaPlugin implements Listener {
 
 		bossBar.setProgress(0.5f);
 
-		Bukkit.getPluginManager().registerEvents(new Events(bossBar, recentMessages), this);
+		Bukkit.getPluginManager().registerEvents(new Events(this, bossBar, recentMessages), this);
 
 		System.out.println("The plugin 'FirstPlugin' has been been enabled!");
-
-		Player player = Bukkit.getPlayer("Slqmy");
-
-		PersistentDataContainer container = player.getPersistentDataContainer();
-		container.set(new NamespacedKey(this, "player_value"), PersistentDataType.STRING, "Epic slime!");
-
-		if (player.getPersistentDataContainer().has(new NamespacedKey(this, "player_value"), PersistentDataType.STRING)) {
-			System.out.println(player.getPersistentDataContainer().get(new NamespacedKey(this, "player_value"), PersistentDataType.STRING));
-		}
 
 		//	ItemStack sponge = new ItemStack(Material.SPONGE);
 		//

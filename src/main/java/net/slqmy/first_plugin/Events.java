@@ -27,6 +27,8 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.bukkit.map.MapRenderer;
 import org.bukkit.map.MapView;
+import org.bukkit.persistence.PersistentDataContainer;
+import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.projectiles.ProjectileSource;
@@ -35,6 +37,7 @@ import java.io.File;
 import java.util.*;
 
 public class Events implements Listener {
+	private FirstPlugin firstPlugin;
 	private BossBar bossBar;
 	private Map<UUID, UUID> hashmap;
 	private boolean chatEnabled;
@@ -45,9 +48,10 @@ public class Events implements Listener {
 
 	private List<UUID> movementDisabled = new ArrayList<>();
 
-	public Events(BossBar bossBar, Map<UUID, UUID> hashmap) {
+	public Events(FirstPlugin firstPlugin, BossBar bossBar, Map<UUID, UUID> hashmap) {
 		this.bossBar = bossBar;
 		this.hashmap = hashmap;
+		this.firstPlugin = firstPlugin;
 	}
 
 	@EventHandler
@@ -141,6 +145,13 @@ public class Events implements Listener {
 
 		for (PotionEffect effect : player.getActivePotionEffects()) {
 			System.out.println(player.getName() + " has the potion effect " + effect.getType() + ".");
+		}
+
+		PersistentDataContainer container = player.getPersistentDataContainer();
+		container.set(new NamespacedKey(firstPlugin, "player_value"), PersistentDataType.STRING, "Epic slime!");
+
+		if (player.getPersistentDataContainer().has(new NamespacedKey(firstPlugin, "player_value"), PersistentDataType.STRING)) {
+			System.out.println(player.getPersistentDataContainer().get(new NamespacedKey(firstPlugin, "player_value"), PersistentDataType.STRING));
 		}
 	}
 

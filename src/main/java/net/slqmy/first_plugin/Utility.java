@@ -75,14 +75,11 @@ public class Utility {
 
 			if (itemStack != null) {
 				for (int i = currentSlotIndex; i < currentSlotIndex + count && i < size; i++) {
-					System.out.println(i);
 					inventory.setItem(i, itemStack);
 				}
 			}
 
 			currentSlotIndex += count;
-			System.out.println(" ");
-			System.out.println(currentSlotIndex);
 		}
 
 		return inventory;
