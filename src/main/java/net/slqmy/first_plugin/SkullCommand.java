@@ -22,6 +22,8 @@ public class SkullCommand implements CommandExecutor {
 			skullMeta.setOwningPlayer(player);
 			skullMeta.setDisplayName(ChatColor.GREEN.toString() + ChatColor.BOLD + player.getName());
 
+			skull.setItemMeta(skullMeta);
+
 			player.getInventory().addItem(skull);
 		}
 
