@@ -29,7 +29,7 @@ public class McComplexMenuCommand implements CommandExecutor {
 			ItemStack duelNotifications = Utility.createItem(Material.REDSTONE, ChatColor.AQUA + "Duel Notifications: " + ChatColor.GREEN + ChatColor.BOLD + "✔", ChatColor.GREEN.toString() + ChatColor.BOLD + "✔" + ChatColor.RESET + ChatColor.GREEN + " Click to " + ChatColor.UNDERLINE + "Toggle" + ChatColor.RESET + ChatColor.GREEN + ChatColor.BOLD + " ✔");
 
 			// Maybe the inventory utility isn't as good as I thought, but I can learn from this.
-			Inventory inventory = Utility.createInventory(ChatColor.UNDERLINE.toString() + ChatColor.DARK_GRAY + "Active Duels", 45, Arrays.asList(Arrays.asList(frame, 4), Arrays.asList(duels, 1), Arrays.asList(frame, 5), Arrays.asList(null, 7), Arrays.asList(frame, 2), Arrays.asList(null, 3), Arrays.asList(duelStatus, 1), Arrays.asList(null, 3), Arrays.asList(frame, 2), Arrays.asList(null, 7), Arrays.asList(duelNotifications, 1), Arrays.asList(frame, 3), Arrays.asList(createDuel, 1), Arrays.asList(frame, 4)));
+			Inventory inventory = Utility.createInventory(ChatColor.UNDERLINE.toString() + ChatColor.DARK_GRAY + "Active Duels", 45, Arrays.asList(Arrays.asList(frame, 4), Arrays.asList(duels, 1), Arrays.asList(frame, 5), Arrays.asList(null, 7), Arrays.asList(frame, 2), Arrays.asList(null, 3), Arrays.asList(duelStatus, 1), Arrays.asList(null, 3), Arrays.asList(frame, 2), Arrays.asList(null, 7), Arrays.asList(frame, 1), Arrays.asList(duelNotifications, 1), Arrays.asList(frame, 3), Arrays.asList(createDuel, 1), Arrays.asList(frame, 4)));
 
 			player.openInventory(inventory);
 		}
