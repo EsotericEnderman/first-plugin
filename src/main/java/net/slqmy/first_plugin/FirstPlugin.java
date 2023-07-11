@@ -8,12 +8,14 @@ import org.bukkit.boss.BarFlag;
 import org.bukkit.boss.BarStyle;
 import org.bukkit.boss.BossBar;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.BookMeta;
 import org.bukkit.inventory.meta.CompassMeta;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -130,6 +132,67 @@ public final class FirstPlugin extends JavaPlugin implements Listener {
 
 		getCommand("fruit").setExecutor(new FruitCommand());
 		getCommand("fruit").setTabCompleter(new FruitTabCompleter());
+
+		// Really easy to make recipes:
+
+		ShapedRecipe diamondSwordRecipe = new ShapedRecipe(new NamespacedKey(this, "custom_diamond_sword"), new ItemStack(Material.DIAMOND_SWORD));
+
+		diamondSwordRecipe.shape(
+						" D ",
+						" D ",
+						" D "
+		);
+
+		diamondSwordRecipe.setIngredient('D', Material.DIAMOND);
+
+		Bukkit.addRecipe(diamondSwordRecipe);
+
+		ShapedRecipe elytraRecipe = new ShapedRecipe(new NamespacedKey(this, "custom_elytra"), new ItemStack(Material.ELYTRA));
+
+		elytraRecipe.shape(
+						" L ",
+						"PNP",
+						"L L"
+		);
+
+		elytraRecipe.setIngredient('L', Material.LEATHER);
+		elytraRecipe.setIngredient('P', Material.PHANTOM_MEMBRANE);
+		elytraRecipe.setIngredient('N', Material.NETHER_STAR);
+
+		Bukkit.addRecipe(elytraRecipe);
+
+		ShapedRecipe barrierRecipe = new ShapedRecipe(new NamespacedKey(this, "custom_barrier"), new ItemStack(Material.BARRIER));
+
+		barrierRecipe.shape(
+						"R R",
+						" R ",
+						"R R"
+		);
+
+		barrierRecipe.setIngredient('R', Material.RED_CONCRETE);
+
+		Bukkit.addRecipe(barrierRecipe);
+
+		ItemStack customStick = new ItemStack(Material.STICK);
+
+		ItemMeta stickMeta = customStick.getItemMeta();
+		stickMeta.setDisplayName(ChatColor.GREEN.toString() + ChatColor.BOLD + "Epic Stick!");
+		stickMeta.addEnchant(Enchantment.DAMAGE_ALL,6,true);
+
+		customStick.setItemMeta(stickMeta);
+
+		ShapedRecipe stickRecipe = new ShapedRecipe(new NamespacedKey(this, "custom_stick"), customStick);
+
+		stickRecipe.shape(
+						"GGG",
+						"GSG",
+						"GGG"
+		);
+
+		stickRecipe.setIngredient('G', Material.GOLD_BLOCK);
+		stickRecipe.setIngredient('S', Material.STICK);
+
+		Bukkit.addRecipe(stickRecipe);
 
 		BossBar bossBar = Bukkit.createBossBar(
 						ChatColor.LIGHT_PURPLE + "Wither Storm",
