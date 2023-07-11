@@ -131,6 +131,7 @@ public final class FirstPlugin extends JavaPlugin implements Listener {
 		getCommand("buff").setExecutor(new BuffCommand());
 		getCommand("skull").setExecutor(new SkullCommand());
 		getCommand("custom-skull").setExecutor(new CustomSkullCommand());
+		getCommand("cool-down").setExecutor(new CooldownCommand());
 
 		getCommand("fruit").setExecutor(new FruitCommand());
 		getCommand("fruit").setTabCompleter(new FruitTabCompleter());

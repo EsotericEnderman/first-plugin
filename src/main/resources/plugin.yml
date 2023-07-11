@@ -48,3 +48,5 @@
     Despite what people say, this command has nothing to do with the skull emoji."
   "custom-skull":
     "description": "Get a custom skull! Decapitate anyone!"
+  "cool-down":
+    "description": "A command with a cool-down, using cache."
