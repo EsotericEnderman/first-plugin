@@ -50,3 +50,5 @@
     "description": "Get a custom skull! Decapitate anyone!"
   "cool-down":
     "description": "A command with a cool-down, using cache."
+  "hologram":
+    "description": "Spawn a cool hologram!"

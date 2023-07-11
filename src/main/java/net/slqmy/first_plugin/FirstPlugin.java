@@ -9,10 +9,7 @@ import org.bukkit.boss.BarStyle;
 import org.bukkit.boss.BossBar;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.enchantments.Enchantment;
-import org.bukkit.entity.ArmorStand;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Player;
+import org.bukkit.entity.*;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
@@ -22,6 +19,8 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.util.Transformation;
+import org.joml.Vector3f;
 
 import java.io.*;
 import java.util.*;
@@ -132,6 +131,7 @@ public final class FirstPlugin extends JavaPlugin implements Listener {
 		getCommand("skull").setExecutor(new SkullCommand());
 		getCommand("custom-skull").setExecutor(new CustomSkullCommand());
 		getCommand("cool-down").setExecutor(new CooldownCommand());
+		getCommand("hologram").setExecutor(new HologramCommand());
 
 		getCommand("fruit").setExecutor(new FruitCommand());
 		getCommand("fruit").setTabCompleter(new FruitTabCompleter());
@@ -226,7 +226,7 @@ public final class FirstPlugin extends JavaPlugin implements Listener {
 		//	ItemMeta spongeMeta = sponge.getItemMeta();
 		//	spongeMeta.getPersistentDataContainer();
 
-		Bukkit.getWorld("world").getBlockAt(1, 1, 1).getState();
+		// Bukkit.getWorld("world").getBlockAt(1, 1, 1).getState();
 		// Determine what it is.
 		// E, g. sign.
 		// sign.getPersistentDataContainer();
