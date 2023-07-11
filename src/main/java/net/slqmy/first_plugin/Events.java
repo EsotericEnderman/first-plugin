@@ -17,6 +17,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.*;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.*;
+import org.bukkit.event.server.MapInitializeEvent;
 import org.bukkit.event.server.ServerListPingEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.Inventory;
@@ -24,6 +25,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.FireworkMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
+import org.bukkit.map.MapRenderer;
+import org.bukkit.map.MapView;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.projectiles.ProjectileSource;
@@ -451,5 +454,18 @@ public class Events implements Listener {
 
 			player.closeInventory();
 		}
+	}
+
+	@EventHandler
+	public void onMapInitialise(MapInitializeEvent event) {
+		MapView view = event.getMap();
+
+		for (MapRenderer renderer : view.getRenderers()) {
+			view.removeRenderer(renderer);
+		}
+
+		// Idea: make a map image loading system.
+
+		view.addRenderer(new CaetImage());
 	}
 }
