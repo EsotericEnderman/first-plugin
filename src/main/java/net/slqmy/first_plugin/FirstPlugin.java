@@ -19,6 +19,8 @@ import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.BookMeta;
 import org.bukkit.inventory.meta.CompassMeta;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.persistence.PersistentDataContainer;
+import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.*;
@@ -209,6 +211,29 @@ public final class FirstPlugin extends JavaPlugin implements Listener {
 
 		System.out.println("The plugin 'FirstPlugin' has been been enabled!");
 
+		Player player = Bukkit.getPlayer("Slqmy");
+
+		PersistentDataContainer container = player.getPersistentDataContainer();
+		container.set(new NamespacedKey(this, "player_value"), PersistentDataType.STRING, "Epic slime!");
+
+		if (player.getPersistentDataContainer().has(new NamespacedKey(this, "player_value"), PersistentDataType.STRING)) {
+			System.out.println(player.getPersistentDataContainer().get(new NamespacedKey(this, "player_value"), PersistentDataType.STRING));
+		}
+
+		//	ItemStack sponge = new ItemStack(Material.SPONGE);
+		//
+		//	ItemMeta spongeMeta = sponge.getItemMeta();
+		//	spongeMeta.getPersistentDataContainer();
+
+		Bukkit.getWorld("world").getBlockAt(1, 1, 1).getState();
+		// Determine what it is.
+		// E, g. sign.
+		// sign.getPersistentDataContainer();
+
+		// ! VERY IMPORTANT!
+		// block.update();
+		// FOR ALL TILE ENTITIES.
+
 		String worldName = "world";
 		World world = Bukkit.getWorld(worldName);
 
@@ -265,16 +290,16 @@ public final class FirstPlugin extends JavaPlugin implements Listener {
 		world.setTime(6000);
 
 		/* BukkitTask bukkitTask = */ Bukkit.getScheduler().runTaskLater/*Asynchronously*/(this, () -> {
-			for (Player player : Bukkit.getOnlinePlayers()) {
-				player.sendMessage("Server has started! Up for 10 seconds and counting.");
+			for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
+				onlinePlayer.sendMessage("Server has started! Up for 10 seconds and counting.");
 			}
 		}, 200L);
 
 		// bukkitTask.cancel();
 
 		Bukkit.getScheduler().runTaskTimer/*Asynchronously*/(this, () -> {
-			for (Player player : Bukkit.getOnlinePlayers()) {
-				player.sendMessage("This executes every 1500 seconds! And 10 seconds after the server has started.");
+			for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
+				onlinePlayer.sendMessage("This executes every 1500 seconds! And 10 seconds after the server has started.");
 			}
 		}, 200, 30000);
 
