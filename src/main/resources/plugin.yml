@@ -52,3 +52,5 @@
     "description": "A command with a cool-down, using cache."
   "hologram":
     "description": "Spawn a cool hologram!"
+  "permissions":
+    "description": "Give yourself a secret permission to access a very secret command!"
