@@ -14,6 +14,7 @@ import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.*;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.*;
@@ -32,6 +33,7 @@ import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.projectiles.ProjectileSource;
+import org.bukkit.scoreboard.*;
 
 import java.io.File;
 import java.util.*;
@@ -94,6 +96,36 @@ public class Events implements Listener {
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent event) {
 		Player player = event.getPlayer();
+
+		Scoreboard board = Bukkit.getScoreboardManager().getNewScoreboard();
+
+		Objective objective = board.registerNewObjective("epic-board", Criteria.create("dummy"), "epic-board");
+
+		objective.setDisplaySlot(DisplaySlot.SIDEBAR);
+		// Colour codes count as 2 characters.
+		objective.setDisplayName(ChatColor.YELLOW.toString() + ChatColor.BOLD + "EPIC SERVER");
+
+		// Every line on a scoreboard has to be unique. Simply increase number of spaces to have multiple spaces.
+
+		Score website = objective.getScore(ChatColor.YELLOW + "https://www.the-slimy-swamp.net");
+		website.setScore(1);
+
+		Score space = objective.getScore("");
+		space.setScore(2);
+
+		Score name = objective.getScore(ChatColor.GREEN + "Name: " + player.getName());
+		name.setScore(3);
+
+		Team blocksBroken = board.registerNewTeam("blocks_broken");
+		// Convention is to use ChatColours here.
+		blocksBroken.addEntry(ChatColor.AQUA.toString());
+		blocksBroken.setPrefix(ChatColor.AQUA + "Blocks broken: ");
+		blocksBroken.setSuffix(ChatColor.YELLOW.toString() + player.getStatistic(Statistic.MINE_BLOCK));
+
+		Score blocksBrokenScore = objective.getScore(ChatColor.AQUA.toString());
+		blocksBrokenScore.setScore(4);
+
+		player.setScoreboard(board);
 
 		bossBar.addPlayer(player);
 
@@ -165,6 +197,13 @@ public class Events implements Listener {
 	@EventHandler
 	public void onPlayerQuit(PlayerQuitEvent event) {
 		hashmap.remove(event.getPlayer().getUniqueId());
+	}
+
+	@EventHandler
+	public void onBlockBreak(BlockBreakEvent event) {
+		Player player = event.getPlayer();
+
+		event.getPlayer().getScoreboard().getTeam("blocks_broken").setSuffix(ChatColor.YELLOW.toString() + player.getStatistic(Statistic.MINE_BLOCK));
 	}
 
 	@EventHandler
