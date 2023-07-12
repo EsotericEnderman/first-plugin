@@ -125,9 +125,10 @@ public class Events implements Listener {
 		Score blocksBrokenScore = objective.getScore(ChatColor.AQUA.toString());
 		blocksBrokenScore.setScore(4);
 
-		player.setScoreboard(board);
-
 		bossBar.addPlayer(player);
+
+		NametagManager.setNametags(player, board);
+		NametagManager.createNewTag(player);
 
 		player.setResourcePack("https://filebin.net/py532smdnybfgkxs/Trading_Wanderer_v1.1_-_1.20.1.zip");
 
@@ -196,7 +197,10 @@ public class Events implements Listener {
 
 	@EventHandler
 	public void onPlayerQuit(PlayerQuitEvent event) {
-		hashmap.remove(event.getPlayer().getUniqueId());
+		Player player = event.getPlayer();
+
+		hashmap.remove(player.getUniqueId());
+		NametagManager.removeTag(player);
 	}
 
 	@EventHandler
