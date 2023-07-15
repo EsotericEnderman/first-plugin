@@ -1,7 +1,10 @@
 package net.slqmy.first_plugin;
 
 import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
+import net.md_5.bungee.api.chat.hover.content.Text;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
@@ -136,8 +139,41 @@ public class Events implements Listener {
 
 		player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("§lWelcome! Have fun!"));
 
-		player.setPlayerListHeader(ChatColor.GREEN + "The Slimy Swamp\n" + ChatColor.WHITE + "Enjoy your stay!");
-		player.setPlayerListFooter(ChatColor.RED + "Hey!\n" + "This is another line!");
+		player.setPlayerListHeader(ChatColor.GREEN + "The Slimy Swamp\n" + ChatColor.WHITE + "Enjoy your stay!\n");
+		player.setPlayerListFooter(ChatColor.RED + "\nHey!\n" + "This is another line!");
+
+		// Clickable
+		// None
+		// Hoverable
+
+		TextComponent clickable = new TextComponent(ChatColor.RED + "Click here to receive some guns!");
+		clickable.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "give-guns"));
+
+		TextComponent none = new TextComponent(ChatColor.DARK_RED.toString() + ChatColor.BOLD + "\n\nWarning:" + ChatColor.RED + " These guns are very powerful!");
+
+		TextComponent hoverable = new TextComponent(ChatColor.YELLOW + "\n\nHover over this to view the secret message!");
+		hoverable.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("Troll!")));
+
+		Player.Spigot spigotPlayer = player.spigot();
+
+		spigotPlayer.sendMessage(clickable, none, hoverable);
+
+		// Please join our Discord server!
+
+		TextComponent start = new TextComponent(ChatColor.DARK_PURPLE + "Please join our ");
+		TextComponent link = new TextComponent(ChatColor.DARK_PURPLE.toString() + ChatColor.BOLD + "Discord server");
+
+		link.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://www.discord.gg/SjAGgJaCYc"));
+		link.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("Click to join!")));
+
+		TextComponent end = new TextComponent(ChatColor.DARK_PURPLE + "!");
+
+		start.addExtra(link);
+		start.addExtra(end);
+
+		spigotPlayer.sendMessage(start);
+
+		Utility.setSkin(player);
 
 		System.out.println(player.getStatistic(Statistic.DAMAGE_TAKEN));
 		player.incrementStatistic(Statistic.DAMAGE_TAKEN, 10_000);
