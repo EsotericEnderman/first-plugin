@@ -465,6 +465,15 @@ public class Events implements Listener {
 	}
 
 	@EventHandler
+	public void onServerBroadcast(ServerBroadcastEvent event) {
+		if (event.getMessage().equalsIgnoreCase("troll")) {
+			event.setCancelled(true);
+
+			event.getPlayer().sendMessage("Nope! Can't say that!");
+		}
+	}
+
+	@EventHandler
 	public void onServerListPing(ServerListPingEvent event) {
 		event.setMaxPlayers(-5);
 		event.setMotd(ChatColor.AQUA + "Local host server - for testing my plugins!\n" + ChatColor.WHITE + "Enjoy your stay!");

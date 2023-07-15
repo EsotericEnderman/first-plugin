@@ -11,21 +11,30 @@ import org.jetbrains.annotations.NotNull;
 public class BroadcastCommand implements CommandExecutor {
 
 	@Override
-	public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String label, String[] arguments) {
-		if (commandSender instanceof Player) {
-			Player player = (Player)commandSender;
+	public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
+		if (sender instanceof Player) {
+			Player player = (Player) sender;
 
-			if (arguments.length != 1) {
+			if (args.length == 0) {
 				player.sendMessage(ChatColor.RED + "You must provide a message to broadcast!");
 			} else {
-				Player[] onlinePlayers = Bukkit.getOnlinePlayers().toArray(new Player[0]);
+				StringBuilder builder = new StringBuilder();
 
-				for (Player onlinePlayer : onlinePlayers) {
-					onlinePlayer.sendMessage(arguments[0]);
+				for (String arg : args) {
+					builder.append(arg).append(" ");
 				}
 
-				if (arguments[0].equalsIgnoreCase("hello")) {
-					player.sendMessage(ChatColor.AQUA + "Hello to you too!");
+				String message = builder.toString();
+
+				ServerBroadcastEvent event = new ServerBroadcastEvent(player, message);
+				Bukkit.getPluginManager().callEvent(event);
+
+				if (!event.isCancelled()) {
+					Bukkit.broadcastMessage(message);
+
+					if (args[0].equalsIgnoreCase("hello")) {
+						player.sendMessage(ChatColor.AQUA + "Hello to you too!");
+					}
 				}
 			}
 		}
