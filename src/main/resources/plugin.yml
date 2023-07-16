@@ -5,7 +5,7 @@
 "prefix": "First Plugin"
 "authors": ["slqmy"]
 "description": "My first plugin."
-depend: ["WorldEdit"]
+depend: ["WorldEdit", "NoteBlockAPI"]
 "commands":
   "heal":
     # Can add permissions, etc.
@@ -38,7 +38,7 @@ depend: ["WorldEdit"]
     "description": "View a cool menu."
   "hypixel-menu":
     "description": "View a menu that I copied from Hypixel."
-  "mc-complex-menu-command":
+  "mc-complex-menu":
     "description": "View a menu that I copied from this random server called mc-complex."
   "fruit":
     "description": "Autocomplete command - it does nothing."
@@ -55,3 +55,5 @@ depend: ["WorldEdit"]
     "description": "Spawn a cool hologram!"
   "permissions":
     "description": "Give yourself a secret permission to access a very secret command!"
+  "rizz":
+    "description": "Rizz someone up with this command!"

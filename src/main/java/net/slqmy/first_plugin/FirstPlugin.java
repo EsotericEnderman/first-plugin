@@ -136,14 +136,14 @@ public final class FirstPlugin extends JavaPlugin implements Listener {
 		getCommand("reply").setExecutor(new ReplyCommand(recentMessages));
 		getCommand("menu").setExecutor(new MenuCommand());
 		getCommand("hypixel-menu").setExecutor(new HypixelMenuCommand());
-		getCommand("mc-complex-menu-command").setExecutor(new ComplexGamingMenuCommand());
+		getCommand("mc-complex-menu").setExecutor(new ComplexGamingMenuCommand());
 		getCommand("buff").setExecutor(new BuffCommand());
 		getCommand("skull").setExecutor(new SkullCommand());
 		getCommand("custom-skull").setExecutor(new CustomSkullCommand());
 		getCommand("cool-down").setExecutor(new CooldownCommand());
 		getCommand("hologram").setExecutor(new HologramCommand());
 		getCommand("permissions").setExecutor(new PermissionsCommand(this));
-		getCommand("rizz").setExecutor(new RizzCommand());
+		getCommand("rizz").setExecutor(new RizzCommand(this));
 
 		getCommand("fruit").setExecutor(new FruitCommand());
 		getCommand("fruit").setTabCompleter(new FruitTabCompleter());
