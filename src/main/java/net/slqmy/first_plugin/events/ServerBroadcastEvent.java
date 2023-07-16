@@ -1,4 +1,4 @@
-package net.slqmy.first_plugin;
+package net.slqmy.first_plugin.events;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;

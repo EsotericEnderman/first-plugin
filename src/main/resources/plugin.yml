@@ -5,6 +5,7 @@
 "prefix": "First Plugin"
 "authors": ["slqmy"]
 "description": "My first plugin."
+depend: ["WorldEdit"]
 "commands":
   "heal":
     # Can add permissions, etc.

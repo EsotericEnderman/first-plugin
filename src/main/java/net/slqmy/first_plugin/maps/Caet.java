@@ -1,4 +1,4 @@
-package net.slqmy.first_plugin;
+package net.slqmy.first_plugin.maps;
 
 import org.bukkit.entity.Player;
 import org.bukkit.map.*;
@@ -9,7 +9,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
 
-public class CaetImage extends MapRenderer {
+public class Caet extends MapRenderer {
 
 	@Override
 	public void render(@NotNull MapView map, @NotNull MapCanvas canvas, @NotNull Player player) {

@@ -1,5 +1,6 @@
-package net.slqmy.first_plugin;
+package net.slqmy.first_plugin.commands;
 
+import net.slqmy.first_plugin.FirstPlugin;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

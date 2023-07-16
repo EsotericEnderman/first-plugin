@@ -1,4 +1,4 @@
-package net.slqmy.first_plugin;
+package net.slqmy.first_plugin.commands;
 
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ClickEvent;

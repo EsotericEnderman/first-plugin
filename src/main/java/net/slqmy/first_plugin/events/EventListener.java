@@ -1,10 +1,13 @@
-package net.slqmy.first_plugin;
+package net.slqmy.first_plugin.events;
 
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.chat.hover.content.Text;
+import net.slqmy.first_plugin.*;
+import net.slqmy.first_plugin.Utility;
+import net.slqmy.first_plugin.maps.Caet;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
@@ -41,7 +44,7 @@ import org.bukkit.scoreboard.*;
 import java.io.File;
 import java.util.*;
 
-public class Events implements Listener {
+public class EventListener implements Listener {
 	private FirstPlugin firstPlugin;
 	private BossBar bossBar;
 	private Map<UUID, UUID> hashmap;
@@ -53,7 +56,7 @@ public class Events implements Listener {
 
 	private List<UUID> movementDisabled = new ArrayList<>();
 
-	public Events(FirstPlugin firstPlugin, BossBar bossBar, Map<UUID, UUID> hashmap) {
+	public EventListener(FirstPlugin firstPlugin, BossBar bossBar, Map<UUID, UUID> hashmap) {
 		this.bossBar = bossBar;
 		this.hashmap = hashmap;
 		this.firstPlugin = firstPlugin;
@@ -565,6 +568,6 @@ public class Events implements Listener {
 
 		// Idea: make a map image loading system.
 
-		view.addRenderer(new CaetImage());
+		view.addRenderer(new Caet());
 	}
 }

@@ -1,4 +1,4 @@
-package net.slqmy.first_plugin;
+package net.slqmy.first_plugin.commands;
 
 import org.bukkit.DyeColor;
 import org.bukkit.Material;

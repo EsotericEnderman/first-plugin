@@ -1,4 +1,4 @@
-package net.slqmy.first_plugin;
+package net.slqmy.first_plugin.tab_completers;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;

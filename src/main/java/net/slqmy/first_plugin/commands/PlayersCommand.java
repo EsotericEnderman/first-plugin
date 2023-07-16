@@ -1,5 +1,6 @@
-package net.slqmy.first_plugin;
+package net.slqmy.first_plugin.commands;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -7,17 +8,16 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-public class SecretMessageCommand  implements CommandExecutor {
+public class PlayersCommand implements CommandExecutor {
+
 	@Override
 	public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String label, String[] arguments) {
-		if (commandSender instanceof Player) {
-			Player player = (Player) commandSender;
 
-			if (player.hasPermission("first_plugin.secret_message")) {
-				player.sendMessage(ChatColor.GREEN + "The secret message is... 'troll'!");
-			} else {
-				player.sendMessage(ChatColor.RED + "You don't have permission to see the secret message... get 'troll'-ed!");
-			};
+		if (commandSender instanceof Player) {
+			((Player)commandSender).sendMessage(ChatColor.RED + "This is a console-only command!");
+		} else {
+			// ChatColor does not work in console.
+			System.out.println(/* ChatColor.LIGHT_PURPLE + */ "There are currently " + Bukkit.getOnlinePlayers().toArray().length + " players online!");
 		}
 
 		return false;

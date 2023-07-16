@@ -20,9 +20,9 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Arrays;
 import java.util.List;
 
-public class Utility {
-	// I will create a better utility class in actual plugins, this is just a test to see
-	// what I can do and just to experiment.
+public final class Utility {
+	private static final String LOG_PREFIX = "[First-Plugin]";
+	public static String getLogPrefix() { return LOG_PREFIX; }
 
 	public static ItemStack createItem(@NotNull Material material, @NotNull String name, Multimap<Attribute, AttributeModifier> modifiers) {
 		ItemStack itemStack = new ItemStack(material);

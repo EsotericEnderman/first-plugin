@@ -1,6 +1,7 @@
-package net.slqmy.first_plugin;
+package net.slqmy.first_plugin.commands;
 
 import com.google.common.collect.Multimap;
+import net.slqmy.first_plugin.Utility;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
@@ -15,7 +16,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 
-public class McComplexMenuCommand implements CommandExecutor {
+public class ComplexGamingMenuCommand implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String label, @NotNull String[] arguments) {
