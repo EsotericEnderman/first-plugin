@@ -1,12 +1,26 @@
 {
 	"cSpell.words": [
 		"Armor",
+		"bedwars",
 		"Bukkit",
+		"Caet",
 		"CHESTPLATE",
 		"CRIT",
+		"desht",
+		"elytra",
+		"Faris",
+		"gson",
+		"hoverable",
+		"Hypixel",
+		"Multimap",
+		"Nametag",
+		"Nametags",
 		"netherite",
 		"PIGSTEP",
+		"REDSTONE",
+		"Rizz",
 		"UNLUCK"
 	],
-	"java.compile.nullAnalysis.mode": "automatic"
+	"java.compile.nullAnalysis.mode": "automatic",
+	"java.configuration.updateBuildConfiguration": "disabled"
 }
