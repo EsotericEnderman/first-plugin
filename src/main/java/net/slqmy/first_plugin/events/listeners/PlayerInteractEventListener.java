@@ -11,10 +11,7 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.Particle;
 import org.bukkit.block.BlockState;
 import org.bukkit.block.data.BlockData;
-import org.bukkit.block.data.Rail;
 import org.bukkit.block.data.type.Cake;
-import org.bukkit.block.data.type.GlassPane;
-import org.bukkit.entity.AbstractArrow.PickupStatus;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Egg;
 import org.bukkit.entity.Fireball;
@@ -33,6 +30,8 @@ import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.potion.PotionData;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import org.bukkit.potion.PotionType;
 import org.bukkit.util.Vector;
 import org.jetbrains.annotations.NotNull;
@@ -40,6 +39,18 @@ import org.jetbrains.annotations.NotNull;
 import net.slqmy.first_plugin.FirstPlugin;
 
 public final class PlayerInteractEventListener implements Listener {
+	private static final PotionEffect[] poisonLauncherEffects = {
+			new PotionEffect(PotionEffectType.POISON, PotionEffect.INFINITE_DURATION, 1, true, true, true),
+			new PotionEffect(PotionEffectType.HARM, PotionEffect.INFINITE_DURATION, 1, true, true, true),
+			new PotionEffect(PotionEffectType.BLINDNESS, PotionEffect.INFINITE_DURATION, 1, true, true),
+			new PotionEffect(PotionEffectType.CONFUSION, PotionEffect.INFINITE_DURATION, 1, true, true),
+			new PotionEffect(PotionEffectType.DARKNESS, PotionEffect.INFINITE_DURATION, 1, true, true),
+			new PotionEffect(PotionEffectType.HUNGER, PotionEffect.INFINITE_DURATION, 99, true, true),
+			new PotionEffect(PotionEffectType.SLOW, PotionEffect.INFINITE_DURATION, 1, true, true),
+			new PotionEffect(PotionEffectType.SLOW_DIGGING, PotionEffect.INFINITE_DURATION, 1, true, true),
+			new PotionEffect(PotionEffectType.WEAKNESS, PotionEffect.INFINITE_DURATION, 1, true, true)
+	};
+
 	private final List<UUID> movementDisabled;
 	private Boolean chatEnabled;
 
@@ -47,7 +58,6 @@ public final class PlayerInteractEventListener implements Listener {
 	private final NamespacedKey isShotgunBullet;
 	private final NamespacedKey isMiniGunBullet;
 	private final NamespacedKey isGatlingGunBullet;
-	private final NamespacedKey isPoisonLauncherBullet;
 
 	public PlayerInteractEventListener(@NotNull final FirstPlugin plugin) {
 		this.movementDisabled = plugin.getMovementDisabled();
@@ -57,7 +67,6 @@ public final class PlayerInteractEventListener implements Listener {
 		this.isShotgunBullet = plugin.getIsShotgunBulletKey();
 		this.isMiniGunBullet = plugin.getIsMiniGunBulletKey();
 		this.isGatlingGunBullet = plugin.getIsGatlingGunBulletKey();
-		this.isPoisonLauncherBullet = plugin.getIsPoisonLauncherBulletKey();
 	}
 
 	@EventHandler
@@ -93,7 +102,7 @@ public final class PlayerInteractEventListener implements Listener {
 		final Material mainHandMaterial = mainHand.getType();
 
 		final Location playerLocation = player.getLocation();
-		final Vector playerDirection = playerLocation.getDirection();
+		final Vector playerDirection = playerLocation.getDirection().normalize();
 
 		if (mainHandMaterial == Material.NETHER_STAR && event.getHand() == EquipmentSlot.HAND) {
 			chatEnabled = !chatEnabled;
@@ -146,15 +155,16 @@ public final class PlayerInteractEventListener implements Listener {
 			final ItemStack poisonPotion = new ItemStack(Material.LINGERING_POTION);
 			final PotionMeta meta = (PotionMeta) poisonPotion.getItemMeta();
 
-			meta.setColor(Color.GREEN);
+			meta.setColor(Color.fromRGB(0x4E9331));
+
 			meta.setBasePotionData(new PotionData(PotionType.POISON, false, false));
+			for (final PotionEffect effect : poisonLauncherEffects) {
+				meta.addCustomEffect(effect, true);
+			}
 
 			poisonPotion.setItemMeta(meta);
 
-			final ThrownPotion potion = player.launchProjectile(ThrownPotion.class, playerDirection.multiply(5.15F));
-
-			final PersistentDataContainer container = potion.getPersistentDataContainer();
-			container.set(isPoisonLauncherBullet, PersistentDataType.BOOLEAN, true);
+			final ThrownPotion potion = player.launchProjectile(ThrownPotion.class, playerDirection.multiply(1.55F));
 
 			potion.setItem(poisonPotion);
 
@@ -166,7 +176,7 @@ public final class PlayerInteractEventListener implements Listener {
 				ChatColor.RED.toString() + ChatColor.BOLD + "Rocket launcher")) {
 			final Fireball fireball = player.launchProjectile(Fireball.class, playerDirection.multiply(4.2F));
 
-			fireball.setYield(3.6F);
+			fireball.setYield(4.2F);
 			fireball.setIsIncendiary(true);
 			fireball.setFireTicks(300);
 			player.spawnParticle(Particle.EXPLOSION_NORMAL, playerLocation, 10, 1, 1, 1);
