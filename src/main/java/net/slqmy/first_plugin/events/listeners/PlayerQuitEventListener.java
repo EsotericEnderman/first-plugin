@@ -10,7 +10,6 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.jetbrains.annotations.NotNull;
 
 import net.slqmy.first_plugin.FirstPlugin;
-import net.slqmy.first_plugin.managers.NametagManager;
 
 public final class PlayerQuitEventListener implements Listener {
 	private final Map<UUID, UUID> recentMessages;
@@ -24,6 +23,5 @@ public final class PlayerQuitEventListener implements Listener {
 		final Player player = event.getPlayer();
 
 		recentMessages.remove(player.getUniqueId());
-		NametagManager.removeTag(player);
 	}
 }

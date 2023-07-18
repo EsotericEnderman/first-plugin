@@ -33,7 +33,6 @@ import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.chat.hover.content.Text;
 import net.slqmy.first_plugin.FirstPlugin;
-import net.slqmy.first_plugin.managers.NametagManager;
 import net.slqmy.first_plugin.utility.Utility;
 
 public final class PlayerJoinEventListener implements Listener {
@@ -85,9 +84,6 @@ public final class PlayerJoinEventListener implements Listener {
 		name.setScore(4);
 
 		bossBar.addPlayer(player);
-
-		NametagManager.setNametags(player, board);
-		NametagManager.createNewTag(player);
 
 		player.setResourcePack("https://filebin.net/py532smdnybfgkxs/Trading_Wanderer_v1.1_-_1.20.1.zip");
 
