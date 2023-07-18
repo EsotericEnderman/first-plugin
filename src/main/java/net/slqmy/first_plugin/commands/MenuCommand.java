@@ -12,95 +12,131 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.NotNull;
 
+import net.slqmy.first_plugin.utility.Utility;
+
 import java.util.Arrays;
 import java.util.Collections;
 
-public class MenuCommand implements CommandExecutor {
+public final class MenuCommand implements CommandExecutor {
+	private static final String THE_SLIMY_SWAMP = ChatColor.DARK_GREEN.toString() + ChatColor.BOLD + "The Slimy Swamp";
+	private static final String SLIME_GPT = ChatColor.DARK_GREEN.toString() + ChatColor.BOLD + "SlimeGPT";
 
 	@Override
-	public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String label, String[] arguments) {
-		if (commandSender instanceof Player) {
-			Player player = (Player) commandSender;
+	public boolean onCommand(@NotNull final CommandSender sender, @NotNull final Command command,
+			@NotNull final String label,
+			@NotNull final String[] args) {
+		if (args.length != 0) {
+			return false;
+		}
 
-			Inventory inventory = Bukkit.createInventory(null, 45, ChatColor.RED.toString() + ChatColor.BOLD + "ADMIN MENU");
+		if (sender instanceof Player) {
+			final Player player = (Player) sender;
+
+			// IDEA: Make an inventory GUI manager. Maybe as an enum.
+			final Inventory inventory = Bukkit.createInventory(null, 45,
+					ChatColor.RED.toString() + ChatColor.BOLD + "ADMIN MENU");
 
 			// RANDOM TELEPORT.
 
-			ItemStack randomTeleport = new ItemStack(Material.ENDER_PEARL);
-			ItemMeta randomTeleportMeta = randomTeleport.getItemMeta();
+			final ItemStack randomTeleport = new ItemStack(Material.ENDER_PEARL);
+			final ItemMeta randomTeleportMeta = randomTeleport.getItemMeta();
 			randomTeleportMeta.setDisplayName(ChatColor.AQUA.toString() + ChatColor.BOLD + "Random Teleport");
 			randomTeleportMeta.setLore(Arrays.asList(
-							ChatColor.GRAY + "Teleport to a random location in the world.",
-							ChatColor.BLUE + "Very powerful!"
-			));
+					ChatColor.GRAY + "Teleport to a random location in the world.",
+					ChatColor.BLUE + "Very powerful!"));
 			randomTeleport.setItemMeta(randomTeleportMeta);
 
 			inventory.setItem(11, randomTeleport);
 
 			// KILL YOURSELF.
 
-			ItemStack killYourself = new ItemStack(Material.LEAD);
-			ItemMeta killYourselfMeta = killYourself.getItemMeta();
+			final ItemStack killYourself = new ItemStack(Material.LEAD);
+			final ItemMeta killYourselfMeta = killYourself.getItemMeta();
 			killYourselfMeta.setDisplayName(ChatColor.RED.toString() + ChatColor.BOLD + "Kill Yourself");
-			killYourselfMeta.setLore(Collections.singletonList(ChatColor.WHITE + "You should kill yourself, " + ChatColor.BOLD + "NOW" + ChatColor.WHITE + "!"));
+			killYourselfMeta.setLore(Collections.singletonList(
+					ChatColor.WHITE + "You should kill yourself, " + ChatColor.BOLD + "NOW" + ChatColor.WHITE + "!"));
 			killYourself.setItemMeta(killYourselfMeta);
 
 			inventory.setItem(13, killYourself);
 
 			// CLEAR INVENTORY.
 
-			ItemStack clearInventory = new ItemStack(Material.BUCKET);
-			ItemMeta clearInventoryMeta = clearInventory.getItemMeta();
+			final ItemStack clearInventory = new ItemStack(Material.BUCKET);
+			final ItemMeta clearInventoryMeta = clearInventory.getItemMeta();
 			clearInventoryMeta.setDisplayName(ChatColor.GREEN.toString() + ChatColor.BOLD + "Clear Inventory");
-			clearInventoryMeta.setLore(Collections.singletonList(ChatColor.GRAY + "You should clear your inventory, " + ChatColor.BOLD + "NOW" + ChatColor.GRAY + "!"));
+			clearInventoryMeta.setLore(Collections.singletonList(
+					ChatColor.GRAY + "You should clear your inventory, " + ChatColor.BOLD + "NOW" + ChatColor.GRAY + "!"));
 			clearInventory.setItemMeta(clearInventoryMeta);
 
 			inventory.setItem(15, clearInventory);
 
-			// MAGIC
+			// MAGIC.
 
-			ItemStack magic = new ItemStack(Material.END_CRYSTAL);
-			ItemMeta magicMeta = magic.getItemMeta();
+			final ItemStack magic = new ItemStack(Material.END_CRYSTAL);
+			final ItemMeta magicMeta = magic.getItemMeta();
 			magicMeta.setDisplayName(ChatColor.MAGIC.toString() + ChatColor.BOLD + "Magic Operator /\\*&*/\\");
-			magicMeta.setLore(Arrays.asList(ChatColor.GRAY + "The magic operator is an operator in mathematics used only by the top mathematicians.", ChatColor.BOLD + "Only the most elite mathematicians are capable of understanding this operator", "This operator is also commonly used in code when the programmer is too lazy.", "", "This operator does whatever it was intended to do.", "In other words, it is magic. That is why it is called the " + ChatColor.ITALIC + "magic operator" + ChatColor.RESET + "!"));
+			magicMeta.setLore(Arrays.asList(
+					ChatColor.GRAY + "The magic operator is an operator in mathematics used only by the top mathematicians.",
+					ChatColor.GRAY.toString() + ChatColor.BOLD
+							+ "Only the most elite mathematicians are capable of understanding this operator...",
+					ChatColor.GRAY + "This operator is also commonly used in code when the programmer is too lazy.", "",
+					ChatColor.GRAY + "This operator does whatever it was intended to do.",
+					ChatColor.GRAY + "In other words, it is magic. That is why it is called the " + ChatColor.ITALIC
+							+ "magic operator"
+							+ ChatColor.GRAY + "!"));
 			magic.setItemMeta(magicMeta);
 
 			inventory.setItem(29, magic);
 
 			// CREATE THE SLIMY SWAMP.
 
-			ItemStack createTheSlimySwamp = new ItemStack(Material.SLIME_BALL);
-			ItemMeta createTheSlimySwampMeta = createTheSlimySwamp.getItemMeta();
-			createTheSlimySwampMeta.setDisplayName(ChatColor.GREEN.toString() + ChatColor.BOLD + "Create The Slimy Swamp");
-			createTheSlimySwampMeta.setLore(Arrays.asList(ChatColor.GRAY + "Well, here it is. This is the item that will change the server forever.", "This item quite literally creates the entirety of The Slimy Swamp.", "", "This is done using an advanced technology called SlimeGPT.", "SlimeGPT is part of this plugin, it is an advanced AI.", "SlimeGPT will hack the system and quite literally modify the binary data in such a way that", "The Slimy Swamp is complete", "", ChatColor.RED.toString() + ChatColor.BOLD + "EXPERIMENTAL FEATURE: USE WITH CAUTION."));
+			final ItemStack createTheSlimySwamp = new ItemStack(Material.SLIME_BALL);
+			final ItemMeta createTheSlimySwampMeta = createTheSlimySwamp.getItemMeta();
+			createTheSlimySwampMeta.setDisplayName(
+					ChatColor.GREEN + "Create " + THE_SLIMY_SWAMP);
+			createTheSlimySwampMeta.setLore(
+					Arrays.asList(ChatColor.GRAY + "Well, here it is. This is the item that will change the server forever.",
+							ChatColor.GRAY + "This item quite literally creates the entirety of " + THE_SLIMY_SWAMP + ChatColor.GRAY
+									+ ".",
+							"",
+							ChatColor.GRAY + "This is done using an advanced technology called " + SLIME_GPT
+									+ ChatColor.GRAY + ".",
+							SLIME_GPT + ChatColor.GRAY
+									+ " is part of this plugin, it is an advanced AI.",
+							SLIME_GPT + ChatColor.GRAY
+									+ " will hack the system and quite literally modify the binary data in such a way that",
+							THE_SLIMY_SWAMP + ChatColor.GRAY + " is complete.",
+							"",
+							ChatColor.RED.toString() + ChatColor.BOLD + "EXPERIMENTAL FEATURE: USE WITH CAUTION."));
 			createTheSlimySwamp.setItemMeta(createTheSlimySwampMeta);
 
 			inventory.setItem(31, createTheSlimySwamp);
 
 			// SECRET BUTTON.
 
-			ItemStack secretButton = new ItemStack(Material.STICK);
-			ItemMeta secretItemMeta = secretButton.getItemMeta();
+			final ItemStack secretButton = new ItemStack(Material.STICK);
+			final ItemMeta secretItemMeta = secretButton.getItemMeta();
 			secretItemMeta.setDisplayName(ChatColor.LIGHT_PURPLE + "Secret Button");
-			secretItemMeta.setLore(Arrays.asList(ChatColor.GRAY + "Pressing this button kills a random person in the world.", "Delay is around one second", "Think this is fake? You can't prove it"));
+			secretItemMeta.setLore(Arrays.asList(ChatColor.GRAY + "Pressing this button kills a random person in the world.",
+					ChatColor.GRAY + "Delay is around one second.", ChatColor.GRAY + "Think this is fake? You can't prove it."));
 			secretButton.setItemMeta(secretItemMeta);
 
 			inventory.setItem(33, secretButton);
 
 			// CLOSE BUTTON.
 
-			ItemStack closeButton = new ItemStack(Material.BARRIER);
-			ItemMeta closeButtonMeta = clearInventory.getItemMeta();
+			final ItemStack closeButton = new ItemStack(Material.BARRIER);
+			final ItemMeta closeButtonMeta = clearInventory.getItemMeta();
 			closeButtonMeta.setDisplayName(ChatColor.RED + "Close Menu");
 			closeButtonMeta.setLore(Collections.singletonList(" "));
 			closeButton.setItemMeta(closeButtonMeta);
 
 			inventory.setItem(0, closeButton);
 
-			// FRAME
+			// FRAME.
 
-			ItemStack frame = new ItemStack(Material.LIME_STAINED_GLASS);
-			ItemMeta frameMeta = frame.getItemMeta();
+			final ItemStack frame = new ItemStack(Material.LIME_STAINED_GLASS);
+			final ItemMeta frameMeta = frame.getItemMeta();
 			frameMeta.setDisplayName(" ");
 			frame.setItemMeta(frameMeta);
 
@@ -113,8 +149,12 @@ public class MenuCommand implements CommandExecutor {
 			}
 
 			player.openInventory(inventory);
+		} else {
+			Utility.log("/menu is a player-only command!");
+
+			return false;
 		}
 
-		return false;
+		return true;
 	}
 }
