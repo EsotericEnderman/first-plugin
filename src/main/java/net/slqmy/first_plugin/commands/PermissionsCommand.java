@@ -1,6 +1,8 @@
 package net.slqmy.first_plugin.commands;
 
 import net.slqmy.first_plugin.FirstPlugin;
+import net.slqmy.first_plugin.utility.Utility;
+
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -12,10 +14,13 @@ import org.jetbrains.annotations.NotNull;
 import java.util.HashMap;
 import java.util.UUID;
 
-public class PermissionsCommand implements CommandExecutor {
+public final class PermissionsCommand implements CommandExecutor {
+	private static final String PERMISSION_STRING = "first_plugin.secret_message";
+
 	private final FirstPlugin firstPlugin;
 
-	// In actually good plugins remember to remove unnecessary data when the player leaves the server.
+	// In actually good plugins remember to remove unnecessary data when the player
+	// leaves the server.
 	private final HashMap<UUID, PermissionAttachment> permissions = new HashMap<>();
 
 	public PermissionsCommand(FirstPlugin firstPlugin) {
@@ -23,12 +28,18 @@ public class PermissionsCommand implements CommandExecutor {
 	}
 
 	@Override
-	public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
+	public boolean onCommand(@NotNull final CommandSender sender, @NotNull final Command command,
+			@NotNull final String label,
+			@NotNull final String[] args) {
+		if (args.length != 0) {
+			return false;
+		}
+
 		if (sender instanceof Player) {
-			Player player = (Player) sender;
+			final Player player = (Player) sender;
 
 			// Remember to have permission attachments for each player!
-			PermissionAttachment attachment;
+			final PermissionAttachment attachment;
 			if (!permissions.containsKey(player.getUniqueId())) {
 				// Load permissions on plugin startup, as they are not kept track of.
 				attachment = player.addAttachment(firstPlugin);
@@ -39,17 +50,21 @@ public class PermissionsCommand implements CommandExecutor {
 			}
 
 			// Note: Ops always have every permission, that's just how op works.
-			if (player.hasPermission("first_plugin.secret_message")) {
-				attachment.unsetPermission("first_plugin.secret_message");
+			if (player.hasPermission(PERMISSION_STRING)) {
+				attachment.unsetPermission(PERMISSION_STRING);
 
 				player.sendMessage(ChatColor.GREEN + "Removed permission!");
 			} else {
-				attachment.setPermission("first_plugin.secret_message", true);
+				attachment.setPermission(PERMISSION_STRING, true);
 
 				player.sendMessage(ChatColor.GREEN + "Added permission!");
 			}
+		} else {
+			Utility.log("/permissions is a player-only command!");
+
+			return false;
 		}
 
-		return false;
+		return true;
 	}
 }
