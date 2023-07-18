@@ -70,6 +70,10 @@
             <id>jitpack.io</id>
             <url>https://jitpack.io</url>
         </repository>
+        <repository>
+            <id>codemc-snapshots</id>
+            <url>https://repo.codemc.io/repository/maven-snapshots/</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -96,6 +100,11 @@
             <artifactId>NoteBlockAPI</artifactId>
             <version>1.6.1</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.wesjd</groupId>
+            <artifactId>anvilgui</artifactId>
+            <version>1.7.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
 </project>
