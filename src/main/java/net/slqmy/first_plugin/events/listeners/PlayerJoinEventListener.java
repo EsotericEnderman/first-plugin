@@ -118,13 +118,14 @@ public final class PlayerJoinEventListener implements Listener {
 
 		// Please join our Discord server!
 
-		final TextComponent start = new TextComponent(ChatColor.DARK_PURPLE + "Please join our ");
-		final TextComponent link = new TextComponent(ChatColor.DARK_PURPLE.toString() + ChatColor.BOLD + "Discord server");
+		final TextComponent start = new TextComponent(ChatColor.LIGHT_PURPLE + "\nPlease join our ");
+		final TextComponent link = new TextComponent(
+				ChatColor.BLUE.toString() + ChatColor.UNDERLINE + "Discord server");
 
 		link.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://www.discord.gg/SjAGgJaCYc"));
 		link.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("Click to join!")));
 
-		final TextComponent end = new TextComponent(ChatColor.DARK_PURPLE + "!");
+		final TextComponent end = new TextComponent(ChatColor.LIGHT_PURPLE + "!\n");
 
 		start.addExtra(link);
 		start.addExtra(end);
