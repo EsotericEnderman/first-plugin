@@ -1,40 +1,42 @@
 package net.slqmy.first_plugin.maps;
 
 import org.bukkit.entity.Player;
-import org.bukkit.map.*;
+import org.bukkit.map.MapCanvas;
+import org.bukkit.map.MapRenderer;
+import org.bukkit.map.MapView;
+import org.bukkit.map.MinecraftFont;
 import org.jetbrains.annotations.NotNull;
+
+import net.slqmy.first_plugin.utility.Utility;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
 
-public class Caet extends MapRenderer {
-
+public final class Caet extends MapRenderer {
 	@Override
-	public void render(@NotNull MapView map, @NotNull MapCanvas canvas, @NotNull Player player) {
+	public void render(@NotNull final MapView map, @NotNull final MapCanvas canvas, @NotNull final Player player) {
+		// Idea: make a map handler / manager.
+
 		try {
-			// If the image is bigger than the map, it just goes over the map.
-
-			// Can also use 64x64, but it won't fully fit the frame.
-			// Transparency in images works.
+			// If the image is bigger than the map, it just goes over the map and you can't
+			// see it.
+			//
+			// If it's smaller it won't fully fit the frame.
+			// Transparency in images works, you'll just see the map background.
+			// But in item frames, it fully works.
 			// JPEGs work too.
-			BufferedImage image = ImageIO.read(new URL("https://cdn.discordapp.com/avatars/500690028960284672/5b556e4ef15daab8d2f8743cb443eb22.png?size=128"));
+			final BufferedImage image = ImageIO.read(new URL(
+					"https://cdn.discordapp.com/avatars/500690028960284672/5b556e4ef15daab8d2f8743cb443eb22.png?size=128"));
 
-			canvas.drawImage(1, 1, image);
-		} catch (IOException exception) {
+			canvas.drawImage(0, 0, image);
+		} catch (final IOException exception) {
+			Utility.log(exception.getMessage());
 			exception.printStackTrace();
+			Utility.log(exception);
 		}
 
-		canvas.drawText(60, 90, MinecraftFont.Font, "Caet!");
-
-		for (int x = 5; x <= 15; x++) {
-			for (int y = 22; y <= 32; y++) {
-				canvas.setPixel(x, y, MapPalette.LIGHT_GREEN);
-			}
-		}
-
-		canvas.setPixel(1, 1, MapPalette.RED);
-		canvas.setPixel(128, 128, MapPalette.BLUE);
+		canvas.drawText(1, 1, MinecraftFont.Font, "Caet! ~ <3");
 	}
 }
