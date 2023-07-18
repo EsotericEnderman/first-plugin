@@ -1,4 +1,4 @@
-package net.slqmy.first_plugin;
+package net.slqmy.first_plugin.data;
 
 import java.util.Date;
 
@@ -14,8 +14,19 @@ public class Data {
 		this.date = date;
 	}
 
-	public String getPlayerName() { return playerName; }
-	public String getMessage() { return message; }
-	public boolean getIsBestPlugin() { return true; }
-	public Date getDate() { return date; }
+	public String getPlayerName() {
+		return playerName;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public boolean isBestPlugin() {
+		return isBestPlugin;
+	}
+
+	public Date getDate() {
+		return date;
+	}
 }
