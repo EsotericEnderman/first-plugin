@@ -1,45 +1,56 @@
 package net.slqmy.first_plugin.commands;
 
 import net.slqmy.first_plugin.FirstPlugin;
+import net.slqmy.first_plugin.utility.Utility;
+
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class ConfigCommand implements CommandExecutor {
-	private final FirstPlugin firstPlugin;
+public final class ConfigCommand implements CommandExecutor {
+	private final YamlConfiguration config;
 
-	public ConfigCommand(FirstPlugin firstPlugin) {
-		this.firstPlugin = firstPlugin;
+	public ConfigCommand(@NotNull final FirstPlugin firstPlugin) {
+		this.config = (YamlConfiguration) firstPlugin.getConfig();
 	}
 
 	@Override
-	public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String label, String[] arguments) {
-		if (commandSender instanceof Player) {
-			Player player = (Player)commandSender;
-
-			player.sendMessage(firstPlugin.getConfig().getString("Word"));
-			player.sendMessage(String.valueOf(firstPlugin.getConfig().getInt("Number")));
-
-			if (firstPlugin.getConfig().getBoolean("Boolean")) {
-				player.sendMessage(ChatColor.GREEN + "true");
-			} else {
-				player.sendMessage(ChatColor.DARK_RED + "false");
-			}
-
-			List<String> stringList = firstPlugin.getConfig().getStringList("Fruits");
-
-			for (String string : stringList) {
-				player.sendMessage(string);
-			}
-
-			firstPlugin.getConfig();
+	public boolean onCommand(@NotNull final CommandSender sender, @NotNull final Command command,
+			@NotNull final String label,
+			@NotNull final String[] args) {
+		if (args.length != 0) {
+			return false;
 		}
 
-		return false;
+		if (sender instanceof Player) {
+			final Player player = (Player) sender;
+
+			player.sendMessage("Word: " + ChatColor.BLACK + config.getString("Word"));
+			player.sendMessage("Number: " + ChatColor.DARK_BLUE + config.getInt("Number"));
+
+			if (config.getBoolean("Boolean")) {
+				player.sendMessage("Boolean: " + ChatColor.GREEN + "true");
+			} else {
+				player.sendMessage("Boolean: " + ChatColor.DARK_RED + "false");
+			}
+
+			final List<String> stringList = config.getStringList("Fruits");
+
+			for (final String string : stringList) {
+				player.sendMessage(ChatColor.DARK_GREEN + string);
+			}
+		} else {
+			Utility.log("/config is a player-only command!");
+
+			return false;
+		}
+
+		return true;
 	}
 }
