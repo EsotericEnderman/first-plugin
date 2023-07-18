@@ -8,6 +8,7 @@ import org.bukkit.Location;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
+import org.bukkit.entity.ThrownPotion;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.ProjectileHitEvent;
@@ -22,15 +23,11 @@ public final class ProjectileHitEventListener implements Listener {
 	private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#.##");
 
 	private final NamespacedKey isPistolBulletKey;
-	private final NamespacedKey isMiniGunBulletKey;
 	private final NamespacedKey isGatlingGunBulletKey;
-	private final NamespacedKey isPoisonLauncherBulletKey;
 
 	public ProjectileHitEventListener(@NotNull final FirstPlugin plugin) {
 		this.isPistolBulletKey = plugin.getIsPistolBulletKey();
-		this.isMiniGunBulletKey = plugin.getIsMiniGunBulletKey();
 		this.isGatlingGunBulletKey = plugin.getIsGatlingGunBulletKey();
-		this.isPoisonLauncherBulletKey = plugin.getIsPoisonLauncherBulletKey();
 	}
 
 	@EventHandler

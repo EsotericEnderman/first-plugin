@@ -80,7 +80,6 @@ public final class FirstPlugin extends JavaPlugin {
 	private NamespacedKey isShotgunBulletKey;
 	private NamespacedKey isMiniGunBulletKey;
 	private NamespacedKey isGatlingGunBulletKey;
-	private NamespacedKey isPoisonLauncherBulletKey;
 
 	private BossBar bossBar = Bukkit.createBossBar(
 			ChatColor.LIGHT_PURPLE.toString() + ChatColor.BOLD + "Wither Storm",
@@ -129,10 +128,6 @@ public final class FirstPlugin extends JavaPlugin {
 
 	public NamespacedKey getIsGatlingGunBulletKey() {
 		return isGatlingGunBulletKey;
-	}
-
-	public NamespacedKey getIsPoisonLauncherBulletKey() {
-		return isPoisonLauncherBulletKey;
 	}
 
 	@Override
@@ -314,7 +309,6 @@ public final class FirstPlugin extends JavaPlugin {
 		isShotgunBulletKey = new NamespacedKey(this, "is_shotgun_bullet");
 		isMiniGunBulletKey = new NamespacedKey(this, "is_mini-gun_bullet");
 		isGatlingGunBulletKey = new NamespacedKey(this, "is_gatling_gun_bullet");
-		isPoisonLauncherBulletKey = new NamespacedKey(this, "is_poison_launcher_bullet");
 
 		PLUGIN_MANAGER.registerEvents(new BlockBreakEventListener(), this);
 		PLUGIN_MANAGER.registerEvents(new InventoryClickEventListener(), this);
