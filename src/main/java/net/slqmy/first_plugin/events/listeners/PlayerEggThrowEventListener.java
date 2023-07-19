@@ -1,7 +1,6 @@
 package net.slqmy.first_plugin.events.listeners;
 
 import org.bukkit.NamespacedKey;
-import org.bukkit.Particle;
 import org.bukkit.entity.Egg;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
