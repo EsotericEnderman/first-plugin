@@ -85,7 +85,7 @@ public final class PlayerJoinEventListener implements Listener {
 
 		bossBar.addPlayer(player);
 
-		player.setResourcePack("https://filebin.net/py532smdnybfgkxs/Trading_Wanderer_v1.1_-_1.20.1.zip");
+		player.setResourcePack("assets/Trading Wanderer v1.1 - 1.20.1.zip");
 
 		player.sendTitle(ChatColor.GREEN + "Welcome to " + ChatColor.BOLD + "The Slimy Swamp" + ChatColor.GREEN + "!",
 				ChatColor.YELLOW + "Thank you for joining. Enjoy your stay!", 20,
