@@ -1,24 +1,12 @@
 package net.slqmy.first_plugin.events.listeners;
 
-import java.util.List;
-import java.util.UUID;
-
-import org.bukkit.ChatColor;
-import org.bukkit.Color;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
-import org.bukkit.Particle;
+import net.slqmy.first_plugin.FirstPlugin;
+import org.bukkit.*;
+import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Cake;
-import org.bukkit.entity.Arrow;
-import org.bukkit.entity.Egg;
-import org.bukkit.entity.Fireball;
-import org.bukkit.entity.Player;
-import org.bukkit.entity.Snowball;
-import org.bukkit.entity.ThrownPotion;
-import org.bukkit.entity.Trident;
+import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
@@ -36,7 +24,8 @@ import org.bukkit.potion.PotionType;
 import org.bukkit.util.Vector;
 import org.jetbrains.annotations.NotNull;
 
-import net.slqmy.first_plugin.FirstPlugin;
+import java.util.List;
+import java.util.UUID;
 
 public final class PlayerInteractEventListener implements Listener {
 	private static final PotionEffect[] poisonLauncherEffects = {
@@ -51,8 +40,9 @@ public final class PlayerInteractEventListener implements Listener {
 			new PotionEffect(PotionEffectType.WEAKNESS, PotionEffect.INFINITE_DURATION, 1, true, true)
 	};
 
+	private final FirstPlugin plugin;
+
 	private final List<UUID> movementDisabled;
-	private Boolean chatEnabled;
 
 	private final NamespacedKey isPistolBullet;
 	private final NamespacedKey isShotgunBullet;
@@ -60,8 +50,9 @@ public final class PlayerInteractEventListener implements Listener {
 	private final NamespacedKey isGatlingGunBullet;
 
 	public PlayerInteractEventListener(@NotNull final FirstPlugin plugin) {
+		this.plugin = plugin;
+
 		this.movementDisabled = plugin.getMovementDisabled();
-		this.chatEnabled = plugin.getChatEnabled();
 
 		this.isPistolBullet = plugin.getIsPistolBulletKey();
 		this.isShotgunBullet = plugin.getIsShotgunBulletKey();
@@ -77,7 +68,11 @@ public final class PlayerInteractEventListener implements Listener {
 		final ItemMeta mainHandMeta = mainHand.getItemMeta();
 
 		if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
-			final BlockState blockState = event.getClickedBlock().getState();
+			final Block rightClickedBlocked = event.getClickedBlock();
+
+			assert rightClickedBlocked != null;
+
+			final BlockState blockState = rightClickedBlocked.getState();
 			final BlockData blockData = blockState.getBlockData();
 
 			if (blockData instanceof Cake) {
@@ -105,10 +100,13 @@ public final class PlayerInteractEventListener implements Listener {
 		final Vector playerDirection = playerLocation.getDirection().normalize();
 
 		if (mainHandMaterial == Material.NETHER_STAR && event.getHand() == EquipmentSlot.HAND) {
+			boolean chatEnabled = plugin.isChatEnabled();
 			chatEnabled = !chatEnabled;
 
+			plugin.setChatEnabled(chatEnabled);
+
 			player.sendMessage(
-					"Chat " + (Boolean.TRUE.equals(chatEnabled) ? ChatColor.GREEN + "true" : ChatColor.RED + "false")
+					"Chat " + (chatEnabled ? ChatColor.GREEN + "enabled" : ChatColor.RED + "disabled")
 							+ ChatColor.RESET + "!");
 		} else if (mainHandMaterial == Material.LEVER) {
 			final UUID playerUUID = player.getUniqueId();
@@ -154,6 +152,8 @@ public final class PlayerInteractEventListener implements Listener {
 				ChatColor.DARK_GREEN.toString() + ChatColor.BOLD + "Poison launcher")) {
 			final ItemStack poisonPotion = new ItemStack(Material.LINGERING_POTION);
 			final PotionMeta meta = (PotionMeta) poisonPotion.getItemMeta();
+
+			assert meta != null;
 
 			meta.setColor(Color.fromRGB(0x4E9331));
 

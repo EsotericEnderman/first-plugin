@@ -10,17 +10,17 @@ import org.jetbrains.annotations.NotNull;
 import net.slqmy.first_plugin.FirstPlugin;
 
 public final class AsyncPlayerChatEventListener implements Listener {
-	private final Boolean chatEnabled;
+	private final FirstPlugin plugin;
 
-	public AsyncPlayerChatEventListener(FirstPlugin plugin) {
-		this.chatEnabled = plugin.getChatEnabled();
+	public AsyncPlayerChatEventListener(@NotNull final FirstPlugin plugin) {
+		this.plugin = plugin;
 	}
 
 	@EventHandler
 	public void onAsyncPlayerChat(@NotNull final AsyncPlayerChatEvent event) {
 		final Player player = event.getPlayer();
 
-		if (Boolean.FALSE.equals(chatEnabled)) {
+		if (!plugin.isChatEnabled()) {
 			event.setCancelled(true);
 			player.sendMessage(ChatColor.RED + "Chat is disabled!");
 		}
