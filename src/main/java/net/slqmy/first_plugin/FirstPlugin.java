@@ -287,7 +287,7 @@ public final class FirstPlugin extends JavaPlugin {
 
 		final ItemMeta stickMeta = customStick.getItemMeta();
 		stickMeta.setDisplayName(ChatColor.GREEN.toString() + ChatColor.BOLD + "Epic Stick!");
-		stickMeta.addEnchant(Enchantment.DAMAGE_ALL, 7, true);
+		stickMeta.addEnchant(Enchantment.DAMAGE_ALL, 15, true);
 
 		customStick.setItemMeta(stickMeta);
 
