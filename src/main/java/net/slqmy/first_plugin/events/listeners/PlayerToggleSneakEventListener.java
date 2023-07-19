@@ -58,19 +58,22 @@ public final class PlayerToggleSneakEventListener implements Listener {
 			player.playEffect(playerLocation, Effect.RECORD_PLAY, Material.MUSIC_DISC_PIGSTEP);
 
 			final Block targetBlock = player.getTargetBlockExact(5);
-			final Location targetBlockLocation = targetBlock.getLocation();
 
-			if (targetBlock.getType() == Material.OAK_SIGN) {
-				player.sendSignChange(targetBlockLocation, new String[] {
-						"I am a sign!",
-						"",
-						"And no one else",
-						"can see this!"
-				});
-			} else {
-				final BlockData targetBlockData = Material.DIAMOND_BLOCK.createBlockData();
+			if (targetBlock != null) {
+				final Location targetBlockLocation = targetBlock.getLocation();
 
-				player.sendBlockChange(targetBlockLocation, targetBlockData);
+				if (targetBlock.getType() == Material.OAK_SIGN) {
+					player.sendSignChange(targetBlockLocation, new String[] {
+									"I am a sign!",
+									"",
+									"And no one else",
+									"can see this!"
+					});
+				} else {
+					final BlockData targetBlockData = Material.DIAMOND_BLOCK.createBlockData();
+
+					player.sendBlockChange(targetBlockLocation, targetBlockData);
+				}
 			}
 		}
 	}
