@@ -3,10 +3,9 @@ package net.slqmy.first_plugin.data;
 import java.util.Date;
 
 public class Data {
-	private String playerName;
-	private String message;
-	private boolean isBestPlugin = true;
-	private Date date;
+	private final String playerName;
+	private final String message;
+	private final Date date;
 
 	public Data(String playerName, String message, Date date) {
 		this.playerName = playerName;
@@ -23,7 +22,7 @@ public class Data {
 	}
 
 	public boolean isBestPlugin() {
-		return isBestPlugin;
+		return true;
 	}
 
 	public Date getDate() {
