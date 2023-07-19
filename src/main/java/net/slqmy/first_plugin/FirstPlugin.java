@@ -4,41 +4,10 @@ import com.google.gson.Gson;
 import com.sk89q.worldedit.WorldEdit;
 import net.slqmy.first_plugin.commands.*;
 import net.slqmy.first_plugin.data.Data;
-import net.slqmy.first_plugin.events.listeners.AsyncPlayerChatEventListener;
-import net.slqmy.first_plugin.events.listeners.BlockBreakEventListener;
-import net.slqmy.first_plugin.events.listeners.EntityDamageByEntityEventListener;
-import net.slqmy.first_plugin.events.listeners.InventoryClickEventListener;
-import net.slqmy.first_plugin.events.listeners.MapInitialiseEventListener;
-import net.slqmy.first_plugin.events.listeners.PlayerEggThrowEventListener;
-import net.slqmy.first_plugin.events.listeners.PlayerInteractEntityEventListener;
-import net.slqmy.first_plugin.events.listeners.PlayerInteractEventListener;
-import net.slqmy.first_plugin.events.listeners.PlayerJoinEventListener;
-import net.slqmy.first_plugin.events.listeners.PlayerMoveEventListener;
-import net.slqmy.first_plugin.events.listeners.PlayerQuitEventListener;
-import net.slqmy.first_plugin.events.listeners.PlayerResourcePackStatusEventListener;
-import net.slqmy.first_plugin.events.listeners.PlayerToggleSneakEventListener;
-import net.slqmy.first_plugin.events.listeners.ProjectileHitEventListener;
-import net.slqmy.first_plugin.events.listeners.ProjectileLaunchEventListener;
-import net.slqmy.first_plugin.events.listeners.ServerBroadcastEventListener;
-import net.slqmy.first_plugin.events.listeners.ServerListPingEventListener;
+import net.slqmy.first_plugin.events.listeners.*;
 import net.slqmy.first_plugin.utility.Utility;
 import net.slqmy.first_plugin.utility.types.Cuboid;
 import net.slqmy.first_plugin.utility.types.Pair;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.Reader;
-import java.io.Writer;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
-
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.boss.BarColor;
@@ -47,13 +16,7 @@ import org.bukkit.boss.BossBar;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.enchantments.Enchantment;
-import org.bukkit.entity.ArmorStand;
-import org.bukkit.entity.BlockDisplay;
-import org.bukkit.entity.Display;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.ItemDisplay;
-import org.bukkit.entity.TextDisplay;
+import org.bukkit.entity.*;
 import org.bukkit.entity.Display.Billboard;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
@@ -62,14 +25,29 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitScheduler;
 import org.bukkit.util.Transformation;
+import org.jetbrains.annotations.NotNull;
 import org.joml.AxisAngle4f;
 import org.joml.Vector3f;
+
+import java.io.*;
+import java.util.*;
 
 public final class FirstPlugin extends JavaPlugin {
 	private static final PluginManager PLUGIN_MANAGER = Bukkit.getPluginManager();
 	private static final BukkitScheduler SCHEDULER = Bukkit.getScheduler();
 	private static final String WORLD_NAME = "world";
 	private static final int MAX_LIGHT_LEVEL = 15;
+
+	private final BossBar bossBar = Bukkit.createBossBar(
+			ChatColor.LIGHT_PURPLE.toString() + ChatColor.BOLD + "Wither Storm",
+			BarColor.PURPLE,
+			BarStyle.SEGMENTED_20
+	// BarFlag.CREATE_FOG, - a bit annoying, but good for atmosphere. Could be used
+	// in actual boss fights or server-wide events to add more immersion. (Also, I'm
+	// not sure if this actually does anything)
+	// BarFlag.DARKEN_SKY, - Same as above, but this definitely does something.
+	// BarFlag.PLAY_BOSS_MUSIC - Seems to not do anything... (I might be wrong).
+	);
 
 	private final Map<UUID, UUID> recentMessages = new HashMap<>();
 	private final List<UUID> movementDisabled = new ArrayList<>();
@@ -81,18 +59,7 @@ public final class FirstPlugin extends JavaPlugin {
 	private NamespacedKey isMiniGunBulletKey;
 	private NamespacedKey isGatlingGunBulletKey;
 
-	private BossBar bossBar = Bukkit.createBossBar(
-			ChatColor.LIGHT_PURPLE.toString() + ChatColor.BOLD + "Wither Storm",
-			BarColor.PURPLE,
-			BarStyle.SEGMENTED_20
-	// BarFlag.CREATE_FOG, - a bit annoying, but good for atmosphere. Could be used
-	// in actual boss fights or server-wide events to add more immersion. (Also, I'm
-	// not sure if this actually does anything)
-	// BarFlag.DARKEN_SKY, - Same as above, but this definitely does something.
-	// BarFlag.PLAY_BOSS_MUSIC - Seems to not do anything... (I might be wrong).
-	);
-
-	private Boolean chatEnabled = true;
+	private boolean chatEnabled = true;
 
 	public Map<UUID, UUID> getRecentMessages() {
 		return recentMessages;
@@ -106,7 +73,7 @@ public final class FirstPlugin extends JavaPlugin {
 		return latestFill;
 	}
 
-	public Boolean getChatEnabled() {
+	public boolean isChatEnabled() {
 		return chatEnabled;
 	}
 
@@ -130,11 +97,32 @@ public final class FirstPlugin extends JavaPlugin {
 		return isGatlingGunBulletKey;
 	}
 
+	public void setLatestFill(@NotNull final Cuboid newFill) {
+		latestFill = newFill;
+	}
+
+	public void setChatEnabled(final boolean state) {
+		if (state == chatEnabled) {
+			throw new IllegalArgumentException("Chat is already " + (state ? "enabled" : "disabled") + "!");
+		}
+
+		chatEnabled = state;
+	}
+
 	@Override
 	public void onEnable() {
 		// Plugin startup logic.
+
+		Utility.log("Creating plugin data folder...");
+
 		final File dataFolder = getDataFolder();
-		dataFolder.mkdir();
+		final boolean success = dataFolder.mkdir();
+
+		if (success) {
+			Utility.log("Plugin data folder successfully created!");
+		} else {
+			Utility.log("Plugin data folder already exists.");
+		}
 
 		// If there is no config, one is generated by the plugin.
 		getConfig().options().copyDefaults();
@@ -152,6 +140,7 @@ public final class FirstPlugin extends JavaPlugin {
 			return;
 		}
 
+		assert tuple != null;
 		final File file = tuple.first;
 
 		Utility.log("Attempting to create file 'data.json'.");
@@ -159,9 +148,9 @@ public final class FirstPlugin extends JavaPlugin {
 		final File jsonFile = new File(dataFolder, "data.json");
 
 		try {
-			final boolean success = jsonFile.createNewFile();
+			final boolean fileCreated = jsonFile.createNewFile();
 
-			if (!success) {
+			if (!fileCreated) {
 				Utility.log("File already exists.");
 			} else {
 				Utility.log("File created successfully.");
@@ -285,6 +274,7 @@ public final class FirstPlugin extends JavaPlugin {
 		final ItemStack customStick = new ItemStack(Material.STICK);
 
 		final ItemMeta stickMeta = customStick.getItemMeta();
+		assert stickMeta != null;
 		stickMeta.setDisplayName(ChatColor.GREEN.toString() + ChatColor.BOLD + "Epic Stick!");
 		stickMeta.addEnchant(Enchantment.DAMAGE_ALL, 15, true);
 
@@ -309,7 +299,6 @@ public final class FirstPlugin extends JavaPlugin {
 		isMiniGunBulletKey = new NamespacedKey(this, "is_mini-gun_bullet");
 		isGatlingGunBulletKey = new NamespacedKey(this, "is_gatling_gun_bullet");
 
-		PLUGIN_MANAGER.registerEvents(new BlockBreakEventListener(), this);
 		PLUGIN_MANAGER.registerEvents(new InventoryClickEventListener(), this);
 		PLUGIN_MANAGER.registerEvents(new MapInitialiseEventListener(), this);
 		PLUGIN_MANAGER.registerEvents(new PlayerInteractEntityEventListener(), this);
@@ -341,7 +330,7 @@ public final class FirstPlugin extends JavaPlugin {
 
 		// Get block state by: Bukkit.getWorld("world").getBlockAt(1, 1, 1).getState();.
 		// Determine what it is.
-		// E. g., a sign.
+		// E.g., a sign.
 		// To get the sign's data container, use sign.getPersistentDataContainer();.
 
 		// ! VERY IMPORTANT!
@@ -351,6 +340,7 @@ public final class FirstPlugin extends JavaPlugin {
 
 		final World world = Bukkit.getWorld(WORLD_NAME);
 
+		assert world != null;
 		final Location displaysLocation = world.getBlockAt(0, 120, 0).getLocation();
 
 		// TEXT DISPLAY
@@ -381,6 +371,7 @@ public final class FirstPlugin extends JavaPlugin {
 		final ItemStack diamondSword = new ItemStack(Material.DIAMOND_SWORD);
 
 		final ItemMeta diamondSwordMeta = diamondSword.getItemMeta();
+		assert diamondSwordMeta != null;
 		diamondSwordMeta.addEnchant(Enchantment.DAMAGE_ALL, 1, false);
 
 		diamondSword.setItemMeta(diamondSwordMeta);
@@ -406,6 +397,7 @@ public final class FirstPlugin extends JavaPlugin {
 		final ItemStack netherite = new ItemStack(Material.NETHERITE_INGOT, 4);
 		final ItemMeta netheriteMeta = netherite.getItemMeta();
 
+		assert netheriteMeta != null;
 		netheriteMeta.setDisplayName(ChatColor.BLACK + "Free " + ChatColor.BOLD + "Netherite" + ChatColor.BLACK + "!");
 
 		netherite.setItemMeta(netheriteMeta);
