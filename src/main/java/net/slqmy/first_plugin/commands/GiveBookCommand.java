@@ -62,7 +62,7 @@ public final class GiveBookCommand implements CommandExecutor {
 			spigotBook.addPage(new BaseComponent[] { plainFirstPage });
 
 			// Could be really useful for large books that have many pages.
-			// There could be a contents section, where each section / chapter is clickable
+			// There could be a contents section, where each section / chapter is clickable,
 			// and it brings you to that section / chapter.
 			final TextComponent clickable = new TextComponent(
 					ChatColor.BLUE.toString() + ChatColor.BOLD + "Click me to go back to the first page!\n");

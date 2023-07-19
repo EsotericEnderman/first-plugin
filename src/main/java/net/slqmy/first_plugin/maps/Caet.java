@@ -20,7 +20,7 @@ public final class Caet extends MapRenderer {
 		// Idea: make a map handler / manager.
 
 		try {
-			// If the image is bigger than the map, it just goes over the map and you can't
+			// If the image is bigger than the map, it just goes over the map, and you can't
 			// see it.
 			//
 			// If it's smaller it won't fully fit the frame.
