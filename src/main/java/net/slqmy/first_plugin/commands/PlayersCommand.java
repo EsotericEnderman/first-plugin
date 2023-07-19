@@ -26,7 +26,7 @@ public final class PlayersCommand implements CommandExecutor {
 			Utility.log(/* ChatColor.LIGHT_PURPLE + */ "There are currently "
 					+ Bukkit.getOnlinePlayers().size() + " players online!");
 		} else if (sender instanceof Player) {
-			((Player) sender).sendMessage(ChatColor.RED + "This is a console-only command!");
+			sender.sendMessage(ChatColor.RED + "This is a console-only command!");
 
 			return false;
 		} else {
