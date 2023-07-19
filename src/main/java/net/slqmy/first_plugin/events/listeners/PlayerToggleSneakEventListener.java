@@ -64,10 +64,10 @@ public final class PlayerToggleSneakEventListener implements Listener {
 
 				if (targetBlock.getType() == Material.OAK_SIGN) {
 					player.sendSignChange(targetBlockLocation, new String[] {
-									"I am a sign!",
-									"",
-									"And no one else",
-									"can see this!"
+							"I am a sign!",
+							"",
+							"And no one else",
+							"can see this!"
 					});
 				} else {
 					final BlockData targetBlockData = Material.DIAMOND_BLOCK.createBlockData();

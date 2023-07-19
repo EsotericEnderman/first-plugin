@@ -56,7 +56,7 @@ public final class MenuCommand implements CommandExecutor {
 			final ItemStack killYourself = new ItemStack(Material.LEAD);
 			final ItemMeta killYourselfMeta = killYourself.getItemMeta();
 
-			assert killYourselfMeta  != null;
+			assert killYourselfMeta != null;
 
 			killYourselfMeta.setDisplayName(ChatColor.RED.toString() + ChatColor.BOLD + "Kill Yourself");
 			killYourselfMeta.setLore(Collections.singletonList(
