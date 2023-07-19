@@ -33,8 +33,10 @@ public final class BuffCommand implements CommandExecutor {
 
 			final ItemStack playerHeldItem = player.getInventory().getItemInMainHand();
 
-			if (playerHeldItem.getType() == Material.AIR) {
-				player.sendMessage(ChatColor.RED + "You must be holding an item to run this command!");
+			final ItemMeta mainHandMeta = playerHeldItem.getItemMeta();
+
+			if (playerHeldItem.getType() == Material.AIR || mainHandMeta == null) {
+				player.sendMessage(ChatColor.RED + "You must be holding an item with item meta to run this command!");
 
 				return true;
 			}
@@ -43,8 +45,6 @@ public final class BuffCommand implements CommandExecutor {
 					Attribute.GENERIC_ATTACK_DAMAGE.toString(), GENERIC_ATTACK_DAMAGE_INCREASE,
 					AttributeModifier.Operation.ADD_NUMBER,
 					EquipmentSlot.HAND);
-
-			final ItemMeta mainHandMeta = playerHeldItem.getItemMeta();
 
 			mainHandMeta.addAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE, modifier);
 
