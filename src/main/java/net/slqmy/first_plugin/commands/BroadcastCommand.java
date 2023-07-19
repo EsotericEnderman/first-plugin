@@ -6,11 +6,6 @@ import net.slqmy.first_plugin.utility.Utility;
 import net.wesjd.anvilgui.AnvilGUI;
 import net.wesjd.anvilgui.AnvilGUI.ResponseAction;
 import net.wesjd.anvilgui.AnvilGUI.StateSnapshot;
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.function.BiFunction;
-
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -20,6 +15,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Collections;
 
 public final class BroadcastCommand implements CommandExecutor {
 	private final FirstPlugin plugin;
@@ -59,7 +56,7 @@ public final class BroadcastCommand implements CommandExecutor {
 							}
 						}
 
-						return Arrays.asList(ResponseAction.close());
+						return Collections.singletonList(ResponseAction.close());
 					})
 					.plugin(plugin)
 					.open(player);
