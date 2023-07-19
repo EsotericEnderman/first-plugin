@@ -54,7 +54,7 @@ public final class BroadcastCommand implements CommandExecutor {
 									+ ChatColor.translateAlternateColorCodes('&', message));
 
 							if ("hello".equalsIgnoreCase(message)) {
-								player.sendMessage(ChatColor.DARK_BLUE.toString() + ChatColor.BOLD + "Hello to you too! "
+								player.sendMessage(ChatColor.GREEN.toString() + ChatColor.BOLD + "Hello to you too! "
 										+ ChatColor.RESET + ":)");
 							}
 						}
