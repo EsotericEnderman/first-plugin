@@ -16,12 +16,12 @@ import net.slqmy.first_plugin.FirstPlugin;
 import net.slqmy.first_plugin.utility.types.Cuboid;
 
 public final class PlayerMoveEventListener implements Listener {
+	private final FirstPlugin plugin;
 	private final List<UUID> movementDisabled;
-	private final Cuboid latestFill;
 
 	public PlayerMoveEventListener(@NotNull final FirstPlugin plugin) {
+		this.plugin = plugin;
 		this.movementDisabled = plugin.getMovementDisabled();
-		this.latestFill = plugin.getLatestFill();
 	}
 
 	@EventHandler
@@ -33,10 +33,14 @@ public final class PlayerMoveEventListener implements Listener {
 			player.sendMessage(ChatColor.RED + "Trolled! Stop moving! You are frozen.");
 		}
 
+		final Cuboid latestFill = plugin.getLatestFill();
+
 		if (latestFill != null && latestFill.contains(player.getLocation())) {
 			player.spigot().sendMessage(ChatMessageType.ACTION_BAR,
-					TextComponent.fromLegacyText(ChatColor.GRAY + "- " + ChatColor.RED + ChatColor.BOLD
-							+ "BEWARE" + ChatColor.RED + ": You are in the latest fill region!" + ChatColor.GRAY + " -"));
+					TextComponent
+							.fromLegacyText(ChatColor.GRAY.toString() + ChatColor.BOLD + "- " + ChatColor.RED + ChatColor.BOLD
+									+ "BEWARE" + ChatColor.RED + ": " + ChatColor.YELLOW + "You are in the latest fill region!"
+									+ ChatColor.GRAY + ChatColor.BOLD + " -"));
 		}
 	}
 }

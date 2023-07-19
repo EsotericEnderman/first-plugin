@@ -18,10 +18,11 @@ import java.util.Arrays;
 
 public final class FillCommand implements CommandExecutor {
 	private static final int ARGUMENT_LENGTH = 7;
-	private Cuboid latestFill;
+
+	private final FirstPlugin plugin;
 
 	public FillCommand(@NotNull final FirstPlugin plugin) {
-		this.latestFill = plugin.getLatestFill();
+		this.plugin = plugin;
 	}
 
 	@Override
@@ -56,9 +57,11 @@ public final class FillCommand implements CommandExecutor {
 
 			final World world = player.getWorld();
 
-			latestFill = new Cuboid(
+			final Cuboid latestFill = new Cuboid(
 					new Location(world, x1, y1, z1),
 					new Location(world, x2, y2, z2));
+
+			plugin.setLatestFill(latestFill);
 
 			final Material blockType;
 
