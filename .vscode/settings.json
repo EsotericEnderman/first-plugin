@@ -12,15 +12,19 @@
 		"gson",
 		"hoverable",
 		"Hypixel",
+		"KNOCKBACK",
 		"Multimap",
 		"Nametag",
 		"Nametags",
 		"netherite",
+		"Piglin",
 		"PIGSTEP",
 		"REDSTONE",
 		"Rizz",
 		"UNLUCK"
 	],
 	"java.compile.nullAnalysis.mode": "automatic",
-	"java.configuration.updateBuildConfiguration": "disabled"
+	"java.configuration.updateBuildConfiguration": "disabled",
+	"java.project.sourcePaths": ["src"],
+	"java.project.referencedLibraries": ["libraries/Rank-System.jar"]
 }
