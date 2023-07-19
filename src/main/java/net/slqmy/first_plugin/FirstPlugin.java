@@ -223,7 +223,6 @@ public final class FirstPlugin extends JavaPlugin {
 		getCommand("complex-gaming-menu").setExecutor(new ComplexGamingMenuCommand());
 		getCommand("buff").setExecutor(new BuffCommand());
 		getCommand("skull").setExecutor(new SkullCommand());
-		getCommand("custom-skull").setExecutor(new CustomSkullCommand());
 		getCommand("cool-down").setExecutor(new CooldownCommand());
 		getCommand("hologram").setExecutor(new HologramCommand());
 
