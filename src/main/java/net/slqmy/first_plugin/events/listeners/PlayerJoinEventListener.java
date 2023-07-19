@@ -19,12 +19,7 @@ import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-import org.bukkit.scoreboard.Criteria;
-import org.bukkit.scoreboard.DisplaySlot;
-import org.bukkit.scoreboard.Objective;
-import org.bukkit.scoreboard.Score;
-import org.bukkit.scoreboard.Scoreboard;
-import org.bukkit.scoreboard.Team;
+import org.bukkit.scoreboard.*;
 import org.jetbrains.annotations.NotNull;
 
 import net.md_5.bungee.api.ChatMessageType;
@@ -36,6 +31,8 @@ import net.slqmy.first_plugin.FirstPlugin;
 import net.slqmy.first_plugin.utility.Utility;
 
 public final class PlayerJoinEventListener implements Listener {
+	private static final ScoreboardManager SCOREBOARD_MANAGER = Bukkit.getScoreboardManager();
+
 	private final FirstPlugin plugin;
 	private final BossBar bossBar;
 
@@ -48,7 +45,9 @@ public final class PlayerJoinEventListener implements Listener {
 	public void onPlayerJoin(@NotNull final PlayerJoinEvent event) {
 		final Player player = event.getPlayer();
 
-		final Scoreboard board = Bukkit.getScoreboardManager().getNewScoreboard();
+		assert SCOREBOARD_MANAGER != null;
+
+		final Scoreboard board = SCOREBOARD_MANAGER.getNewScoreboard();
 		final Objective objective = board.registerNewObjective("epic-board", Criteria.create("dummy"), "epic-board");
 
 		objective.setDisplaySlot(DisplaySlot.SIDEBAR);
@@ -148,9 +147,16 @@ public final class PlayerJoinEventListener implements Listener {
 		final LeatherArmorMeta leggingsMeta = (LeatherArmorMeta) leggings.getItemMeta();
 		final LeatherArmorMeta bootsMeta = (LeatherArmorMeta) boots.getItemMeta();
 
+		assert helmetMeta != null;
 		helmetMeta.setColor(Color.RED);
+
+		assert chestPlateMeta != null;
 		chestPlateMeta.setColor(Color.GREEN);
+
+		assert leggingsMeta != null;
 		leggingsMeta.setColor(Color.BLUE);
+
+		assert bootsMeta != null;
 		bootsMeta.setColor(Color.fromRGB(179, 255, 255));
 
 		helmet.setItemMeta(helmetMeta);
