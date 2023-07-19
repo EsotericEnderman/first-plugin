@@ -69,7 +69,7 @@ public final class HypixelMenuCommand implements CommandExecutor {
 					ChatColor.RESET.toString() + ChatColor.GRAY + "quests.",
 					"",
 					ChatColor.RESET.toString() + ChatColor.GRAY + "Earn " + ChatColor.WHITE + "Event Silver"
-							+ ChatColor.RESET.toString() + ChatColor.GRAY + "when you",
+							+ ChatColor.RESET + ChatColor.GRAY + "when you",
 					ChatColor.RESET.toString() + ChatColor.GRAY + "gain an event level. " + ChatColor.WHITE + "Silver",
 					ChatColor.RESET.toString() + ChatColor.GRAY + "can be used to purchase",
 					ChatColor.RESET.toString() + ChatColor.GRAY + "event-themed cosmetics!",
