@@ -1,9 +1,6 @@
 package net.slqmy.first_plugin.commands;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
+import net.slqmy.first_plugin.utility.Utility;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -15,7 +12,9 @@ import org.bukkit.util.StringUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import net.slqmy.first_plugin.utility.Utility;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public final class FruitCommand implements CommandExecutor, TabCompleter {
 	private static final int ARGUMENT_LENGTH = 2;
@@ -29,7 +28,7 @@ public final class FruitCommand implements CommandExecutor, TabCompleter {
 		}
 
 		if (sender instanceof Player) {
-			((Player) sender).sendMessage(ChatColor.RED + "Sorry, this command doesn't do anything lol.");
+			sender.sendMessage(ChatColor.RED + "Sorry, this command doesn't do anything lol.");
 		} else {
 			Utility.log("/fruit is a player-only command!");
 
