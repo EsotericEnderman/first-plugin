@@ -14,11 +14,14 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.plugin.PluginManager;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Collections;
 
 public final class BroadcastCommand implements CommandExecutor {
+	private static final PluginManager PLUGIN_MANAGER = Bukkit.getPluginManager();
+
 	private final FirstPlugin plugin;
 
 	public BroadcastCommand(@NotNull final FirstPlugin plugin) {
@@ -44,7 +47,7 @@ public final class BroadcastCommand implements CommandExecutor {
 						final String message = snapshot.getText();
 
 						final ServerBroadcastEvent event = new ServerBroadcastEvent(player, message);
-						Bukkit.getPluginManager().callEvent(event);
+						PLUGIN_MANAGER.callEvent(event);
 
 						if (!event.isCancelled()) {
 							Bukkit.broadcastMessage(ChatColor.GOLD + "Broadcast " + ChatColor.RESET + "» "
