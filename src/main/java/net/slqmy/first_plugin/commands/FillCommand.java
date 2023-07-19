@@ -1,7 +1,8 @@
 package net.slqmy.first_plugin.commands;
 
-import java.util.Arrays;
-
+import net.slqmy.first_plugin.FirstPlugin;
+import net.slqmy.first_plugin.utility.Utility;
+import net.slqmy.first_plugin.utility.types.Cuboid;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -13,9 +14,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-import net.slqmy.first_plugin.FirstPlugin;
-import net.slqmy.first_plugin.utility.Utility;
-import net.slqmy.first_plugin.utility.types.Cuboid;
+import java.util.Arrays;
 
 public final class FillCommand implements CommandExecutor {
 	private static final int ARGUMENT_LENGTH = 7;
@@ -77,7 +76,7 @@ public final class FillCommand implements CommandExecutor {
 			player
 					.sendMessage(
 							ChatColor.GREEN + "Successfully filled a cuboid with block type " + ChatColor.RESET + ChatColor.BOLD
-									+ blockType.toString() + ChatColor.GREEN + "!");
+									+ blockType + ChatColor.GREEN + "!");
 		} else {
 			Utility.log("/fill is a player-only command!");
 		}
