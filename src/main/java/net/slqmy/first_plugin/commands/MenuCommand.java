@@ -40,6 +40,9 @@ public final class MenuCommand implements CommandExecutor {
 
 			final ItemStack randomTeleport = new ItemStack(Material.ENDER_PEARL);
 			final ItemMeta randomTeleportMeta = randomTeleport.getItemMeta();
+
+			assert randomTeleportMeta != null;
+
 			randomTeleportMeta.setDisplayName(ChatColor.AQUA.toString() + ChatColor.BOLD + "Random Teleport");
 			randomTeleportMeta.setLore(Arrays.asList(
 					ChatColor.GRAY + "Teleport to a random location in the world.",
@@ -52,6 +55,9 @@ public final class MenuCommand implements CommandExecutor {
 
 			final ItemStack killYourself = new ItemStack(Material.LEAD);
 			final ItemMeta killYourselfMeta = killYourself.getItemMeta();
+
+			assert killYourselfMeta  != null;
+
 			killYourselfMeta.setDisplayName(ChatColor.RED.toString() + ChatColor.BOLD + "Kill Yourself");
 			killYourselfMeta.setLore(Collections.singletonList(
 					ChatColor.WHITE + "You should kill yourself, " + ChatColor.BOLD + "NOW" + ChatColor.WHITE + "!"));
@@ -63,6 +69,9 @@ public final class MenuCommand implements CommandExecutor {
 
 			final ItemStack clearInventory = new ItemStack(Material.BUCKET);
 			final ItemMeta clearInventoryMeta = clearInventory.getItemMeta();
+
+			assert clearInventoryMeta != null;
+
 			clearInventoryMeta.setDisplayName(ChatColor.GREEN.toString() + ChatColor.BOLD + "Clear Inventory");
 			clearInventoryMeta.setLore(Collections.singletonList(
 					ChatColor.GRAY + "You should clear your inventory, " + ChatColor.BOLD + "NOW" + ChatColor.GRAY + "!"));
@@ -74,6 +83,9 @@ public final class MenuCommand implements CommandExecutor {
 
 			final ItemStack magic = new ItemStack(Material.END_CRYSTAL);
 			final ItemMeta magicMeta = magic.getItemMeta();
+
+			assert magicMeta != null;
+
 			magicMeta.setDisplayName(ChatColor.MAGIC.toString() + ChatColor.BOLD + "Magic Operator /\\*&*/\\");
 			magicMeta.setLore(Arrays.asList(
 					ChatColor.GRAY + "The magic operator is an operator in mathematics used only by the top mathematicians.",
@@ -92,6 +104,9 @@ public final class MenuCommand implements CommandExecutor {
 
 			final ItemStack createTheSlimySwamp = new ItemStack(Material.SLIME_BALL);
 			final ItemMeta createTheSlimySwampMeta = createTheSlimySwamp.getItemMeta();
+
+			assert createTheSlimySwampMeta != null;
+
 			createTheSlimySwampMeta.setDisplayName(
 					ChatColor.GREEN + "Create " + THE_SLIMY_SWAMP);
 			createTheSlimySwampMeta.setLore(
@@ -116,6 +131,9 @@ public final class MenuCommand implements CommandExecutor {
 
 			final ItemStack secretButton = new ItemStack(Material.STICK);
 			final ItemMeta secretItemMeta = secretButton.getItemMeta();
+
+			assert secretItemMeta != null;
+
 			secretItemMeta.setDisplayName(ChatColor.LIGHT_PURPLE + "Secret Button");
 			secretItemMeta.setLore(Arrays.asList(ChatColor.GRAY + "Pressing this button kills a random person in the world.",
 					ChatColor.GRAY + "Delay is around one second.", ChatColor.GRAY + "Think this is fake? You can't prove it."));
@@ -137,6 +155,9 @@ public final class MenuCommand implements CommandExecutor {
 
 			final ItemStack frame = new ItemStack(Material.LIME_STAINED_GLASS);
 			final ItemMeta frameMeta = frame.getItemMeta();
+
+			assert frameMeta != null;
+
 			frameMeta.setDisplayName(" ");
 			frame.setItemMeta(frameMeta);
 

@@ -42,6 +42,13 @@ public final class GiveGunsCommand implements CommandExecutor {
 			final ItemMeta poisonLauncherMeta = poisonLauncher.getItemMeta();
 			final ItemMeta rocketLauncherMeta = rocketLauncher.getItemMeta();
 
+			assert pistolMeta != null;
+			assert shotGunMeta != null;
+			assert miniGunMeta != null;
+			assert gatlingGunMeta != null;
+			assert poisonLauncherMeta != null;
+			assert rocketLauncherMeta != null;
+
 			pistolMeta.setDisplayName(ChatColor.GOLD + "Pistol");
 			shotGunMeta.setDisplayName(ChatColor.BLUE + "Shotgun");
 			miniGunMeta.setDisplayName(ChatColor.WHITE + "Mini-gun");
