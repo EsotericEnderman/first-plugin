@@ -1,0 +1,41 @@
+package net.slqmy.first_plugin.events.listeners;
+
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.Hoglin;
+import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.PiglinBrute;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityTargetLivingEntityEvent;
+import org.jetbrains.annotations.NotNull;
+
+import net.slqmy.first_plugin.utility.HoglinRiderUtility;
+
+public final class EntityTargetEntityEventListener implements Listener {
+	@EventHandler
+	public void onEntityTargetEntity(@NotNull final EntityTargetLivingEntityEvent event) {
+		final Entity entity = event.getEntity();
+
+		if (HoglinRiderUtility.isHoglin(entity)) {
+			final PiglinBrute piglin = (PiglinBrute) entity.getPassengers().get(0);
+
+			assert piglin != null;
+
+			final LivingEntity target = event.getTarget();
+
+			if (piglin.getTarget() != target) {
+				piglin.setTarget(target);
+			}
+		} else if (HoglinRiderUtility.isRider(entity)) {
+			final Hoglin hoglin = (Hoglin) entity.getVehicle();
+
+			assert hoglin != null;
+
+			final LivingEntity target = event.getTarget();
+
+			if (hoglin.getTarget() != target) {
+				hoglin.setTarget(target);
+			}
+		}
+	}
+}

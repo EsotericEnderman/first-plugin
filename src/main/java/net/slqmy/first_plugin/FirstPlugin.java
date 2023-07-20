@@ -5,9 +5,11 @@ import com.sk89q.worldedit.WorldEdit;
 import net.slqmy.first_plugin.commands.*;
 import net.slqmy.first_plugin.data.Data;
 import net.slqmy.first_plugin.events.listeners.*;
+import net.slqmy.first_plugin.utility.HoglinRiderUtility;
 import net.slqmy.first_plugin.utility.Utility;
 import net.slqmy.first_plugin.utility.types.Cuboid;
 import net.slqmy.first_plugin.utility.types.Pair;
+import net.slqmy.rank_system.RankSystem;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.boss.BarColor;
@@ -34,11 +36,12 @@ import java.util.*;
 
 public final class FirstPlugin extends JavaPlugin {
 	private static final PluginManager PLUGIN_MANAGER = Bukkit.getPluginManager();
+	private static final RankSystem RANK_SYSTEM = (RankSystem) PLUGIN_MANAGER.getPlugin("Rank-System");
 	private static final BukkitScheduler SCHEDULER = Bukkit.getScheduler();
 	private static final String WORLD_NAME = "world";
 	private static final int MAX_LIGHT_LEVEL = 15;
 
-	private final BossBar bossBar = Bukkit.createBossBar(
+	private static final BossBar bossBar = Bukkit.createBossBar(
 			ChatColor.LIGHT_PURPLE.toString() + ChatColor.BOLD + "Wither Storm",
 			BarColor.PURPLE,
 			BarStyle.SEGMENTED_20
@@ -230,6 +233,11 @@ public final class FirstPlugin extends JavaPlugin {
 		fruitCommand.setExecutor(new FruitCommand());
 		fruitCommand.setTabCompleter(new FruitCommand());
 
+		final PluginCommand spawnRiderCommand = getCommand("spawn-rider");
+
+		spawnRiderCommand.setExecutor(new SpawnRiderCommand());
+		spawnRiderCommand.setTabCompleter(new SpawnRiderCommand());
+
 		// Really easy to make recipes:
 		// Maybe make a recipe manager?
 
@@ -299,6 +307,10 @@ public final class FirstPlugin extends JavaPlugin {
 		isMiniGunBulletKey = new NamespacedKey(this, "is_mini-gun_bullet");
 		isGatlingGunBulletKey = new NamespacedKey(this, "is_gatling_gun_bullet");
 
+		PLUGIN_MANAGER.registerEvents(new EntityDamageEventListener(), this);
+		PLUGIN_MANAGER.registerEvents(new EntityRegenerateEventListener(), this);
+		PLUGIN_MANAGER.registerEvents(new EntityTargetEntityEventListener(), this);
+		PLUGIN_MANAGER.registerEvents(new HoglinMoveEventListener(), this);
 		PLUGIN_MANAGER.registerEvents(new InventoryClickEventListener(), this);
 		PLUGIN_MANAGER.registerEvents(new MapInitialiseEventListener(), this);
 		PLUGIN_MANAGER.registerEvents(new PlayerInteractEntityEventListener(), this);
@@ -309,13 +321,17 @@ public final class FirstPlugin extends JavaPlugin {
 		PLUGIN_MANAGER.registerEvents(new ServerListPingEventListener(), this);
 
 		PLUGIN_MANAGER.registerEvents(new AsyncPlayerChatEventListener(this), this);
+		PLUGIN_MANAGER.registerEvents(new CustomEntitySpawnEventListener(this), this);
 		PLUGIN_MANAGER.registerEvents(new EntityDamageByEntityEventListener(this), this);
+		PLUGIN_MANAGER.registerEvents(new EntityDeathEventListener(this), this);
 		PLUGIN_MANAGER.registerEvents(new PlayerEggThrowEventListener(this), this);
+		PLUGIN_MANAGER.registerEvents(new PlayerInteractEventListener(this), this);
 		PLUGIN_MANAGER.registerEvents(new PlayerJoinEventListener(this), this);
 		PLUGIN_MANAGER.registerEvents(new PlayerMoveEventListener(this), this);
 		PLUGIN_MANAGER.registerEvents(new PlayerQuitEventListener(this), this);
-		PLUGIN_MANAGER.registerEvents(new PlayerInteractEventListener(this), this);
 		PLUGIN_MANAGER.registerEvents(new ProjectileHitEventListener(this), this);
+
+		HoglinRiderUtility.manageHoglinRiders(this);
 
 		// If plugin doesn't support Maven, then add it by going to file => project
 		// structure => libraries.
