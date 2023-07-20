@@ -217,6 +217,7 @@ public final class FirstPlugin extends JavaPlugin {
 		getCommand("skull").setExecutor(new SkullCommand());
 		getCommand("cool-down").setExecutor(new CooldownCommand());
 		getCommand("hologram").setExecutor(new HologramCommand());
+		getCommand("auction-house").setExecutor(new AuctionHouseCommand());
 
 		getCommand("broadcast").setExecutor(new BroadcastCommand(this));
 		getCommand("config").setExecutor(new ConfigCommand(this));
@@ -310,7 +311,6 @@ public final class FirstPlugin extends JavaPlugin {
 		PLUGIN_MANAGER.registerEvents(new EntityDamageEventListener(), this);
 		PLUGIN_MANAGER.registerEvents(new EntityRegenerateEventListener(), this);
 		PLUGIN_MANAGER.registerEvents(new EntityTargetEntityEventListener(), this);
-		PLUGIN_MANAGER.registerEvents(new HoglinMoveEventListener(), this);
 		PLUGIN_MANAGER.registerEvents(new InventoryClickEventListener(), this);
 		PLUGIN_MANAGER.registerEvents(new MapInitialiseEventListener(), this);
 		PLUGIN_MANAGER.registerEvents(new PlayerInteractEntityEventListener(), this);
@@ -324,6 +324,7 @@ public final class FirstPlugin extends JavaPlugin {
 		PLUGIN_MANAGER.registerEvents(new CustomEntitySpawnEventListener(this), this);
 		PLUGIN_MANAGER.registerEvents(new EntityDamageByEntityEventListener(this), this);
 		PLUGIN_MANAGER.registerEvents(new EntityDeathEventListener(this), this);
+		PLUGIN_MANAGER.registerEvents(new HoglinMoveEventListener(this), this);
 		PLUGIN_MANAGER.registerEvents(new PlayerEggThrowEventListener(this), this);
 		PLUGIN_MANAGER.registerEvents(new PlayerInteractEventListener(this), this);
 		PLUGIN_MANAGER.registerEvents(new PlayerJoinEventListener(this), this);

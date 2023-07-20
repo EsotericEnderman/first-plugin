@@ -1,8 +1,8 @@
 package net.slqmy.first_plugin.utility;
 
-import java.util.Arrays;
-import java.util.List;
-
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.Multimap;
+import net.slqmy.first_plugin.utility.types.Pair;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
@@ -13,10 +13,8 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import com.google.common.collect.ArrayListMultimap;
-import com.google.common.collect.Multimap;
-
-import net.slqmy.first_plugin.utility.types.Pair;
+import java.util.Arrays;
+import java.util.List;
 
 public final class InventoryUtility {
 	@NotNull
@@ -30,7 +28,7 @@ public final class InventoryUtility {
 
 		Multimap<Attribute, AttributeModifier> itemModifiers = ArrayListMultimap.create();
 
-		if (itemModifiers != null) {
+		if (modifiers != null) {
 			itemModifiers = modifiers;
 		}
 
@@ -92,5 +90,17 @@ public final class InventoryUtility {
 		}
 
 		return inventory;
+	}
+
+	public static boolean isValidPage(final int pageNumber, @NotNull final List<ItemStack> items,
+			final int slotsPerPage) {
+		return pageNumber > 0 && pageNumber <= Math.ceil((double) items.size() / slotsPerPage);
+	}
+
+	@NotNull
+	public static List<ItemStack> getPageItems(@NotNull final List<ItemStack> items, final int pageNumber,
+			final int slotsPerPage) {
+
+		return items.subList(slotsPerPage * (pageNumber - 1), Math.min(items.size(), slotsPerPage * pageNumber));
 	}
 }

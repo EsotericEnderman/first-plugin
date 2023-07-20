@@ -60,3 +60,5 @@ commands:
     description: Fill a region with a block!
   spawn-rider:
     description: Spawn a hoglin rider! Good luck fighting it!
+  auction-house:
+    description: Open the auction house menu... what is up with this economy?
