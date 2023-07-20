@@ -1,6 +1,5 @@
 package net.slqmy.first_plugin.events.listeners;
 
-import org.bukkit.EntityEffect;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Hoglin;
 import org.bukkit.entity.PiglinBrute;
@@ -22,8 +21,6 @@ public final class EntityDamageEventListener implements Listener {
 			final double health = piglin.getHealth();
 			final double damage = event.getDamage();
 
-			piglin.playEffect(EntityEffect.HURT);
-
 			piglin.setHealth(Math.max(health - damage, 0));
 		} else if (HoglinRiderUtility.isRider(entity)) {
 			final Hoglin hoglin = (Hoglin) entity.getVehicle();
@@ -32,8 +29,6 @@ public final class EntityDamageEventListener implements Listener {
 
 			final double health = hoglin.getHealth();
 			final double damage = event.getDamage();
-
-			hoglin.playEffect(EntityEffect.HURT);
 
 			hoglin.setHealth(Math.max(health - damage, 0));
 		}
