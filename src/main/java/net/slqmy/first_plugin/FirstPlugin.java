@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.sk89q.worldedit.WorldEdit;
 import net.slqmy.first_plugin.commands.*;
 import net.slqmy.first_plugin.data.Data;
+import net.slqmy.first_plugin.enchantments.AutoSmeltingEnchantment;
 import net.slqmy.first_plugin.events.listeners.*;
 import net.slqmy.first_plugin.utility.HoglinRiderUtility;
 import net.slqmy.first_plugin.utility.Utility;
@@ -32,6 +33,7 @@ import org.joml.AxisAngle4f;
 import org.joml.Vector3f;
 
 import java.io.*;
+import java.lang.reflect.Field;
 import java.util.*;
 
 public final class FirstPlugin extends JavaPlugin {
@@ -311,6 +313,10 @@ public final class FirstPlugin extends JavaPlugin {
 		isMiniGunBulletKey = new NamespacedKey(this, "is_mini-gun_bullet");
 		isGatlingGunBulletKey = new NamespacedKey(this, "is_gatling_gun_bullet");
 
+		final AutoSmeltingEnchantment autoSmelting = new AutoSmeltingEnchantment();
+		PLUGIN_MANAGER.registerEvents(autoSmelting, this);
+		registerEnchantment(autoSmelting);
+
 		PLUGIN_MANAGER.registerEvents(new EntityDamageEventListener(), this);
 		PLUGIN_MANAGER.registerEvents(new EntityRegenerateEventListener(), this);
 		PLUGIN_MANAGER.registerEvents(new EntityTargetEntityEventListener(), this);
@@ -462,5 +468,19 @@ public final class FirstPlugin extends JavaPlugin {
 						.broadcastMessage("This executes every " + ChatColor.BOLD + "1500" + ChatColor.RESET + " seconds! ...and "
 								+ ChatColor.BOLD + "10" + ChatColor.RESET + " seconds after the server has started."),
 				200, 30_000);
+	}
+
+	private void registerEnchantment(@NotNull final Enchantment enchantment) {
+		try {
+			Field field = Enchantment.class.getDeclaredField("acceptingNew");
+			field.setAccessible(true);
+			field.set(null, true);
+
+			Enchantment.registerEnchantment(enchantment);
+		} catch (NoSuchFieldException | IllegalAccessException exception) {
+			Utility.log("There was an error registering enchantment " + enchantment.getName() + "!");
+
+			throw new RuntimeException(exception);
+		}
 	}
 }
