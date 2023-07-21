@@ -175,7 +175,7 @@ public final class AuctionHouseGUI {
 			assert rightButtonMeta != null;
 
 			rightButtonMeta.setDisplayName(ChatColor.AQUA + "Next Page " + ChatColor.WHITE + pageNumber + ChatColor.DARK_GRAY
-					+ " » " + (pageNumber + 1));
+					+ " » " + ChatColor.WHITE + (pageNumber + 1));
 
 			rightButton.setItemMeta(rightButtonMeta);
 
