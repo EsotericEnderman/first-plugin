@@ -64,3 +64,5 @@ commands:
     description: Open the auction house menu... what is up with this economy?
   give-snowball:
     description: Receive a non-parabolic snowball from the Minecraft gods.
+  talk:
+    description: Talk to the legendary Slime GPT AI!

@@ -36,7 +36,6 @@ import java.util.*;
 
 public final class FirstPlugin extends JavaPlugin {
 	private static final PluginManager PLUGIN_MANAGER = Bukkit.getPluginManager();
-	private static final RankSystem RANK_SYSTEM = (RankSystem) PLUGIN_MANAGER.getPlugin("Rank-System");
 	private static final BukkitScheduler SCHEDULER = Bukkit.getScheduler();
 	private static final String WORLD_NAME = "world";
 	private static final int MAX_LIGHT_LEVEL = 15;
@@ -51,12 +50,11 @@ public final class FirstPlugin extends JavaPlugin {
 	// BarFlag.DARKEN_SKY, - Same as above, but this definitely does something.
 	// BarFlag.PLAY_BOSS_MUSIC - Seems to not do anything... (I might be wrong).
 	);
-
+	private final RankSystem rankSystem = (RankSystem) PLUGIN_MANAGER.getPlugin("Rank-System");
 	private final Map<UUID, UUID> recentMessages = new HashMap<>();
 	private final List<UUID> movementDisabled = new ArrayList<>();
 
 	private Cuboid latestFill;
-
 	private NamespacedKey isPistolBulletKey;
 	private NamespacedKey isShotgunBulletKey;
 	private NamespacedKey isMiniGunBulletKey;
@@ -64,6 +62,9 @@ public final class FirstPlugin extends JavaPlugin {
 
 	private boolean chatEnabled = true;
 
+	public RankSystem getRankSystem() {
+		return rankSystem;
+	}
 	public Map<UUID, UUID> getRecentMessages() {
 		return recentMessages;
 	}
@@ -229,6 +230,7 @@ public final class FirstPlugin extends JavaPlugin {
 		getCommand("permissions").setExecutor(new PermissionsCommand(this));
 		getCommand("rizz").setExecutor(new RizzCommand(this));
 		getCommand("fill").setExecutor(new FillCommand(this));
+		getCommand("talk").setExecutor(new TalkCommand(this));
 
 		final PluginCommand fruitCommand = getCommand("fruit");
 
@@ -332,6 +334,7 @@ public final class FirstPlugin extends JavaPlugin {
 		PLUGIN_MANAGER.registerEvents(new PlayerQuitEventListener(this), this);
 		PLUGIN_MANAGER.registerEvents(new ProjectileHitEventListener(this), this);
 		PLUGIN_MANAGER.registerEvents(new ProjectileLaunchEventListener(this), this);
+		PLUGIN_MANAGER.registerEvents(new TalkCommand(this), this);
 
 		HoglinRiderUtility.manageHoglinRiders(this);
 
