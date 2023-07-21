@@ -1,5 +1,9 @@
 package net.slqmy.first_plugin.commands;
 
+import net.slqmy.first_plugin.FirstPlugin;
+import net.slqmy.first_plugin.utility.Utility;
+import net.slqmy.rank_system.managers.RankManager;
+import net.slqmy.rank_system.types.Rank;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -8,17 +12,16 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-import net.slqmy.first_plugin.FirstPlugin;
-import net.slqmy.first_plugin.utility.Utility;
-
 import java.util.Arrays;
 import java.util.Map;
 import java.util.UUID;
 
 public final class ReplyCommand implements CommandExecutor {
+	private final RankManager rankManager;
 	private final Map<UUID, UUID> recentMessages;
 
 	public ReplyCommand(@NotNull final FirstPlugin plugin) {
+		this.rankManager = plugin.getRankSystem().getRankManager();
 		this.recentMessages = plugin.getRecentMessages();
 	}
 
@@ -37,9 +40,9 @@ public final class ReplyCommand implements CommandExecutor {
 			if (!recentMessages.containsKey(playerUUID)) {
 				player.sendMessage(ChatColor.RED + "No one has messaged you yet!");
 			} else {
-				final UUID targetPlayerUUID = recentMessages.get(playerUUID);
+				final UUID targetUUID = recentMessages.get(playerUUID);
 
-				final Player targetPlayer = Bukkit.getPlayer(targetPlayerUUID);
+				final Player targetPlayer = Bukkit.getPlayer(targetUUID);
 
 				if (targetPlayer == null) {
 					player.sendMessage(ChatColor.RED + "That player is not online!");
@@ -50,11 +53,20 @@ public final class ReplyCommand implements CommandExecutor {
 						message.append(word).append(" ");
 					}
 
-					player.sendMessage(ChatColor.AQUA + "You » " + targetPlayer.getName() + ": " + ChatColor.WHITE + message);
-					targetPlayer.sendMessage(ChatColor.AQUA + player.getName() + " » You: " + ChatColor.WHITE + message);
+					final Rank playerRank = rankManager.getPlayerRank(playerUUID, false);
+					final Rank targetRank = rankManager.getPlayerRank(targetUUID, false);
 
-					if (!recentMessages.containsKey(targetPlayerUUID) || recentMessages.get(targetPlayerUUID) != playerUUID) {
-						recentMessages.put(targetPlayerUUID, playerUUID);
+					final String playerDisplayName = playerRank.getDisplayName();
+					final String targetDisplayName = targetRank.getDisplayName();
+
+					final String playerDisplay = playerDisplayName.equals(ChatColor.RESET.toString() + ChatColor.RESET) ? ChatColor.RESET.toString() : playerDisplayName + " ";
+					final String targetDisplay = targetDisplayName.equals(ChatColor.RESET.toString() + ChatColor.RESET) ? ChatColor.RESET.toString() : targetDisplayName + " ";
+
+					player.sendMessage(playerDisplay + "You " + ChatColor.AQUA + "» " + targetDisplay +  targetPlayer.getName() + ": " + message);
+					targetPlayer.sendMessage(playerDisplay + player.getName() + ChatColor.AQUA +  " » " + targetDisplay + "You: " + message);
+
+					if (!recentMessages.containsKey(targetUUID) || recentMessages.get(targetUUID) != playerUUID) {
+						recentMessages.put(targetUUID, playerUUID);
 					}
 				}
 			}
