@@ -220,7 +220,7 @@ public final class FirstPlugin extends JavaPlugin {
 		getCommand("skull").setExecutor(new SkullCommand());
 		getCommand("cool-down").setExecutor(new CooldownCommand());
 		getCommand("hologram").setExecutor(new HologramCommand());
-		getCommand("auction-house").setExecutor(new AuctionHouseCommand());
+		new AuctionHouseCommand();
 		getCommand("give-snowball").setExecutor(new GiveSnowballCommand());
 
 		getCommand("broadcast").setExecutor(new BroadcastCommand(this));
@@ -472,12 +472,12 @@ public final class FirstPlugin extends JavaPlugin {
 
 	private void registerEnchantment(@NotNull final Enchantment enchantment) {
 		try {
-			Field field = Enchantment.class.getDeclaredField("acceptingNew");
+			final Field field = Enchantment.class.getDeclaredField("acceptingNew");
 			field.setAccessible(true);
 			field.set(null, true);
 
 			Enchantment.registerEnchantment(enchantment);
-		} catch (NoSuchFieldException | IllegalAccessException exception) {
+		} catch (final NoSuchFieldException | IllegalAccessException exception) {
 			Utility.log("There was an error registering enchantment " + enchantment.getName() + "!");
 
 			throw new RuntimeException(exception);

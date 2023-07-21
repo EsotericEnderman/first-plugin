@@ -60,8 +60,6 @@ commands:
     description: Fill a region with a block!
   spawn-rider:
     description: Spawn a hoglin rider! Good luck fighting it!
-  auction-house:
-    description: Open the auction house menu... what is up with this economy?
   give-snowball:
     description: Receive a non-parabolic snowball from the Minecraft gods.
   talk:
