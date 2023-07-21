@@ -218,6 +218,7 @@ public final class FirstPlugin extends JavaPlugin {
 		getCommand("cool-down").setExecutor(new CooldownCommand());
 		getCommand("hologram").setExecutor(new HologramCommand());
 		getCommand("auction-house").setExecutor(new AuctionHouseCommand());
+		getCommand("give-snowball").setExecutor(new GiveSnowballCommand());
 
 		getCommand("broadcast").setExecutor(new BroadcastCommand(this));
 		getCommand("config").setExecutor(new ConfigCommand(this));
@@ -316,7 +317,6 @@ public final class FirstPlugin extends JavaPlugin {
 		PLUGIN_MANAGER.registerEvents(new PlayerInteractEntityEventListener(), this);
 		PLUGIN_MANAGER.registerEvents(new PlayerResourcePackStatusEventListener(), this);
 		PLUGIN_MANAGER.registerEvents(new PlayerToggleSneakEventListener(), this);
-		PLUGIN_MANAGER.registerEvents(new ProjectileLaunchEventListener(), this);
 		PLUGIN_MANAGER.registerEvents(new ServerBroadcastEventListener(), this);
 		PLUGIN_MANAGER.registerEvents(new ServerListPingEventListener(), this);
 
@@ -331,6 +331,7 @@ public final class FirstPlugin extends JavaPlugin {
 		PLUGIN_MANAGER.registerEvents(new PlayerMoveEventListener(this), this);
 		PLUGIN_MANAGER.registerEvents(new PlayerQuitEventListener(this), this);
 		PLUGIN_MANAGER.registerEvents(new ProjectileHitEventListener(this), this);
+		PLUGIN_MANAGER.registerEvents(new ProjectileLaunchEventListener(this), this);
 
 		HoglinRiderUtility.manageHoglinRiders(this);
 
