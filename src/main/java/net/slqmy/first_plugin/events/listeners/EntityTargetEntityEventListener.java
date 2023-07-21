@@ -22,8 +22,9 @@ public final class EntityTargetEntityEventListener implements Listener {
 			assert piglin != null;
 
 			final LivingEntity target = event.getTarget();
+			final LivingEntity piglinTarget = piglin.getTarget();
 
-			if (target != null && !piglin.getTarget().equals(target)) {
+			if (piglinTarget == null || !piglinTarget.equals(target)) {
 				piglin.setTarget(target);
 			}
 		} else if (HoglinRiderUtility.isRider(entity)) {
@@ -32,8 +33,9 @@ public final class EntityTargetEntityEventListener implements Listener {
 			assert hoglin != null;
 
 			final LivingEntity target = event.getTarget();
+			final LivingEntity hoglinTarget = hoglin.getTarget();
 
-			if (target != null && !hoglin.getTarget().equals(target)) {
+			if (hoglinTarget == null || !hoglinTarget.equals(target)) {
 				hoglin.setTarget(target);
 			}
 		}

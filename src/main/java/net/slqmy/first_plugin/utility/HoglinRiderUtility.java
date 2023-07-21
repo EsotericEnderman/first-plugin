@@ -166,11 +166,20 @@ public final class HoglinRiderUtility {
 
 		final List<Entity> passengers = entity.getPassengers();
 
+		if (passengers.isEmpty()) {
+			return false;
+		}
+
+		final String customName = entity.getCustomName();
+		final Entity passenger = passengers.get(0);
+		final String passengerCustomName = passenger.getCustomName();
+
 		return entity instanceof Hoglin
-				&& entity.getCustomName().equals(HOGLIN_NAME)
-				&& !passengers.isEmpty()
-				&& passengers.get(0) instanceof PiglinBrute
-				&& passengers.get(0).getCustomName().equals(PIGLIN_NAME);
+				&& customName != null
+				&& customName.equals(HOGLIN_NAME)
+				&& passenger instanceof PiglinBrute
+				&& passengerCustomName != null
+				&& passengerCustomName.equals(PIGLIN_NAME);
 	}
 
 	public static boolean isRider(@Nullable final Entity entity) {
@@ -180,9 +189,18 @@ public final class HoglinRiderUtility {
 
 		final Entity vehicle = entity.getVehicle();
 
+		if (vehicle == null) {
+			return false;
+		}
+
+		final String customName = entity.getCustomName();
+		final String vehicleCustomName = vehicle.getCustomName();
+
 		return entity instanceof PiglinBrute
-				&& entity.getCustomName().equals(PIGLIN_NAME)
-				&& vehicle != null && vehicle instanceof Hoglin
-				&& vehicle.getCustomName().equals(HOGLIN_NAME);
+				&& customName != null
+				&& customName.equals(PIGLIN_NAME)
+				&& vehicle instanceof Hoglin
+				&& vehicleCustomName != null
+				&& vehicleCustomName.equals(HOGLIN_NAME);
 	}
 }
