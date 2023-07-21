@@ -131,7 +131,7 @@ public final class PlayerInteractEventListener implements Listener {
 
 			egg.setFireTicks(300);
 			player.spawnParticle(Particle.LAVA, playerLocation, 10, 1, 1, 1);
-		} else if (mainHandMaterial == Material.IRON_HOE && itemName.equals(ChatColor.WHITE + "Mini-gun")) {
+		} else if (mainHandMaterial == Material.IRON_HOE && itemName.equals(ChatColor.WHITE + "Mini-Gun")) {
 			final Snowball snowball = player.launchProjectile(Snowball.class, playerDirection.multiply(5));
 
 			final PersistentDataContainer container = snowball.getPersistentDataContainer();
@@ -140,7 +140,7 @@ public final class PlayerInteractEventListener implements Listener {
 			snowball.setFireTicks(300);
 			player.spawnParticle(Particle.WHITE_ASH, playerLocation, 10, 1, 1, 1);
 		} else if (mainHandMaterial == Material.GOLDEN_HOE && itemName.equals(
-				ChatColor.DARK_BLUE.toString() + ChatColor.BOLD + "Gatling gun")) {
+				ChatColor.DARK_BLUE.toString() + ChatColor.BOLD + "Gatling Gun")) {
 			final Trident trident = player.launchProjectile(Trident.class, playerDirection.multiply(8.5F));
 
 			final PersistentDataContainer container = trident.getPersistentDataContainer();
@@ -149,7 +149,7 @@ public final class PlayerInteractEventListener implements Listener {
 			trident.setFireTicks(300);
 			player.spawnParticle(Particle.FLAME, playerLocation, 10, 1, 1, 1);
 		} else if (mainHandMaterial == Material.DIAMOND_HOE && itemName.equals(
-				ChatColor.DARK_GREEN.toString() + ChatColor.BOLD + "Poison launcher")) {
+				ChatColor.DARK_GREEN.toString() + ChatColor.BOLD + "Poison Launcher")) {
 			final ItemStack poisonPotion = new ItemStack(Material.LINGERING_POTION);
 			final PotionMeta meta = (PotionMeta) poisonPotion.getItemMeta();
 
@@ -173,7 +173,7 @@ public final class PlayerInteractEventListener implements Listener {
 			potion.setItem(poisonPotion);
 			player.spawnParticle(Particle.SMOKE_LARGE, playerLocation, 10, 1, 1, 1);
 		} else if (mainHandMaterial == Material.NETHERITE_HOE && itemName.equals(
-				ChatColor.RED.toString() + ChatColor.BOLD + "Rocket launcher")) {
+				ChatColor.RED.toString() + ChatColor.BOLD + "Rocket Launcher")) {
 			final Fireball fireball = player.launchProjectile(Fireball.class, playerDirection.multiply(4.2F));
 
 			fireball.setYield(4.2F);

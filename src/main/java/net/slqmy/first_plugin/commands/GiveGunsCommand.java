@@ -51,10 +51,10 @@ public final class GiveGunsCommand implements CommandExecutor {
 
 			pistolMeta.setDisplayName(ChatColor.GOLD + "Pistol");
 			shotGunMeta.setDisplayName(ChatColor.BLUE + "Shotgun");
-			miniGunMeta.setDisplayName(ChatColor.WHITE + "Mini-gun");
-			gatlingGunMeta.setDisplayName(ChatColor.DARK_BLUE.toString() + ChatColor.BOLD + "Gatling gun");
-			poisonLauncherMeta.setDisplayName(ChatColor.DARK_GREEN.toString() + ChatColor.BOLD + "Poison launcher");
-			rocketLauncherMeta.setDisplayName(ChatColor.RED.toString() + ChatColor.BOLD + "Rocket launcher");
+			miniGunMeta.setDisplayName(ChatColor.WHITE + "Mini-Gun");
+			gatlingGunMeta.setDisplayName(ChatColor.DARK_BLUE.toString() + ChatColor.BOLD + "Gatling Gun");
+			poisonLauncherMeta.setDisplayName(ChatColor.DARK_GREEN.toString() + ChatColor.BOLD + "Poison Launcher");
+			rocketLauncherMeta.setDisplayName(ChatColor.RED.toString() + ChatColor.BOLD + "Rocket Launcher");
 
 			pistol.setItemMeta(pistolMeta);
 			shotgun.setItemMeta(shotGunMeta);
