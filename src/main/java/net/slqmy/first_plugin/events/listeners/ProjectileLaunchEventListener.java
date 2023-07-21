@@ -53,7 +53,9 @@ public final class ProjectileLaunchEventListener implements Listener {
 				if ((mainHandMeta != null && mainHandMeta.getDisplayName().equals("Non-Parabolic Snowball")) || (offHandMeta != null && offHandMeta.getDisplayName().equals("Non-Parabolic Snowball"))) {
 					projectile.setVelocity(projectile.getVelocity().multiply(2F));
 
-					projectile.addPassenger(player);
+					if (!player.isSneaking()) {
+						projectile.addPassenger(player);
+					}
 
 					new BukkitRunnable() {
 						@Override
