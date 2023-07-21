@@ -1,7 +1,7 @@
 package net.slqmy.first_plugin.commands;
 
 import net.slqmy.first_plugin.utility.Utility;
-import net.slqmy.first_plugin.utility.types.AuctionHouseGUI;
+import net.slqmy.first_plugin.types.AuctionHouseGUI;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;

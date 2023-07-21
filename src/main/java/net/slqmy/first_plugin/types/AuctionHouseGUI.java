@@ -1,4 +1,4 @@
-package net.slqmy.first_plugin.utility.types;
+package net.slqmy.first_plugin.types;
 
 import net.slqmy.first_plugin.utility.InventoryUtility;
 import org.bukkit.Bukkit;

@@ -1,6 +1,6 @@
 package net.slqmy.first_plugin.events.listeners;
 
-import net.slqmy.first_plugin.utility.types.AuctionHouseGUI;
+import net.slqmy.first_plugin.types.AuctionHouseGUI;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.World;
