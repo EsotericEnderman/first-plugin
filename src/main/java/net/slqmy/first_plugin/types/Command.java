@@ -8,6 +8,7 @@ import org.bukkit.command.CommandMap;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.defaults.BukkitCommand;
 import org.bukkit.entity.Player;
+import org.bukkit.util.StringUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -107,7 +108,7 @@ public abstract class Command extends BukkitCommand {
 		if (argLengths.contains(args.length) && (!playerOnly || sender instanceof Player)) {
 			final List<String> results = onTabComplete(sender, args);
 
-			return results == null ? new ArrayList<>() : results;
+			return results == null ? new ArrayList<>() : StringUtil.copyPartialMatches(args[args.length - 1], results, new ArrayList<>());
 		}
 
 		return new ArrayList<>();
