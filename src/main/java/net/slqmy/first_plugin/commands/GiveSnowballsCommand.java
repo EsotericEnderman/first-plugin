@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class GiveSnowballsCommand extends Command {
+public final class GiveSnowballsCommand extends Command {
 
 	public GiveSnowballsCommand() {
 		super(
@@ -33,7 +33,7 @@ public class GiveSnowballsCommand extends Command {
 		if (sender instanceof Player) {
 			final float velocity;
 
-			if (args.length == 1) {
+			if (args.length >= 1) {
 				try {
 					velocity = Float.parseFloat(args[0]);
 				} catch (NumberFormatException exception) {
@@ -63,7 +63,7 @@ public class GiveSnowballsCommand extends Command {
 
 			final ItemStack snowball = InventoryUtility.createItem(
 							Material.SNOWBALL,
-					ChatColor.RESET + "Non-Parabolic Snowball",
+							"Non-Parabolic Snowball",
 							ChatColor.DARK_GRAY + "| " + ChatColor.GRAY + "Minecraft has air resistance...\n"
 							  + ChatColor.GRAY + "Entity: " + ChatColor.YELLOW + ChatColor.UNDERLINE + entity + "\n" + ChatColor.GRAY + "Velocity: " + ChatColor.YELLOW + ChatColor.UNDERLINE + velocity
 			);
