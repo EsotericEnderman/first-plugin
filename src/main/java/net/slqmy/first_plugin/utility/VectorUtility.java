@@ -82,8 +82,8 @@ public final class VectorUtility {
 
 		// Use formula to calculate the magnitude of the velocity.
 		final double magnitude = Math
-				.sqrt((-GRAVITY * midPointX * midPointX)
-						/ (2 * cosine * (maxHeightGain * cosine - midPointX * Math.sin(thetaRadians))));
+				.sqrt((GRAVITY * midPointX * midPointX)
+						/ (2 * cosine * (Math.sin(thetaRadians) * midPointX - cosine * maxHeightGain)));
 
 		Utility.log("Magnitude: " + magnitude);
 
