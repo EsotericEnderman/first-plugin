@@ -34,6 +34,9 @@ import org.joml.Vector3f;
 
 import java.io.*;
 import java.lang.reflect.Field;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.*;
 
 public final class FirstPlugin extends JavaPlugin {
@@ -56,6 +59,7 @@ public final class FirstPlugin extends JavaPlugin {
 	private final Map<UUID, UUID> recentMessages = new HashMap<>();
 	private final List<UUID> movementDisabled = new ArrayList<>();
 
+	private Database database;
 	private Cuboid latestFill;
 	private NamespacedKey isPistolBulletKey;
 	private NamespacedKey isShotgunBulletKey;
@@ -203,6 +207,65 @@ public final class FirstPlugin extends JavaPlugin {
 			exception.printStackTrace();
 			Utility.log(exception);
 		}
+
+		database = new Database(this);
+
+		try {
+			database.connect();
+
+			final PreparedStatement statement1 = database.getConnection().prepareStatement(
+							"INSERT INTO TableName (C1, C2, C3) VALUES (?, ?, ?);"
+			);
+
+			statement1.setString(1, "banana");
+			statement1.setInt(2, 31);
+			statement1.setString(3, "apple");
+			statement1.executeUpdate();
+
+			final PreparedStatement statement2 = database.getConnection().prepareStatement(
+							"UPDATE TableName SET column1 = ? WHERE column2 = ? AND column3 = ?;"
+			);
+
+			statement2.setString(1, "banana");
+			statement2.setString(2, "apple");
+			statement2.setString(3, "lemon");
+			statement2.executeUpdate();
+
+			final PreparedStatement statement3 = database.getConnection().prepareStatement(
+							"DELETE FROM TableName WHERE column1 = ?;"
+			);
+
+			statement3.setString(1, "orange");
+			statement3.executeUpdate();
+
+			final PreparedStatement statement4 = database.getConnection().prepareStatement(
+							"SELECT * FROM TableName where column1 = ?;"
+			);
+
+			statement4.setInt(1, 1);
+			final ResultSet set1 = statement4.executeQuery();
+
+			while (set1.next()) {
+				Utility.log(set1.getString("UUID"));
+			}
+
+			final PreparedStatement statement5 = database.getConnection().prepareStatement(
+							"SELECT UUID, RANK FROM TableName where column1 = ?;"
+			);
+
+			statement5.setInt(1, 1);
+			final ResultSet set2 = statement5.executeQuery();
+
+			while (set2.next()) {
+				Utility.log(set2.getString("UUID"));
+			}
+		} catch (final SQLException exception) {
+			Utility.log("There was an error while connection to the database!");
+
+			throw new RuntimeException(exception);
+		}
+
+		Utility.log("Connected to database? " + (database.isConnected() ? "yes" : "no") + "!");
 
 		// Handling commands.
 
@@ -484,5 +547,11 @@ public final class FirstPlugin extends JavaPlugin {
 
 			throw new RuntimeException(exception);
 		}
+	}
+
+	@Override
+	public void onDisable() {
+		// Plugin shutdown logic.
+		database.disconnect();
 	}
 }
