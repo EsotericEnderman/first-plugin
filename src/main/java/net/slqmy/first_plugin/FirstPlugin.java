@@ -221,7 +221,7 @@ public final class FirstPlugin extends JavaPlugin {
 		getCommand("cool-down").setExecutor(new CooldownCommand());
 		getCommand("hologram").setExecutor(new HologramCommand());
 		new AuctionHouseCommand();
-		getCommand("give-snowball").setExecutor(new GiveSnowballCommand());
+		new GiveSnowballsCommand();
 
 		getCommand("broadcast").setExecutor(new BroadcastCommand(this));
 		getCommand("config").setExecutor(new ConfigCommand(this));
@@ -236,11 +236,13 @@ public final class FirstPlugin extends JavaPlugin {
 
 		final PluginCommand fruitCommand = getCommand("fruit");
 
+		assert fruitCommand != null;
 		fruitCommand.setExecutor(new FruitCommand());
 		fruitCommand.setTabCompleter(new FruitCommand());
 
 		final PluginCommand spawnRiderCommand = getCommand("spawn-rider");
 
+		assert spawnRiderCommand != null;
 		spawnRiderCommand.setExecutor(new SpawnRiderCommand());
 		spawnRiderCommand.setTabCompleter(new SpawnRiderCommand());
 

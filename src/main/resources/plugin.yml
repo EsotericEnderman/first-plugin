@@ -60,7 +60,5 @@ commands:
     description: Fill a region with a block!
   spawn-rider:
     description: Spawn a hoglin rider! Good luck fighting it!
-  give-snowball:
-    description: Receive a non-parabolic snowball from the Minecraft gods.
   talk:
     description: Talk to the legendary Slime GPT AI!

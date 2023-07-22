@@ -1,21 +1,34 @@
 package net.slqmy.first_plugin.commands;
 
+import net.slqmy.first_plugin.types.Command;
 import net.slqmy.first_plugin.utility.InventoryUtility;
 import net.slqmy.first_plugin.utility.Utility;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
-public class GiveSnowballCommand implements CommandExecutor {
+import java.util.Arrays;
+import java.util.List;
+
+public class GiveSnowballsCommand extends Command {
+
+	public GiveSnowballsCommand() {
+		super(
+						"give-snowballs",
+						"Receive a non-parabolic snowball from the Minecraft gods.",
+						"/give-snowballs <starting velocity>",
+						new Integer[] { 0 },
+						new String[] { "gs", "snowball", "sb" },
+						"first_plugin.give_snowball",
+						true
+		);
+	}
 
 	@Override
-	public boolean onCommand(@NotNull final CommandSender sender, @NotNull final Command command,
-			@NotNull final String label, @NotNull final String[] args) {
+	public boolean execute(@NotNull final CommandSender sender, @NotNull final String[] args) {
 		if (args.length != 0) {
 			return false;
 		}
@@ -33,5 +46,10 @@ public class GiveSnowballCommand implements CommandExecutor {
 		}
 
 		return true;
+	}
+
+	@Override
+	public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull String[] args) {
+		return Arrays.asList("1", "2", "3", "4", "5");
 	}
 }
