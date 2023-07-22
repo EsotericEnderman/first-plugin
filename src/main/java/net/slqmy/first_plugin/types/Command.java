@@ -77,12 +77,12 @@ public abstract class Command extends BukkitCommand {
 		if (!argLengths.contains(args.length) || (args.length != 0 && "".equals(Arrays.toString(args).trim()))) {
 			if (sender instanceof Player) {
 				sender.sendMessage(
-								" \n" + ChatColor.RED + "Invalid command usage! Please use " + ChatColor.UNDERLINE + usage + ChatColor.RED + "!\n\n"
+								" \n" + ChatColor.RED + "Invalid command usage!\nPlease use " + ChatColor.UNDERLINE + usage + ChatColor.RED + "!\n \n"
 								+ ChatColor.RESET + ChatColor.UNDERLINE + "/" + name + "\n"
-								+ "• " + ChatColor.GRAY + description + "\n"
-								+ ChatColor.RESET + "• Usage: " + ChatColor.GRAY + usage + "\n"
-								+ ChatColor.RESET + "• Aliases: " + ChatColor.GRAY + aliases.toString() + "\n"
-								+ ChatColor.RESET + "• Permission: " + ChatColor.GRAY + permission + "\n "
+								+ ChatColor.DARK_GRAY + "• " + ChatColor.GRAY + description + "\n"
+								+ ChatColor.DARK_GRAY + "• " + ChatColor.RESET + "Usage: " + ChatColor.GRAY + usage + "\n"
+								+ ChatColor.DARK_GRAY + "• " + ChatColor.RESET + "Aliases: " + ChatColor.GRAY + String.join(", ", aliases) + "\n"
+								+ ChatColor.DARK_GRAY + "• " + ChatColor.RESET + "Permission: " + ChatColor.GRAY + permission + "\n "
 				);
 
 			} else {
@@ -90,7 +90,7 @@ public abstract class Command extends BukkitCommand {
 				Utility.log("/" + name);
 				Utility.log("• " + description);
 				Utility.log("• Usage: " + usage);
-				Utility.log("• Aliases: " + aliases.toString());
+				Utility.log("• Aliases: " + String.join(", ", aliases));
 				Utility.log("• Permission: " + permission);
 
 			}
