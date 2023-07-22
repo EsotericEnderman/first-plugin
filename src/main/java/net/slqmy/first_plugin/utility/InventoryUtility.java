@@ -4,6 +4,7 @@ import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 import net.slqmy.first_plugin.utility.types.Pair;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
@@ -24,7 +25,7 @@ public final class InventoryUtility {
 		final ItemMeta itemMeta = itemStack.getItemMeta();
 		assert itemMeta != null;
 
-		itemMeta.setDisplayName(name);
+		itemMeta.setDisplayName(ChatColor.RESET + name);
 
 		Multimap<Attribute, AttributeModifier> itemModifiers = ArrayListMultimap.create();
 
@@ -46,7 +47,7 @@ public final class InventoryUtility {
 		final ItemMeta itemMeta = itemStack.getItemMeta();
 		assert itemMeta != null;
 
-		itemMeta.setDisplayName(name);
+		itemMeta.setDisplayName(ChatColor.RESET + name);
 
 		final String[] loreArray = lore.split("\n");
 		itemMeta.setLore(Arrays.asList(loreArray));
@@ -62,7 +63,7 @@ public final class InventoryUtility {
 		final ItemMeta itemMeta = itemStack.getItemMeta();
 		assert itemMeta != null;
 
-		itemMeta.setDisplayName(name);
+		itemMeta.setDisplayName(ChatColor.RESET + name);
 
 		itemStack.setItemMeta(itemMeta);
 

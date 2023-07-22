@@ -236,6 +236,7 @@ public final class Main extends JavaPlugin {
 		getCommand("hologram").setExecutor(new HologramCommand());
 		new AuctionHouseCommand();
 		new GiveSnowballsCommand();
+		new GiveRodCommand();
 
 		getCommand("broadcast").setExecutor(new BroadcastCommand(this));
 		getCommand("config").setExecutor(new ConfigCommand(this));
