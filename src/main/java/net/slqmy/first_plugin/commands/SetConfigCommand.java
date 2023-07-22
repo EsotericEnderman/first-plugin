@@ -1,10 +1,10 @@
 package net.slqmy.first_plugin.commands;
 
-import net.slqmy.first_plugin.FirstPlugin;
-
+import net.slqmy.first_plugin.Main;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
@@ -13,10 +13,12 @@ import java.util.List;
 public final class SetConfigCommand implements CommandExecutor {
 	private static final int ARGUMENT_LENGTH = 2;
 
-	private final FirstPlugin firstPlugin;
+	private final Main plugin;
+	private final YamlConfiguration config;
 
-	public SetConfigCommand(@NotNull final FirstPlugin firstPlugin) {
-		this.firstPlugin = firstPlugin;
+	public SetConfigCommand(@NotNull final Main plugin) {
+		this.plugin = plugin;
+		this.config = (YamlConfiguration) plugin.getConfig();
 	}
 
 	@Override
@@ -27,13 +29,13 @@ public final class SetConfigCommand implements CommandExecutor {
 			return false;
 		}
 
-		firstPlugin.getConfig().set("Word", args[0]);
-		final List<String> stringList = firstPlugin.getConfig().getStringList("Fruits");
+		config.set("Word", args[0]);
+		final List<String> stringList = config.getStringList("Fruits");
 		stringList.add(args[1]);
 
-		firstPlugin.getConfig().set("Fruits", stringList);
+		config.set("Fruits", stringList);
 
-		firstPlugin.saveConfig();
+		plugin.saveConfig();
 
 		return true;
 	}

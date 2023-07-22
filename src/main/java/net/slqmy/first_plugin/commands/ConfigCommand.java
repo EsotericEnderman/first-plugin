@@ -1,6 +1,6 @@
 package net.slqmy.first_plugin.commands;
 
-import net.slqmy.first_plugin.FirstPlugin;
+import net.slqmy.first_plugin.Main;
 import net.slqmy.first_plugin.utility.Utility;
 
 import org.bukkit.ChatColor;
@@ -16,8 +16,8 @@ import java.util.List;
 public final class ConfigCommand implements CommandExecutor {
 	private final YamlConfiguration config;
 
-	public ConfigCommand(@NotNull final FirstPlugin firstPlugin) {
-		this.config = (YamlConfiguration) firstPlugin.getConfig();
+	public ConfigCommand(@NotNull final Main plugin) {
+		config = (YamlConfiguration) plugin.getConfig();
 	}
 
 	@Override

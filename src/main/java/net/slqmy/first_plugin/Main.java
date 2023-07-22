@@ -34,12 +34,10 @@ import org.joml.Vector3f;
 
 import java.io.*;
 import java.lang.reflect.Field;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 
-public final class FirstPlugin extends JavaPlugin {
+public final class Main extends JavaPlugin {
 	private static final PluginManager PLUGIN_MANAGER = Bukkit.getPluginManager();
 	private static final BukkitScheduler SCHEDULER = Bukkit.getScheduler();
 	private static final String WORLD_NAME = "world";
@@ -212,53 +210,6 @@ public final class FirstPlugin extends JavaPlugin {
 
 		try {
 			database.connect();
-
-			final PreparedStatement statement1 = database.getConnection().prepareStatement(
-							"INSERT INTO TableName (C1, C2, C3) VALUES (?, ?, ?);"
-			);
-
-			statement1.setString(1, "banana");
-			statement1.setInt(2, 31);
-			statement1.setString(3, "apple");
-			statement1.executeUpdate();
-
-			final PreparedStatement statement2 = database.getConnection().prepareStatement(
-							"UPDATE TableName SET column1 = ? WHERE column2 = ? AND column3 = ?;"
-			);
-
-			statement2.setString(1, "banana");
-			statement2.setString(2, "apple");
-			statement2.setString(3, "lemon");
-			statement2.executeUpdate();
-
-			final PreparedStatement statement3 = database.getConnection().prepareStatement(
-							"DELETE FROM TableName WHERE column1 = ?;"
-			);
-
-			statement3.setString(1, "orange");
-			statement3.executeUpdate();
-
-			final PreparedStatement statement4 = database.getConnection().prepareStatement(
-							"SELECT * FROM TableName where column1 = ?;"
-			);
-
-			statement4.setInt(1, 1);
-			final ResultSet set1 = statement4.executeQuery();
-
-			while (set1.next()) {
-				Utility.log(set1.getString("UUID"));
-			}
-
-			final PreparedStatement statement5 = database.getConnection().prepareStatement(
-							"SELECT UUID, RANK FROM TableName where column1 = ?;"
-			);
-
-			statement5.setInt(1, 1);
-			final ResultSet set2 = statement5.executeQuery();
-
-			while (set2.next()) {
-				Utility.log(set2.getString("UUID"));
-			}
 		} catch (final SQLException exception) {
 			Utility.log("There was an error while connection to the database!");
 
@@ -413,7 +364,7 @@ public final class FirstPlugin extends JavaPlugin {
 		// structure => libraries.
 		final WorldEdit worldEdit = WorldEdit.getInstance();
 		Utility.log("Is WorldEdit API working? " + (worldEdit == null ? "no" : "yes") + "...");
-		Utility.log("The plugin 'FirstPlugin' has been fully enabled!");
+		Utility.log("The plugin 'Main' has been fully enabled!");
 
 		// Getting persistent data from items:
 		// Create a new ItemStack: ItemStack sponge = new ItemStack(Material.SPONGE);.

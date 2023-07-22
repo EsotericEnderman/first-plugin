@@ -1,6 +1,6 @@
 package net.slqmy.first_plugin.commands;
 
-import net.slqmy.first_plugin.FirstPlugin;
+import net.slqmy.first_plugin.Main;
 import net.slqmy.first_plugin.utility.Utility;
 import net.slqmy.rank_system.managers.RankManager;
 import net.slqmy.rank_system.types.Rank;
@@ -20,9 +20,9 @@ public final class ReplyCommand implements CommandExecutor {
 	private final RankManager rankManager;
 	private final Map<UUID, UUID> recentMessages;
 
-	public ReplyCommand(@NotNull final FirstPlugin plugin) {
-		this.rankManager = plugin.getRankSystem().getRankManager();
-		this.recentMessages = plugin.getRecentMessages();
+	public ReplyCommand(@NotNull final Main plugin) {
+		rankManager = plugin.getRankSystem().getRankManager();
+		recentMessages = plugin.getRecentMessages();
 	}
 
 	@Override

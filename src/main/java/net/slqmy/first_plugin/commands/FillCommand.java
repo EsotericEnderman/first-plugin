@@ -1,6 +1,6 @@
 package net.slqmy.first_plugin.commands;
 
-import net.slqmy.first_plugin.FirstPlugin;
+import net.slqmy.first_plugin.Main;
 import net.slqmy.first_plugin.utility.Utility;
 import net.slqmy.first_plugin.utility.types.Cuboid;
 import org.bukkit.ChatColor;
@@ -19,9 +19,9 @@ import java.util.Arrays;
 public final class FillCommand implements CommandExecutor {
 	private static final int ARGUMENT_LENGTH = 7;
 
-	private final FirstPlugin plugin;
+	private final Main plugin;
 
-	public FillCommand(@NotNull final FirstPlugin plugin) {
+	public FillCommand(@NotNull final Main plugin) {
 		this.plugin = plugin;
 	}
 

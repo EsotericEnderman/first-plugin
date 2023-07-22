@@ -4,7 +4,7 @@ import com.theokanning.openai.OpenAiService;
 import com.theokanning.openai.completion.CompletionRequest;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
-import net.slqmy.first_plugin.FirstPlugin;
+import net.slqmy.first_plugin.Main;
 import net.slqmy.rank_system.managers.RankManager;
 import net.slqmy.rank_system.types.Rank;
 import net.slqmy.rank_system.utility.Utility;
@@ -29,11 +29,11 @@ import java.util.UUID;
 public class TalkCommand implements CommandExecutor, Listener {
 	private static final BukkitScheduler SCHEDULER = Bukkit.getScheduler();
 	private final OpenAiService service;
-	private final FirstPlugin plugin;
+	private final Main plugin;
 	private final RankManager rankManager;
 	private final HashMap<UUID, StringBuilder> conversations = new HashMap<>();
 
-	public TalkCommand(@NotNull final FirstPlugin plugin) {
+	public TalkCommand(@NotNull final Main plugin) {
 		this.plugin = plugin;
 		this.rankManager = plugin.getRankSystem().getRankManager();
 		this.service = new OpenAiService(plugin.getConfig().getString("OpenAI-Key"), 0);

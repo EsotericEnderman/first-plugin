@@ -1,8 +1,9 @@
 package net.slqmy.first_plugin.events.listeners;
 
-import java.util.List;
-import java.util.UUID;
-
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.TextComponent;
+import net.slqmy.first_plugin.Main;
+import net.slqmy.first_plugin.utility.types.Cuboid;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -10,16 +11,14 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.jetbrains.annotations.NotNull;
 
-import net.md_5.bungee.api.ChatMessageType;
-import net.md_5.bungee.api.chat.TextComponent;
-import net.slqmy.first_plugin.FirstPlugin;
-import net.slqmy.first_plugin.utility.types.Cuboid;
+import java.util.List;
+import java.util.UUID;
 
 public final class PlayerMoveEventListener implements Listener {
-	private final FirstPlugin plugin;
+	private final Main plugin;
 	private final List<UUID> movementDisabled;
 
-	public PlayerMoveEventListener(@NotNull final FirstPlugin plugin) {
+	public PlayerMoveEventListener(@NotNull final Main plugin) {
 		this.plugin = plugin;
 		this.movementDisabled = plugin.getMovementDisabled();
 	}

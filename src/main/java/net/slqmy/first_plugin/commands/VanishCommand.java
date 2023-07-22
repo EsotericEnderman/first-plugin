@@ -1,6 +1,6 @@
 package net.slqmy.first_plugin.commands;
 
-import net.slqmy.first_plugin.FirstPlugin;
+import net.slqmy.first_plugin.Main;
 import net.slqmy.first_plugin.utility.Utility;
 
 import org.bukkit.Bukkit;
@@ -18,10 +18,10 @@ import java.util.UUID;
 
 public final class VanishCommand implements CommandExecutor {
 	private final List<UUID> vanished = new ArrayList<>();
-	private final FirstPlugin firstPlugin;
+	private final Main plugin;
 
-	public VanishCommand(final FirstPlugin firstPlugin) {
-		this.firstPlugin = firstPlugin;
+	public VanishCommand(@NotNull final Main plugin) {
+		this.plugin = plugin;
 	}
 
 	@Override
@@ -42,7 +42,7 @@ public final class VanishCommand implements CommandExecutor {
 				vanished.remove(playerUUID);
 
 				for (final Player target : players) {
-					target.showPlayer(firstPlugin, player);
+					target.showPlayer(plugin, player);
 				}
 
 				player.sendMessage(ChatColor.AQUA + "Where did you come from!?");
@@ -50,7 +50,7 @@ public final class VanishCommand implements CommandExecutor {
 				vanished.add(playerUUID);
 
 				for (final Player target : players) {
-					target.hidePlayer(firstPlugin, player);
+					target.hidePlayer(plugin, player);
 				}
 
 				player.sendMessage(ChatColor.AQUA + "Where did you go!?");

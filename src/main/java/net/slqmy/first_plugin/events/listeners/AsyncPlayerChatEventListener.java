@@ -7,12 +7,12 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.jetbrains.annotations.NotNull;
 
-import net.slqmy.first_plugin.FirstPlugin;
+import net.slqmy.first_plugin.Main;
 
 public final class AsyncPlayerChatEventListener implements Listener {
-	private final FirstPlugin plugin;
+	private final Main plugin;
 
-	public AsyncPlayerChatEventListener(@NotNull final FirstPlugin plugin) {
+	public AsyncPlayerChatEventListener(@NotNull final Main plugin) {
 		this.plugin = plugin;
 	}
 

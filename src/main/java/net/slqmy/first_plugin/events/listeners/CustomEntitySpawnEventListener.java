@@ -1,22 +1,21 @@
 package net.slqmy.first_plugin.events.listeners;
 
-import java.util.List;
-
+import net.slqmy.first_plugin.Main;
+import net.slqmy.first_plugin.events.custom_events.CustomEntitySpawnEvent;
+import net.slqmy.first_plugin.utility.HoglinRiderUtility;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Entity;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.jetbrains.annotations.NotNull;
 
-import net.slqmy.first_plugin.FirstPlugin;
-import net.slqmy.first_plugin.events.custom_events.CustomEntitySpawnEvent;
-import net.slqmy.first_plugin.utility.HoglinRiderUtility;
+import java.util.List;
 
 public final class CustomEntitySpawnEventListener implements Listener {
 	private final YamlConfiguration config;
-	private final FirstPlugin plugin;
+	private final Main plugin;
 
-	public CustomEntitySpawnEventListener(@NotNull final FirstPlugin plugin) {
+	public CustomEntitySpawnEventListener(@NotNull final Main plugin) {
 		this.plugin = plugin;
 		this.config = (YamlConfiguration) plugin.getConfig();
 	}

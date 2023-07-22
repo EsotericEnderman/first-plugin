@@ -1,18 +1,7 @@
 package net.slqmy.first_plugin.utility;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.UUID;
-
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.DyeColor;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.Particle;
-import org.bukkit.Sound;
-import org.bukkit.World;
+import net.slqmy.first_plugin.Main;
+import org.bukkit.*;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -28,7 +17,10 @@ import org.bukkit.util.Vector;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import net.slqmy.first_plugin.FirstPlugin;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.UUID;
 
 public final class HoglinRiderUtility {
 	private static final String HOGLIN_NAME = ChatColor.DARK_RED + "The Beast";
@@ -131,7 +123,7 @@ public final class HoglinRiderUtility {
 		}
 	}
 
-	public static void playParticles(@NotNull final FirstPlugin plugin, @Nullable final Entity hoglin) {
+	public static void playParticles(@NotNull final Main plugin, @Nullable final Entity hoglin) {
 		new BukkitRunnable() {
 			public void run() {
 				if (hoglin != null) {
@@ -151,7 +143,7 @@ public final class HoglinRiderUtility {
 		}.runTaskTimer(plugin, 0L, 5L);
 	}
 
-	public static void manageHoglinRiders(@NotNull final FirstPlugin plugin) {
+	public static void manageHoglinRiders(@NotNull final Main plugin) {
 		final List<String> hoglinRiders = plugin.getConfig().getStringList("HoglinRiders");
 
 		for (final String hoglinUUID : hoglinRiders) {

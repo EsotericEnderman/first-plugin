@@ -27,16 +27,16 @@ import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.chat.hover.content.Text;
-import net.slqmy.first_plugin.FirstPlugin;
+import net.slqmy.first_plugin.Main;
 import net.slqmy.first_plugin.utility.Utility;
 
 public final class PlayerJoinEventListener implements Listener {
 	private static final ScoreboardManager SCOREBOARD_MANAGER = Bukkit.getScoreboardManager();
 
-	private final FirstPlugin plugin;
+	private final Main plugin;
 	private final BossBar bossBar;
 
-	public PlayerJoinEventListener(@NotNull final FirstPlugin plugin) {
+	public PlayerJoinEventListener(@NotNull final Main plugin) {
 		this.plugin = plugin;
 		this.bossBar = plugin.getBossBar();
 	}

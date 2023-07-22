@@ -1,5 +1,6 @@
 package net.slqmy.first_plugin.events.listeners;
 
+import net.slqmy.first_plugin.Main;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -15,8 +16,6 @@ import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.NotNull;
 
-import net.slqmy.first_plugin.FirstPlugin;
-
 public final class EntityDamageByEntityEventListener implements Listener {
   private static final BlockData REDSTONE_BLOCK_DATA = Material.REDSTONE_BLOCK.createBlockData();
 
@@ -25,11 +24,11 @@ public final class EntityDamageByEntityEventListener implements Listener {
   private final NamespacedKey isMiniGunBulletKey;
   private final NamespacedKey isGatlingGunBulletKey;
 
-  public EntityDamageByEntityEventListener(@NotNull final FirstPlugin plugin) {
-    this.isPistolBulletKey = plugin.getIsPistolBulletKey();
-    this.isShotgunBulletKey = plugin.getIsShotgunBulletKey();
-    this.isMiniGunBulletKey = plugin.getIsMiniGunBulletKey();
-    this.isGatlingGunBulletKey = plugin.getIsGatlingGunBulletKey();
+  public EntityDamageByEntityEventListener(@NotNull final Main plugin) {
+    isPistolBulletKey = plugin.getIsPistolBulletKey();
+    isShotgunBulletKey = plugin.getIsShotgunBulletKey();
+    isMiniGunBulletKey = plugin.getIsMiniGunBulletKey();
+    isGatlingGunBulletKey = plugin.getIsGatlingGunBulletKey();
   }
 
   @EventHandler

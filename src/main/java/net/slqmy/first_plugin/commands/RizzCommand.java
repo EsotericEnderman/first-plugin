@@ -3,7 +3,7 @@ package net.slqmy.first_plugin.commands;
 import com.xxmicloxx.NoteBlockAPI.model.Song;
 import com.xxmicloxx.NoteBlockAPI.songplayer.EntitySongPlayer;
 import com.xxmicloxx.NoteBlockAPI.utils.NBSDecoder;
-import net.slqmy.first_plugin.FirstPlugin;
+import net.slqmy.first_plugin.Main;
 import net.slqmy.first_plugin.utility.Utility;
 
 import org.bukkit.Bukkit;
@@ -20,8 +20,8 @@ import java.util.Arrays;
 public final class RizzCommand implements CommandExecutor {
 	private final Song whatIsLove;
 
-	public RizzCommand(final FirstPlugin plugin) {
-		this.whatIsLove = NBSDecoder.parse(new File(plugin.getDataFolder(), "What is Love.nbs"));
+	public RizzCommand(@NotNull final Main plugin) {
+		whatIsLove = NBSDecoder.parse(new File(plugin.getDataFolder(), "What is Love.nbs"));
 	}
 
 	@Override

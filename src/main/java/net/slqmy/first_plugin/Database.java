@@ -16,7 +16,7 @@ public final class Database {
 	private final String PASSWORD;
 	private Connection connection;
 
-	public Database(@NotNull final FirstPlugin plugin) {
+	public Database(@NotNull final Main plugin) {
 		final YamlConfiguration config = (YamlConfiguration) plugin.getConfig();
 
 		this.HOST = config.getString("Host");

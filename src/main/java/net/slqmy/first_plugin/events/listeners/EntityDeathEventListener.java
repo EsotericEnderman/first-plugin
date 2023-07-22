@@ -1,6 +1,6 @@
 package net.slqmy.first_plugin.events.listeners;
 
-import net.slqmy.first_plugin.FirstPlugin;
+import net.slqmy.first_plugin.Main;
 import net.slqmy.first_plugin.utility.HoglinRiderUtility;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Hoglin;
@@ -15,10 +15,10 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 public final class EntityDeathEventListener implements Listener {
-	private final FirstPlugin plugin;
+	private final Main plugin;
 	private final YamlConfiguration config;
 
-	public EntityDeathEventListener(final FirstPlugin plugin) {
+	public EntityDeathEventListener(final Main plugin) {
 		this.plugin = plugin;
 		this.config = (YamlConfiguration) plugin.getConfig();
 	}

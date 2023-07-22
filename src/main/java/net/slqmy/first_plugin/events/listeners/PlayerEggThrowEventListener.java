@@ -1,5 +1,6 @@
 package net.slqmy.first_plugin.events.listeners;
 
+import net.slqmy.first_plugin.Main;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Egg;
 import org.bukkit.event.EventHandler;
@@ -9,13 +10,11 @@ import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.NotNull;
 
-import net.slqmy.first_plugin.FirstPlugin;
-
 public final class PlayerEggThrowEventListener implements Listener {
 	private final NamespacedKey isShotgunBulletKey;
 
-	public PlayerEggThrowEventListener(@NotNull final FirstPlugin plugin) {
-		this.isShotgunBulletKey = plugin.getIsShotgunBulletKey();
+	public PlayerEggThrowEventListener(@NotNull final Main plugin) {
+		isShotgunBulletKey = plugin.getIsShotgunBulletKey();
 	}
 
 	@EventHandler

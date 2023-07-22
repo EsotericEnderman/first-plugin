@@ -1,7 +1,7 @@
 package net.slqmy.first_plugin.events.listeners;
 
 import net.minecraft.world.entity.projectile.EntityFishingHook;
-import net.slqmy.first_plugin.FirstPlugin;
+import net.slqmy.first_plugin.Main;
 import net.slqmy.first_plugin.utility.Utility;
 import org.bukkit.*;
 import org.bukkit.Particle.DustTransition;
@@ -30,9 +30,9 @@ public final class ProjectileLaunchEventListener implements Listener {
 	private static final DustTransition DUST_TRANSITION_BLUE = new DustTransition(Color.BLUE, Color.BLUE, 0.65F);
 	private static final DustTransition DUST_TRANSITION_BLACK = new DustTransition(Color.BLACK, Color.BLACK, 0.65F);
 
-	private final FirstPlugin plugin;
+	private final Main plugin;
 
-	public ProjectileLaunchEventListener(@NotNull final FirstPlugin plugin) {
+	public ProjectileLaunchEventListener(@NotNull final Main plugin) {
 		this.plugin = plugin;
 	}
 

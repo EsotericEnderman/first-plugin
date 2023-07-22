@@ -1,6 +1,6 @@
 package net.slqmy.first_plugin.commands;
 
-import net.slqmy.first_plugin.FirstPlugin;
+import net.slqmy.first_plugin.Main;
 import net.slqmy.first_plugin.utility.Utility;
 
 import org.bukkit.ChatColor;
@@ -17,14 +17,14 @@ import java.util.UUID;
 public final class PermissionsCommand implements CommandExecutor {
 	private static final String PERMISSION_STRING = "first_plugin.secret_message";
 
-	private final FirstPlugin firstPlugin;
+	private final Main plugin;
 
 	// In actually good plugins remember to remove unnecessary data when the player
 	// leaves the server.
 	private final HashMap<UUID, PermissionAttachment> permissions = new HashMap<>();
 
-	public PermissionsCommand(FirstPlugin firstPlugin) {
-		this.firstPlugin = firstPlugin;
+	public PermissionsCommand(@NotNull final Main plugin) {
+		this.plugin = plugin;
 	}
 
 	@Override
@@ -42,7 +42,7 @@ public final class PermissionsCommand implements CommandExecutor {
 			final PermissionAttachment attachment;
 			if (!permissions.containsKey(player.getUniqueId())) {
 				// Load permissions on plugin startup, as they are not kept track of.
-				attachment = player.addAttachment(firstPlugin);
+				attachment = player.addAttachment(plugin);
 
 				permissions.put(player.getUniqueId(), attachment);
 			} else {

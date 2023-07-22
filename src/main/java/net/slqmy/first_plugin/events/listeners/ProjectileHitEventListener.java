@@ -1,8 +1,6 @@
 package net.slqmy.first_plugin.events.listeners;
 
-import java.math.RoundingMode;
-import java.text.DecimalFormat;
-
+import net.slqmy.first_plugin.Main;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.NamespacedKey;
@@ -16,7 +14,8 @@ import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.projectiles.ProjectileSource;
 import org.jetbrains.annotations.NotNull;
 
-import net.slqmy.first_plugin.FirstPlugin;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 
 public final class ProjectileHitEventListener implements Listener {
 	private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#.##");
@@ -24,9 +23,9 @@ public final class ProjectileHitEventListener implements Listener {
 	private final NamespacedKey isPistolBulletKey;
 	private final NamespacedKey isGatlingGunBulletKey;
 
-	public ProjectileHitEventListener(@NotNull final FirstPlugin plugin) {
-		this.isPistolBulletKey = plugin.getIsPistolBulletKey();
-		this.isGatlingGunBulletKey = plugin.getIsGatlingGunBulletKey();
+	public ProjectileHitEventListener(@NotNull final Main plugin) {
+		isPistolBulletKey = plugin.getIsPistolBulletKey();
+		isGatlingGunBulletKey = plugin.getIsGatlingGunBulletKey();
 	}
 
 	@EventHandler

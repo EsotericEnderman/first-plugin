@@ -1,6 +1,6 @@
 package net.slqmy.first_plugin.commands;
 
-import net.slqmy.first_plugin.FirstPlugin;
+import net.slqmy.first_plugin.Main;
 import net.slqmy.first_plugin.events.custom_events.ServerBroadcastEvent;
 import net.slqmy.first_plugin.utility.Utility;
 import net.wesjd.anvilgui.AnvilGUI;
@@ -22,9 +22,9 @@ import java.util.Collections;
 public final class BroadcastCommand implements CommandExecutor {
 	private static final PluginManager PLUGIN_MANAGER = Bukkit.getPluginManager();
 
-	private final FirstPlugin plugin;
+	private final Main plugin;
 
-	public BroadcastCommand(@NotNull final FirstPlugin plugin) {
+	public BroadcastCommand(@NotNull final Main plugin) {
 		this.plugin = plugin;
 	}
 
