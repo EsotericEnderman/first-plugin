@@ -6,6 +6,7 @@ import net.slqmy.first_plugin.utility.Utility;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -15,17 +16,15 @@ public final class AuctionHouseCommand extends Command {
             "auction-house",
             "Open the auction house menu... what is up with this economy?",
             "/ah",
-            new String[]{ "ah" },
-            "first_plugin.auction_house"
+            new Integer[] { 0 },
+            new String[]{ "ah", "shop" },
+            "first_plugin.auction_house",
+            true
     );
   }
 
   @Override
   public boolean execute(@NotNull final CommandSender sender, @NotNull final String[] args) {
-    if (args.length != 0) {
-      return false;
-    }
-
     if (sender instanceof Player) {
       ((Player) sender).openInventory(new AuctionHouseGUI(1).getInventory());
     } else {
@@ -38,7 +37,7 @@ public final class AuctionHouseCommand extends Command {
   }
 
   @Override
-  public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull String[] args) {
+  public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull String[] args) {
     return null;
   }
 }
