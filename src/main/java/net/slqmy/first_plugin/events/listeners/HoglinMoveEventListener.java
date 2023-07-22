@@ -37,13 +37,7 @@ public final class HoglinMoveEventListener implements Listener {
 			return;
 		}
 
-		final Entity passenger = entity.getPassengers().get(0);
-
-		if (!HoglinRiderUtility.isRider(passenger)) {
-			return;
-		}
-
-		final PiglinBrute piglin = (PiglinBrute) passenger;
+		final PiglinBrute piglin = (PiglinBrute) entity.getPassengers().get(0);
 		final LivingEntity target = piglin.getTarget();
 
 		if (target == null) {
@@ -54,15 +48,17 @@ public final class HoglinMoveEventListener implements Listener {
 
 		final Location hoglinLocation = hoglin.getLocation();
 		final Location targetLocation = target.getLocation();
-		final double distance = hoglinLocation.distance(targetLocation);
 
-		hoglin.teleport(hoglinLocation.setDirection(piglin.getLocation().getDirection()));
+		targetLocation.add(0, target.getHeight(), 0);
+
+		final double distance = hoglinLocation.distance(targetLocation);
 
 		if (HoglinRiderUtility.canJump(hoglin) && !hoglin.hasPotionEffect(PotionEffectType.INCREASE_DAMAGE)
 				&& distance >= 4) {
 			hoglin.addPotionEffect(HOGLIN_JUMP_EFFECT);
 
-			hoglin.setVelocity(VectorUtility.calculateLeapVelocityVector(hoglin, targetLocation, 5.6F));
+			hoglin.setVelocity(
+					VectorUtility.calculateLeapVelocityVector(hoglin, targetLocation, 5.6F));
 
 			final AttributeInstance movementSpeed = hoglin.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED);
 
