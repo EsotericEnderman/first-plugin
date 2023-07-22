@@ -21,6 +21,7 @@ import org.bukkit.potion.PotionData;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.potion.PotionType;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 import org.jetbrains.annotations.NotNull;
 
@@ -28,6 +29,7 @@ import java.util.List;
 import java.util.UUID;
 
 public final class PlayerInteractEventListener implements Listener {
+	private static final Particle.DustTransition DUST_TRANSITION_GREEN = new Particle.DustTransition(Color.GREEN, Color.GREEN, 0.85F);
 	private static final PotionEffect[] poisonLauncherEffects = {
 			new PotionEffect(PotionEffectType.POISON, PotionEffect.INFINITE_DURATION, 1, true, true, true),
 			new PotionEffect(PotionEffectType.HARM, PotionEffect.INFINITE_DURATION, 1, true, true, true),
@@ -37,7 +39,8 @@ public final class PlayerInteractEventListener implements Listener {
 			new PotionEffect(PotionEffectType.HUNGER, PotionEffect.INFINITE_DURATION, 99, true, true),
 			new PotionEffect(PotionEffectType.SLOW, PotionEffect.INFINITE_DURATION, 1, true, true),
 			new PotionEffect(PotionEffectType.SLOW_DIGGING, PotionEffect.INFINITE_DURATION, 1, true, true),
-			new PotionEffect(PotionEffectType.WEAKNESS, PotionEffect.INFINITE_DURATION, 1, true, true)
+			new PotionEffect(PotionEffectType.WEAKNESS, PotionEffect.INFINITE_DURATION, 1, true, true),
+			new PotionEffect(PotionEffectType.WITHER, PotionEffect.INFINITE_DURATION, 1, true, true)
 	};
 
 	private final Main plugin;
@@ -171,6 +174,29 @@ public final class PlayerInteractEventListener implements Listener {
 			potion.setFireTicks(300);
 
 			potion.setItem(poisonPotion);
+
+			new BukkitRunnable() {
+				@Override
+				public void run() {
+					new BukkitRunnable() {
+						final Location location = potion.getLocation();
+
+						@Override
+						public void run() {
+							potion.getWorld().spawnParticle(Particle.DUST_COLOR_TRANSITION, location, 1, DUST_TRANSITION_GREEN);
+
+							if (potion.isDead()) {
+								cancel();
+							}
+						}
+					}.runTaskTimer(plugin, 0, 0);
+
+					if (potion.isDead()) {
+						cancel();
+					}
+				}
+			}.runTaskTimer(plugin, 0, 0);
+
 			player.spawnParticle(Particle.SMOKE_LARGE, playerLocation, 10, 1, 1, 1);
 		} else if (mainHandMaterial == Material.NETHERITE_HOE && itemName.equals(
 				ChatColor.RED.toString() + ChatColor.BOLD + "Rocket Launcher")) {
