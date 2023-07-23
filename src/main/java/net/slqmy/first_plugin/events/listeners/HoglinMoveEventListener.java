@@ -49,7 +49,7 @@ public final class HoglinMoveEventListener implements Listener {
 		final Location hoglinLocation = hoglin.getLocation();
 		final Location targetLocation = target.getLocation();
 
-		targetLocation.add(0, target.getHeight(), 0);
+		targetLocation.add(0F, target.getHeight(), 0F);
 
 		final double distance = hoglinLocation.distance(targetLocation);
 
@@ -57,8 +57,7 @@ public final class HoglinMoveEventListener implements Listener {
 				&& distance >= 4) {
 			hoglin.addPotionEffect(HOGLIN_JUMP_EFFECT);
 
-			hoglin.setVelocity(
-					VectorUtility.calculateLeapVelocityVector(hoglin, targetLocation, 5.6F));
+			hoglin.setVelocity(VectorUtility.calculateLeapVelocityVector(hoglin, targetLocation, 1.8F));
 
 			final AttributeInstance movementSpeed = hoglin.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED);
 
