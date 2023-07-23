@@ -4,10 +4,16 @@ import com.google.gson.Gson;
 import com.mongodb.client.*;
 import com.mongodb.client.model.Filters;
 import com.sk89q.worldedit.WorldEdit;
+import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.JDABuilder;
+import net.dv8tion.jda.api.OnlineStatus;
+import net.dv8tion.jda.api.entities.Activity;
+import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.slqmy.first_plugin.commands.*;
 import net.slqmy.first_plugin.data.Data;
 import net.slqmy.first_plugin.enchantments.AutoSmeltingEnchantment;
-import net.slqmy.first_plugin.events.listeners.*;
+import net.slqmy.first_plugin.events.listeners.discord.MessageReceivedEventListener;
+import net.slqmy.first_plugin.events.listeners.minecraft.*;
 import net.slqmy.first_plugin.managers.PlayerManager;
 import net.slqmy.first_plugin.utility.HoglinRiderUtility;
 import net.slqmy.first_plugin.utility.Utility;
@@ -63,6 +69,7 @@ public final class Main extends JavaPlugin {
 	private final List<UUID> movementDisabled = new ArrayList<>();
 
 	private Database database;
+	private JDA jda;
 	private Cuboid latestFill;
 	private NamespacedKey isPistolBulletKey;
 	private NamespacedKey isShotgunBulletKey;
@@ -74,6 +81,10 @@ public final class Main extends JavaPlugin {
 		return database;
 	}
 
+	public JDA getJDA() {
+		return jda;
+	}
+
 	public PlayerManager getPlayerManager() {
 		return playerManager;
 	}
@@ -81,6 +92,7 @@ public final class Main extends JavaPlugin {
 	public RankSystem getRankSystem() {
 		return rankSystem;
 	}
+
 	public Map<UUID, UUID> getRecentMessages() {
 		return recentMessages;
 	}
@@ -232,7 +244,7 @@ public final class Main extends JavaPlugin {
 
 		Utility.log("Connected to database? " + (database.isConnected() ? "yes" : "no") + "!");
 
-		final String connectionString = "mongodb+srv://firstplugin:" + config.getString("MongoDBPassword") + "@datacluster.z5vohpt.mongodb.net/📄・First-Plugin?retryWrites=true&w=majority";
+		final String connectionString = "mongodb+srv://firstplugin:" + config.getString("MongoDB-Password") + "@datacluster.z5vohpt.mongodb.net/📄・First-Plugin?retryWrites=true&w=majority";
 
 		try (final MongoClient client = MongoClients.create(connectionString)) {
 			final MongoDatabase database = client.getDatabase("📄・First-Plugin");
@@ -259,6 +271,17 @@ public final class Main extends JavaPlugin {
 				}
 			}
 		}
+
+		final JDABuilder builder = JDABuilder.createDefault(config.getString("Discord-Bot-Token"));
+
+		builder.setActivity(Activity.playing("on The Slimy Swamp"));
+		builder.setStatus(OnlineStatus.DO_NOT_DISTURB);
+
+		builder.setEnabledIntents(Collections.singletonList(GatewayIntent.MESSAGE_CONTENT));
+
+		builder.addEventListeners(new MessageReceivedEventListener());
+
+		jda = builder.build();
 
 		// Handling commands.
 
@@ -291,6 +314,7 @@ public final class Main extends JavaPlugin {
 		getCommand("rizz").setExecutor(new RizzCommand(this));
 		getCommand("fill").setExecutor(new FillCommand(this));
 		getCommand("talk").setExecutor(new TalkCommand(this));
+		new GiveRoleCommand(this);
 
 		final PluginCommand fruitCommand = getCommand("fruit");
 
@@ -409,7 +433,7 @@ public final class Main extends JavaPlugin {
 		// structure => libraries.
 		final WorldEdit worldEdit = WorldEdit.getInstance();
 		Utility.log("Is WorldEdit API working? " + (worldEdit == null ? "no" : "yes") + "...");
-		Utility.log("The plugin 'Main' has been fully enabled!");
+		Utility.log("The plugin 'FirstPlugin' has been fully enabled!");
 
 		// Getting persistent data from items:
 		// Create a new ItemStack: ItemStack sponge = new ItemStack(Material.SPONGE);.

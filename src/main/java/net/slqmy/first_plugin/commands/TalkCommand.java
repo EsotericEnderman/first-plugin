@@ -51,7 +51,7 @@ public class TalkCommand implements CommandExecutor, Listener {
 			final UUID uuid = player.getUniqueId();
 
 			if (conversations.containsKey(uuid)) {
-				conversations.remove(uuid, conversations.get(uuid));
+				conversations.remove(uuid);
 
 				player.sendMessage(
 						ChatColor.DARK_GRAY.toString() + ChatColor.BOLD + "\n| " + ChatColor.GRAY + "Your conversation with "
@@ -119,7 +119,7 @@ public class TalkCommand implements CommandExecutor, Listener {
 		final UUID uuid = event.getPlayer().getUniqueId();
 
 		if (conversations.containsKey(uuid)) {
-			conversations.remove(uuid, conversations.get(uuid));
+			conversations.remove(uuid);
 		}
 	}
 

@@ -1,4 +1,4 @@
-package net.slqmy.first_plugin.events.listeners;
+package net.slqmy.first_plugin.events.listeners.minecraft;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;

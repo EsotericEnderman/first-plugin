@@ -1,4 +1,4 @@
-package net.slqmy.first_plugin.events.listeners;
+package net.slqmy.first_plugin.events.listeners.minecraft;
 
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
