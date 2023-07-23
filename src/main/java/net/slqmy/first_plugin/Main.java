@@ -6,6 +6,7 @@ import net.slqmy.first_plugin.commands.*;
 import net.slqmy.first_plugin.data.Data;
 import net.slqmy.first_plugin.enchantments.AutoSmeltingEnchantment;
 import net.slqmy.first_plugin.events.listeners.*;
+import net.slqmy.first_plugin.managers.PlayerManager;
 import net.slqmy.first_plugin.utility.HoglinRiderUtility;
 import net.slqmy.first_plugin.utility.Utility;
 import net.slqmy.first_plugin.utility.types.Cuboid;
@@ -54,6 +55,7 @@ public final class Main extends JavaPlugin {
 	// BarFlag.PLAY_BOSS_MUSIC - Seems to not do anything... (I might be wrong).
 	);
 	private final RankSystem rankSystem = (RankSystem) PLUGIN_MANAGER.getPlugin("Rank-System");
+	private final PlayerManager playerManager = new PlayerManager();
 	private final Map<UUID, UUID> recentMessages = new HashMap<>();
 	private final List<UUID> movementDisabled = new ArrayList<>();
 
@@ -65,6 +67,13 @@ public final class Main extends JavaPlugin {
 	private NamespacedKey isGatlingGunBulletKey;
 
 	private boolean chatEnabled = true;
+	public Database getDatabase() {
+		return database;
+	}
+
+	public PlayerManager getPlayerManager() {
+		return playerManager;
+	}
 
 	public RankSystem getRankSystem() {
 		return rankSystem;
@@ -347,6 +356,7 @@ public final class Main extends JavaPlugin {
 		PLUGIN_MANAGER.registerEvents(new ServerListPingEventListener(), this);
 
 		PLUGIN_MANAGER.registerEvents(new AsyncPlayerChatEventListener(this), this);
+		PLUGIN_MANAGER.registerEvents(new ConnectionListener(this), this);
 		PLUGIN_MANAGER.registerEvents(new CustomEntitySpawnEventListener(this), this);
 		PLUGIN_MANAGER.registerEvents(new EntityDamageByEntityEventListener(this), this);
 		PLUGIN_MANAGER.registerEvents(new EntityDeathEventListener(this), this);
