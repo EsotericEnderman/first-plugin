@@ -1,11 +1,11 @@
 package net.slqmy.first_plugin;
 
+import com.zaxxer.hikari.HikariDataSource;
 import net.slqmy.first_plugin.utility.Utility;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public final class Database {
@@ -14,7 +14,7 @@ public final class Database {
 	private final String DATABASE;
 	private final String USERNAME;
 	private final String PASSWORD;
-	private Connection connection;
+	private HikariDataSource hikari;
 
 	public Database(@NotNull final Main plugin) {
 		final YamlConfiguration config = (YamlConfiguration) plugin.getConfig();
@@ -27,35 +27,30 @@ public final class Database {
 	}
 
 	public void connect() throws SQLException {
-		connection = DriverManager.getConnection(
-						"jdbc:mysql://"
-						+ HOST
-						+ ":"
-						+ PORT
-						+ "/"
-						+ DATABASE
-						+ "?useSSL=false",
-						USERNAME,
-						PASSWORD
-		);
+		hikari = new HikariDataSource();
+		hikari.setDataSourceClassName("com.mysql.jdbc.jdbc2.optional.MysqlDataSource");
+
+		hikari.addDataSourceProperty("serverName", HOST);
+		hikari.addDataSourceProperty("port", PORT);
+		hikari.addDataSourceProperty("databaseName", DATABASE);
+		hikari.addDataSourceProperty("user", USERNAME);
+		hikari.addDataSourceProperty("password", PASSWORD);
 	}
 
 	public void disconnect() {
 		if (isConnected()) {
-			try {
-				connection.close();
-			} catch (final SQLException exception) {
-				Utility.log("There was en error while closing the database connection!");
-				throw new RuntimeException(exception);
-			}
+			hikari.close();
+		} else {
+			Utility.log("Database is not connected!");
 		}
 	}
 
 	public boolean isConnected() {
-		return connection != null;
+		return hikari != null;
 	}
 
-	public Connection getConnection() {
-		return connection;
+	@Nullable
+	public HikariDataSource getConnection() {
+		return hikari;
 	}
 }
