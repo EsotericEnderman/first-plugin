@@ -237,6 +237,7 @@ public final class Main extends JavaPlugin {
 		new AuctionHouseCommand();
 		new GiveSnowballsCommand();
 		new GiveRodCommand();
+		new LaunchCommand();
 
 		getCommand("broadcast").setExecutor(new BroadcastCommand(this));
 		getCommand("config").setExecutor(new ConfigCommand(this));
