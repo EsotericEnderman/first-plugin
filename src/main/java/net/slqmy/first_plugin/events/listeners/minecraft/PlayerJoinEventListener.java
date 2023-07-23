@@ -1,11 +1,13 @@
 package net.slqmy.first_plugin.events.listeners.minecraft;
 
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Color;
-import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
-import org.bukkit.Statistic;
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.HoverEvent;
+import net.md_5.bungee.api.chat.TextComponent;
+import net.md_5.bungee.api.chat.hover.content.Text;
+import net.slqmy.first_plugin.Main;
+import net.slqmy.first_plugin.utility.Utility;
+import org.bukkit.*;
 import org.bukkit.boss.BossBar;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Player.Spigot;
@@ -14,6 +16,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
@@ -21,14 +24,6 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scoreboard.*;
 import org.jetbrains.annotations.NotNull;
-
-import net.md_5.bungee.api.ChatMessageType;
-import net.md_5.bungee.api.chat.ClickEvent;
-import net.md_5.bungee.api.chat.HoverEvent;
-import net.md_5.bungee.api.chat.TextComponent;
-import net.md_5.bungee.api.chat.hover.content.Text;
-import net.slqmy.first_plugin.Main;
-import net.slqmy.first_plugin.utility.Utility;
 
 public final class PlayerJoinEventListener implements Listener {
 	private static final ScoreboardManager SCOREBOARD_MANAGER = Bukkit.getScoreboardManager();
@@ -85,6 +80,7 @@ public final class PlayerJoinEventListener implements Listener {
 		bossBar.addPlayer(player);
 
 		player.setResourcePack("assets/Trading Wanderer v1.1 - 1.20.1.zip");
+		player.setResourcePack("assets/sword-v1-13-1551616579.zip");
 
 		player.sendTitle(ChatColor.GREEN + "Welcome to " + ChatColor.BOLD + "The Slimy Swamp" + ChatColor.GREEN + "!",
 				ChatColor.YELLOW + "Thank you for joining. Enjoy your stay!", 20,
@@ -170,6 +166,14 @@ public final class PlayerJoinEventListener implements Listener {
 		playerInventory.addItem(chestPlate);
 		playerInventory.addItem(leggings);
 		playerInventory.addItem(boots);
+
+		final ItemStack sword = new ItemStack(Material.PAPER);
+		final ItemMeta swordMeta = sword.getItemMeta();
+		assert swordMeta != null;
+		swordMeta.setCustomModelData(1000000);
+		sword.setItemMeta(swordMeta);
+
+		playerInventory.addItem(sword);
 
 		final PotionEffect potionEffect = new PotionEffect(PotionEffectType.JUMP, 200, 20, false, false, false);
 
