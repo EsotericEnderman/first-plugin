@@ -4,6 +4,7 @@ import net.slqmy.first_plugin.Main;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.NamespacedKey;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
@@ -54,9 +55,14 @@ public final class ProjectileHitEventListener implements Listener {
 							+ ") "
 							+ ChatColor.AQUA + DECIMAL_FORMAT.format(projectile.getVelocity().length()) + ChatColor.RESET + " m/s");
 
-			final double distance = location.distance(playerLocation);
+			final World world = location.getWorld();
+			assert world != null;
 
-			player.sendMessage(ChatColor.BOLD + "» " + ChatColor.RESET + DECIMAL_FORMAT.format(distance));
+			if (world.equals(player.getWorld())) {
+				final double distance = location.distance(playerLocation);
+
+				player.sendMessage(ChatColor.BOLD + "» " + ChatColor.RESET + DECIMAL_FORMAT.format(distance));
+			}
 
 			final PersistentDataContainer container = projectile.getPersistentDataContainer();
 
