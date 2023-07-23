@@ -24,5 +24,7 @@ Database:
 Username:
 Password:
 
-MongoDBUsername:
-MongoDBPassword:
+MongoDB-Username:
+MongoDB-Password:
+
+Discord-Bot-Token:

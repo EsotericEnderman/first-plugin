@@ -94,12 +94,6 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>com.theokanning.openai-gpt3-java</groupId>
-            <artifactId>client</artifactId>
-            <version>0.8.0</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
             <groupId>net.slqmy</groupId>
             <artifactId>rank_system</artifactId>
             <version>1.0</version>
@@ -115,6 +109,18 @@
             <groupId>org.mongodb</groupId>
             <artifactId>mongo-java-driver</artifactId>
             <version>3.12.14</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.dv8tion</groupId>
+            <artifactId>JDA</artifactId>
+            <version>5.0.0-beta.12</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.theokanning.openai-gpt3-java</groupId>
+            <artifactId>client</artifactId>
+            <version>0.8.0</version>
             <scope>compile</scope>
         </dependency>
         <dependency>

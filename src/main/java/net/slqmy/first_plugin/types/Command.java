@@ -62,7 +62,6 @@ public abstract class Command extends BukkitCommand {
 			exception.printStackTrace();
 		}
 	}
-
 	public abstract boolean execute(@NotNull final CommandSender sender, @NotNull final String[] args);
 
 	@Nullable
