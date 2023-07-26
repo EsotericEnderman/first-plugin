@@ -311,6 +311,7 @@ public final class Main extends JavaPlugin implements PluginMessageListener {
 		new GiveSnowballsCommand();
 		new GiveRodCommand();
 		new LaunchCommand();
+		new NPCCommand(this);
 
 		getCommand("broadcast").setExecutor(new BroadcastCommand(this));
 		getCommand("config").setExecutor(new ConfigCommand(this));
