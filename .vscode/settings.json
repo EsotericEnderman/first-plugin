@@ -6,10 +6,12 @@
 		"Caet",
 		"CHESTPLATE",
 		"CRIT",
+		"datacluster",
 		"davinci",
 		"desht",
 		"elytra",
 		"Faris",
+		"firstplugin",
 		"Grian",
 		"gson",
 		"hoverable",
@@ -30,7 +32,8 @@
 		"Scrollscribe",
 		"Skeppy",
 		"Sparklez",
-		"UNLUCK"
+		"UNLUCK",
+		"vohpt"
 	],
 	"java.compile.nullAnalysis.mode": "automatic",
 	"java.configuration.updateBuildConfiguration": "disabled",

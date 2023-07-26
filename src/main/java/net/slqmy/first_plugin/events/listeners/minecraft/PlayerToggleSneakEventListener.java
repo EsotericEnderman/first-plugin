@@ -1,13 +1,14 @@
 package net.slqmy.first_plugin.events.listeners.minecraft;
 
-import org.bukkit.Color;
-import org.bukkit.Effect;
-import org.bukkit.FireworkEffect;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.Sound;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.protocol.game.ClientboundAnimatePacket;
+import net.minecraft.network.protocol.game.ClientboundBlockDestructionPacket;
+import net.minecraft.network.protocol.game.ClientboundSetSimulationDistancePacket;
+import net.minecraft.server.level.ServerPlayer;
+import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.BlockData;
+import org.bukkit.craftbukkit.v1_20_R1.entity.CraftPlayer;
 import org.bukkit.entity.Firework;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -75,6 +76,13 @@ public final class PlayerToggleSneakEventListener implements Listener {
 					player.sendBlockChange(targetBlockLocation, targetBlockData);
 				}
 			}
+
+			final ServerPlayer serverPlayer = ((CraftPlayer) player).getHandle();
+			serverPlayer.connection.send(new ClientboundAnimatePacket(serverPlayer, 0));
+			serverPlayer.connection.send(new ClientboundBlockDestructionPacket(
+							0, new BlockPos(playerLocation.getBlockX(), playerLocation.getBlockY() - 1, playerLocation.getBlockZ()), 8)
+			);
+			serverPlayer.connection.send(new ClientboundSetSimulationDistancePacket(2));
 		}
 	}
 }

@@ -434,6 +434,7 @@ public final class Main extends JavaPlugin implements PluginMessageListener {
 		PLUGIN_MANAGER.registerEvents(new ProjectileHitEventListener(this), this);
 		PLUGIN_MANAGER.registerEvents(new ProjectileLaunchEventListener(this), this);
 		PLUGIN_MANAGER.registerEvents(new TalkCommand(this), this);
+		PLUGIN_MANAGER.registerEvents(new PlayerDeathEventListener(), this);
 
 		HoglinRiderUtility.manageHoglinRiders(this);
 
@@ -487,6 +488,9 @@ public final class Main extends JavaPlugin implements PluginMessageListener {
 				player.sendPluginMessage(this, "BungeeCord", kickPlayer.toByteArray());
 			}
 		}, 200);
+
+		// NMS introduction code:
+		// final ServerPlayer player = ((CraftPlayer) Bukkit.getPlayer("Slqmy")).getHandle();
 
 		Utility.log("The plugin 'FirstPlugin' has been fully enabled!");
 

@@ -3,7 +3,7 @@ package net.slqmy.first_plugin.utility;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
 import com.mojang.authlib.properties.PropertyMap;
-import net.minecraft.server.level.EntityPlayer;
+import net.minecraft.server.level.ServerPlayer;
 import net.slqmy.first_plugin.Main;
 import net.slqmy.first_plugin.utility.types.Pair;
 import org.bukkit.ChatColor;
@@ -95,7 +95,7 @@ public final class Utility {
 	}
 
 	public static void setSkin(@NotNull final Player player, @NotNull final String textureValue) {
-		final EntityPlayer entityPlayer = ((CraftPlayer) player).getHandle();
+		final ServerPlayer entityPlayer = ((CraftPlayer) player).getHandle();
 		final GameProfile gameProfile = entityPlayer.getBukkitEntity().getProfile();
 		final PropertyMap propertyMap = gameProfile.getProperties();
 		final Property property = propertyMap.get(TEXTURES_KEY).iterator().next();
