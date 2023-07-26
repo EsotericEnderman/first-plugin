@@ -3,6 +3,7 @@ package net.slqmy.first_plugin.events.listeners.minecraft;
 import net.slqmy.first_plugin.Main;
 import net.slqmy.first_plugin.managers.PlayerManager;
 import net.slqmy.first_plugin.types.PlayerWrapper;
+import net.slqmy.first_plugin.utility.PacketUtility;
 import net.slqmy.first_plugin.utility.Utility;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -27,6 +28,9 @@ public final class ConnectionListener implements Listener {
 	@EventHandler
 	public void onPlayerJoin(@NotNull final PlayerJoinEvent event) {
 		final Player player = event.getPlayer();
+
+		PacketUtility.inject(player);
+
 		final UUID uuid = player.getUniqueId();
 
 		final PlayerWrapper playerData;
@@ -45,6 +49,9 @@ public final class ConnectionListener implements Listener {
 
 	@EventHandler
 	public void onPlayerQuit(@NotNull final PlayerQuitEvent event) {
-		playerManager.removePlayer(event.getPlayer().getUniqueId());
+		final Player player = event.getPlayer();
+
+		playerManager.removePlayer(player.getUniqueId());
+		PacketUtility.eject(player);
 	}
 }
