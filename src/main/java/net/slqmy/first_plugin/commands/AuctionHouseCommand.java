@@ -24,7 +24,7 @@ public final class AuctionHouseCommand extends AbstractCommand {
 
 	@Override
 	public boolean execute(@NotNull final CommandSender sender, @NotNull final String[] args) {
-		((Player) sender).openInventory(new AuctionHouseGUI(1).getInventory());
+		new AuctionHouseGUI((Player) sender, 1);
 
 		return true;
 	}

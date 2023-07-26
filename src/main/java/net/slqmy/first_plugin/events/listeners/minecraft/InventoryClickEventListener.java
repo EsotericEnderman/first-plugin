@@ -5,7 +5,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.WorldBorder;
-import org.bukkit.entity.HumanEntity;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -31,7 +31,7 @@ public final class InventoryClickEventListener implements Listener {
 		// safe.
 
 		if (event.getCurrentItem() != null) {
-			final HumanEntity player = event.getWhoClicked();
+			final Player player = (Player) event.getWhoClicked();
 
 			if (ChatColor.translateAlternateColorCodes('&', event.getView().getTitle())
 					.equals(ChatColor.RED.toString() + ChatColor.BOLD + "ADMIN MENU")) {
@@ -111,12 +111,9 @@ public final class InventoryClickEventListener implements Listener {
 				// If I'm making a dynamically changing inventory, such as an auction house
 				// menu, check again here whether it is a valid page.
 				if (slot == 45) {
-					player.openInventory(
-							new AuctionHouseGUI(page - 1).getInventory());
+					new AuctionHouseGUI(player, page - 1);
 				} else if (slot == 53) {
-					player.openInventory(
-							new AuctionHouseGUI(page + 1)
-									.getInventory());
+					new AuctionHouseGUI(player, page + 1);
 				}
 
 				event.setCancelled(true);

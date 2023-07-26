@@ -4,9 +4,11 @@ import net.slqmy.first_plugin.utility.InventoryUtility;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -128,13 +130,11 @@ public final class AuctionHouseGUI {
 			"Minecraft's Sweetheart Alexia",
 	};
 
-	private final Inventory inventory;
-
-	public AuctionHouseGUI(final int pageNumber) {
-		inventory = Bukkit.createInventory(null, 54,
-				ChatColor.GOLD.toString() + ChatColor.BOLD + "Auction House " + ChatColor.DARK_GRAY + "» Page "
-						+ ChatColor.YELLOW
-						+ pageNumber);
+	public AuctionHouseGUI(@NotNull final Player player, final int pageNumber) {
+		final Inventory inventory = Bukkit.createInventory(null, 54,
+						ChatColor.GOLD.toString() + ChatColor.BOLD + "Auction House " + ChatColor.DARK_GRAY + "» Page "
+										+ ChatColor.YELLOW
+										+ pageNumber);
 
 		final List<ItemStack> items = new ArrayList<>();
 
@@ -194,9 +194,7 @@ public final class AuctionHouseGUI {
 
 		firstItemMeta.setLocalizedName(String.valueOf(pageNumber));
 		firstItem.setItemMeta(firstItemMeta);
-	}
 
-	public Inventory getInventory() {
-		return inventory;
+		player.openInventory(inventory);
 	}
 }
