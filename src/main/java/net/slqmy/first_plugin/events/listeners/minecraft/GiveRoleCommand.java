@@ -5,7 +5,7 @@ import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
 import net.slqmy.first_plugin.Main;
-import net.slqmy.first_plugin.types.Command;
+import net.slqmy.first_plugin.types.AbstractCommand;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -14,19 +14,18 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class GiveRoleCommand extends Command {
+public class GiveRoleCommand extends AbstractCommand {
 	private final JDA jda;
 
 	public GiveRoleCommand(@NotNull final Main plugin) {
 		super(
-						"give-role",
-						"Give a user on Discord a role. From Minecraft...",
-						"/give-role <guild ID> <user ID> <role ID>",
-						new Integer[] { 3 },
-						new String[] { "gr" },
-						"first_plugin.give_role",
-						true
-		);
+				"give-role",
+				"Give a user on Discord a role. From Minecraft...",
+				"/give-role <guild ID> <user ID> <role ID>",
+				new Integer[] { 3 },
+				new String[] {},
+				"first_plugin.give_role",
+				true);
 
 		this.jda = plugin.getJDA();
 	}
@@ -34,9 +33,6 @@ public class GiveRoleCommand extends Command {
 	@Override
 	public boolean execute(@NotNull final CommandSender sender, @NotNull final String[] args) {
 		final String guildID = args[0];
-		final String userID = args[1];
-		final String roleID = args[2];
-
 		final Guild guild = jda.getGuildById(guildID);
 
 		final Player player = (Player) sender;
@@ -47,6 +43,7 @@ public class GiveRoleCommand extends Command {
 			return false;
 		}
 
+		final String userID = args[1];
 		final Member member = guild.getMemberById(userID);
 
 		if (member == null) {
@@ -55,6 +52,7 @@ public class GiveRoleCommand extends Command {
 			return false;
 		}
 
+		final String roleID = args[2];
 		final Role role = guild.getRoleById(roleID);
 
 		if (role == null) {

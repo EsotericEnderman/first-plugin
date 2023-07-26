@@ -53,7 +53,8 @@ public final class InventoryClickEventListener implements Listener {
 						final double z = random.nextDouble() * worldSize - worldSize / 2 + center.getZ();
 
 						player.teleport(new Location(world, x, y, z));
-						player.sendMessage(ChatColor.GRAY + "You teleported to (" + ChatColor.RED + x + ChatColor.RESET + ", " + ChatColor.GREEN + y + ChatColor.RESET + ", " + ChatColor.BLUE + z + ChatColor.RESET + ").");
+						player.sendMessage(ChatColor.GRAY + "You have been teleported to (" + ChatColor.RED + x + ChatColor.RESET
+								+ ", " + ChatColor.GREEN + y + ChatColor.RESET + ", " + ChatColor.BLUE + z + ChatColor.RESET + ").");
 
 						break;
 					// KILL YOURSELF.

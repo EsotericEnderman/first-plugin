@@ -1,14 +1,10 @@
 package net.slqmy.first_plugin.events.listeners.minecraft;
 
 import net.slqmy.first_plugin.Main;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
-import org.bukkit.Particle;
+import org.bukkit.*;
 import org.bukkit.block.data.BlockData;
-import org.bukkit.World;
-import org.bukkit.entity.Damageable;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -36,30 +32,30 @@ public final class EntityDamageByEntityEventListener implements Listener {
     final Entity damagedEntity = event.getEntity();
     final Entity damagerEntity = event.getDamager();
 
-    if (damagedEntity instanceof Damageable) {
-      final Damageable damageable = (Damageable) damagedEntity;
-      final double health = damageable.getHealth();
+    if (damagedEntity instanceof LivingEntity) {
+      final LivingEntity damaged = (LivingEntity) damagedEntity;
+      final double health = damaged.getHealth();
 
-      final World world = damageable.getWorld();
-      final Location location = damageable.getLocation();
+      final World world = damaged.getWorld();
+      final Location location = damaged.getLocation();
 
       final PersistentDataContainer container = damagerEntity.getPersistentDataContainer();
 
       if (container.has(isPistolBulletKey, PersistentDataType.BOOLEAN)) {
 
-        damageable.setHealth(Math.max(health - 10, 0));
+        damaged.setHealth(Math.max(health - 10, 0));
         world.spawnParticle(Particle.BLOCK_CRACK, location, 2, REDSTONE_BLOCK_DATA);
       } else if (container.has(isShotgunBulletKey, PersistentDataType.BOOLEAN)) {
 
-        damageable.setHealth(Math.max(health - 24, 0));
+        damaged.setHealth(Math.max(health - 24, 0));
         world.spawnParticle(Particle.BLOCK_CRACK, location, 5, REDSTONE_BLOCK_DATA);
       } else if (container.has(isMiniGunBulletKey, PersistentDataType.BOOLEAN)) {
 
-        damageable.setHealth(Math.max(health - 14, 0));
+        damaged.setHealth(Math.max(health - 14, 0));
         world.spawnParticle(Particle.BLOCK_CRACK, location, 2, REDSTONE_BLOCK_DATA);
       } else if (container.has(isGatlingGunBulletKey, PersistentDataType.BOOLEAN)) {
 
-        damageable.setHealth(Math.max(health - 14.5F, 0));
+        damaged.setHealth(Math.max(health - 14.5F, 0));
         world.spawnParticle(Particle.BLOCK_CRACK, location, 6, REDSTONE_BLOCK_DATA);
       }
     }

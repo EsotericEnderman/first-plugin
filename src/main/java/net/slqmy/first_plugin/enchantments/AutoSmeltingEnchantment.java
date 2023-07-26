@@ -92,14 +92,14 @@ public class AutoSmeltingEnchantment extends Enchantment implements Listener {
 
 	@EventHandler
 	public void onPlayerJoin(@NotNull final PlayerJoinEvent event) {
-		ItemStack pickaxe = new ItemStack(Material.IRON_PICKAXE);
+		final ItemStack pickaxe = new ItemStack(Material.IRON_PICKAXE);
 
-		Enchantment enchantment = Enchantment.getByKey(KEY);
+		final Enchantment enchantment = Enchantment.getByKey(KEY);
 		assert enchantment != null;
 
 		pickaxe.addUnsafeEnchantment(enchantment, 1);
 
-		ItemMeta meta = pickaxe.getItemMeta();
+		final ItemMeta meta = pickaxe.getItemMeta();
 
 		assert meta != null;
 		meta.setLore(Collections.singletonList(ChatColor.GRAY + "Auto-Smelting I"));
