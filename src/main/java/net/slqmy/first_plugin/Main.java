@@ -1,5 +1,8 @@
 package net.slqmy.first_plugin;
 
+import com.google.common.io.ByteArrayDataInput;
+import com.google.common.io.ByteArrayDataOutput;
+import com.google.common.io.ByteStreams;
 import com.google.gson.Gson;
 import com.mongodb.client.*;
 import com.mongodb.client.model.Filters;
@@ -36,6 +39,7 @@ import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.plugin.messaging.PluginMessageListener;
 import org.bukkit.scheduler.BukkitScheduler;
 import org.bukkit.util.Transformation;
 import org.jetbrains.annotations.NotNull;
@@ -47,7 +51,7 @@ import java.lang.reflect.Field;
 import java.sql.SQLException;
 import java.util.*;
 
-public final class Main extends JavaPlugin {
+public final class Main extends JavaPlugin implements PluginMessageListener {
 	private static final PluginManager PLUGIN_MANAGER = Bukkit.getPluginManager();
 	private static final BukkitScheduler SCHEDULER = Bukkit.getScheduler();
 	private static final String WORLD_NAME = "world";
@@ -77,6 +81,7 @@ public final class Main extends JavaPlugin {
 	private NamespacedKey isGatlingGunBulletKey;
 
 	private boolean chatEnabled = true;
+
 	public Database getDatabase() {
 		return database;
 	}
@@ -244,7 +249,8 @@ public final class Main extends JavaPlugin {
 
 		Utility.log("Connected to database? " + (database.isConnected() ? "yes" : "no") + "!");
 
-		final String connectionString = "mongodb+srv://firstplugin:" + config.getString("MongoDB-Password") + "@datacluster.z5vohpt.mongodb.net/📄・First-Plugin?retryWrites=true&w=majority";
+		final String connectionString = "mongodb+srv://firstplugin:" + config.getString("MongoDB-Password")
+				+ "@datacluster.z5vohpt.mongodb.net/📄・First-Plugin?retryWrites=true&w=majority";
 
 		try (final MongoClient client = MongoClients.create(connectionString)) {
 			final MongoDatabase database = client.getDatabase("📄・First-Plugin");
@@ -260,8 +266,10 @@ public final class Main extends JavaPlugin {
 
 			playerData.insertOne(document);
 
-			// To replace a document: playerData.replaceOne(Filters.eq("uuid", UUID.randomUUID()), document);.
-			// To update a document: playerData.updateOne(Filters.eq("uuid", UUID.randomUUID()), document);.
+			// To replace a document: playerData.replaceOne(Filters.eq("uuid",
+			// UUID.randomUUID()), document);.
+			// To update a document: playerData.updateOne(Filters.eq("uuid",
+			// UUID.randomUUID()), document);.
 
 			try (final MongoCursor<Document> cursor = playerData.find(Filters.eq("rank", "Owner")).cursor()) {
 				while (cursor.hasNext()) {
@@ -277,7 +285,7 @@ public final class Main extends JavaPlugin {
 		builder.setActivity(Activity.playing("on The Slimy Swamp"));
 		builder.setStatus(OnlineStatus.DO_NOT_DISTURB);
 
-		builder.setEnabledIntents(Collections.singletonList(GatewayIntent.MESSAGE_CONTENT));
+		builder.setEnabledIntents(Arrays.asList(GatewayIntent.values()));
 
 		builder.addEventListeners(new MessageReceivedEventListener());
 
@@ -433,22 +441,54 @@ public final class Main extends JavaPlugin {
 		// structure => libraries.
 		final WorldEdit worldEdit = WorldEdit.getInstance();
 		Utility.log("Is WorldEdit API working? " + (worldEdit == null ? "no" : "yes") + "...");
+
+		getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
+		getServer().getMessenger().registerIncomingPluginChannel(this, "BungeeCord", this);
+
+		final ByteArrayDataOutput out = ByteStreams.newDataOutput();
+
+		/*
+		 Sending a player to a different server:
+
+		 out.writeUTF("Connect");
+		 out.writeUTF("Server-2");
+		 final Player player;
+		 player.sendPluginMessage(this, "BungeeCord", out.toByteArray());
+
+		 Getting persistent data from items:
+		 Create a new ItemStack: ItemStack sponge = new ItemStack(Material.SPONGE);.
+		 Get the ItemMeta: ItemMeta spongeMeta = sponge.getItemMeta();.
+		 Get the persistent data container: spongeMeta.getPersistentDataContainer();.
+		 Get block state by: Bukkit.getWorld("world").getBlockAt(1, 1, 1).getState();.
+
+		 Determine what it is.
+		 E.g., a sign.
+		 To get the sign's data container, use sign.getPersistentDataContainer();.
+		 ! VERY IMPORTANT!
+		 FOR ALL TILE ENTITIES:
+
+		 Use block.update(); when updating tile entities (blocks like chests, hoppers,
+		 etc.)
+		*/
+
+		Bukkit.getScheduler().runTaskLater(this, () -> {
+			out.writeUTF("PlayerCount");
+			out.writeUTF("Server-2");
+
+			final ByteArrayDataOutput kickPlayer = ByteStreams.newDataOutput();
+			kickPlayer.writeUTF("KickPlayerRaw");
+			kickPlayer.writeUTF("Slvmy");
+			kickPlayer.writeUTF("{\"text\":\"Get kicked!\"}");
+
+			final Player player = Bukkit.getPlayer("Slqmy");
+
+			if (player != null) {
+				player.sendPluginMessage(this, "BungeeCord", out.toByteArray());
+				player.sendPluginMessage(this, "BungeeCord", kickPlayer.toByteArray());
+			}
+		}, 200);
+
 		Utility.log("The plugin 'FirstPlugin' has been fully enabled!");
-
-		// Getting persistent data from items:
-		// Create a new ItemStack: ItemStack sponge = new ItemStack(Material.SPONGE);.
-		// Get the ItemMeta: ItemMeta spongeMeta = sponge.getItemMeta();.
-		// Get the persistent data container: spongeMeta.getPersistentDataContainer();.
-
-		// Get block state by: Bukkit.getWorld("world").getBlockAt(1, 1, 1).getState();.
-		// Determine what it is.
-		// E.g., a sign.
-		// To get the sign's data container, use sign.getPersistentDataContainer();.
-
-		// ! VERY IMPORTANT!
-		// FOR ALL TILE ENTITIES:
-		// Use block.update(); when updating tile entities (blocks like chests, hoppers,
-		// etc. )
 
 		final World world = Bukkit.getWorld(WORLD_NAME);
 
@@ -573,5 +613,22 @@ public final class Main extends JavaPlugin {
 	public void onDisable() {
 		// Plugin shutdown logic.
 		database.disconnect();
+	}
+
+	@Override
+	public void onPluginMessageReceived(@NotNull final String channel, @NotNull final Player player, final byte @NotNull [] data) {
+		if (!channel.equals("BungeeCord")) {
+			return;
+		}
+
+		final ByteArrayDataInput in = ByteStreams.newDataInput(data);
+		final String subChannel = in.readUTF();
+
+		if (subChannel.equals("PlayerCount")) {
+			final String server = in.readUTF();
+			final int players = in.readInt();
+
+			Utility.log("Server " + server + " has " + players + " players online!");
+		}
 	}
 }
