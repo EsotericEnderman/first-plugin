@@ -15,13 +15,13 @@ import java.util.List;
 public class LaunchCommand extends AbstractCommand {
 	public LaunchCommand() {
 		super(
-				"launch",
-				"Launch yourself to the specified location!",
-				"/launch <x> <y> <z> <height gain>",
-				new Integer[] { 4 },
-				new String[] { "fling", "leap", "jump" },
-				"first_plugin.launch",
-				true);
+						"launch",
+						"Launch yourself to the specified location!",
+						"/launch <x> <y> <z> <height gain>",
+						new Integer[]{4},
+						new String[]{"fling", "leap", "jump"},
+						"first_plugin.launch",
+						true);
 	}
 
 	@Override
@@ -30,16 +30,16 @@ public class LaunchCommand extends AbstractCommand {
 
 		try {
 			player.setVelocity(
-					VectorUtility.calculateLeapVelocityVector(
-							player,
-							new Location(
-									player.getWorld(),
-									Double.parseDouble(args[0]),
-									Double.parseDouble(args[1]),
-									Double.parseDouble(args[2])
-							),
-							Float.parseFloat(args[3])
-					)
+							VectorUtility.calculateLeapVelocityVector(
+											player,
+											new Location(
+															player.getWorld(),
+															Double.parseDouble(args[0]),
+															Double.parseDouble(args[1]),
+															Double.parseDouble(args[2])
+											),
+											Float.parseFloat(args[3])
+							)
 			);
 		} catch (final NumberFormatException exception) {
 			player.sendMessage(ChatColor.RED + "Invalid input!");

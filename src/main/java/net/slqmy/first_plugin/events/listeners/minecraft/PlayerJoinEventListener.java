@@ -67,7 +67,8 @@ public final class PlayerJoinEventListener implements Listener {
 		blocksBroken.addEntry(ChatColor.AQUA.toString());
 		blocksBroken.setPrefix(ChatColor.AQUA.toString() + ChatColor.BOLD + "Stone mined: ");
 		blocksBroken.setSuffix(
-				ChatColor.YELLOW.toString() + ChatColor.UNDERLINE + player.getStatistic(Statistic.MINE_BLOCK, Material.STONE));
+				ChatColor.YELLOW.toString() + ChatColor.UNDERLINE + player.getStatistic(Statistic.MINE_BLOCK, Material.STONE)
+		);
 
 		final Score blocksBrokenScore = objective.getScore(ChatColor.AQUA.toString());
 		blocksBrokenScore.setScore(3);
@@ -79,8 +80,8 @@ public final class PlayerJoinEventListener implements Listener {
 
 		bossBar.addPlayer(player);
 
-		player.setResourcePack("assets/Trading Wanderer v1.1 - 1.20.1.zip");
-		player.setResourcePack("assets/sword-v1-13-1551616579.zip");
+		player.setResourcePack("assets/Trading Wanderer v1.1 - 1.20.1");
+		player.setResourcePack("assets/sword-v1-13-1551616579");
 
 		player.sendTitle(ChatColor.GREEN + "Welcome to " + ChatColor.BOLD + "The Slimy Swamp" + ChatColor.GREEN + "!",
 				ChatColor.YELLOW + "Thank you for joining. Enjoy your stay!", 20,

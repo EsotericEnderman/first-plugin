@@ -1,60 +1,63 @@
 package net.slqmy.first_plugin.commands;
 
-import java.util.Arrays;
-
+import net.slqmy.first_plugin.types.AbstractCommand;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-import net.slqmy.first_plugin.utility.Utility;
+import java.util.List;
 
-public final class SkullCommand implements CommandExecutor {
+public final class SkullCommand extends AbstractCommand {
+	public SkullCommand() {
+		super(
+						"skull",
+						"Get your (or someone else's) skull! (player head). Despite what people say, this command has nothing to do with the skull emoji.",
+						"/skull (player name)",
+						new Integer[]{0, 1},
+						new String[]{"head", "player-skull"},
+						"first_plugin.skull",
+						true
+		);
+	}
+
 	@Override
-	public boolean onCommand(@NotNull final CommandSender sender, @NotNull final Command command,
-			@NotNull final String label,
-			@NotNull final String[] args) {
-		if (args.length != 0 && (args.length != 1 || "".equals(Arrays.toString(args).trim()))) {
-			return false;
-		}
+	public boolean execute(@NotNull final CommandSender sender, @NotNull final String @NotNull [] args) {
+		final Player player = (Player) sender;
 
-		if (sender instanceof Player) {
-			final Player player = (Player) sender;
+		final ItemStack skull = new ItemStack(Material.PLAYER_HEAD);
+		final SkullMeta skullMeta = (SkullMeta) skull.getItemMeta();
+		assert skullMeta != null;
 
-			final ItemStack skull = new ItemStack(Material.PLAYER_HEAD);
-			final SkullMeta skullMeta = (SkullMeta) skull.getItemMeta();
-			assert skullMeta != null;
+		if (args.length == 0) {
+			skullMeta.setOwningPlayer(player);
+		} else {
+			final OfflinePlayer target = Bukkit.getOfflinePlayer(args[0]);
 
-			if (args.length == 0) {
-				skullMeta.setOwningPlayer(player);
-			} else {
-				final OfflinePlayer target = Bukkit.getOfflinePlayer(args[0]);
+			if (target.getName() == null) {
+				player.sendMessage(ChatColor.RED + "Player not found!");
 
-				if (target.getName() == null) {
-					player.sendMessage(ChatColor.RED + "Player not found!");
-
-					return false;
-				}
-
-				skullMeta.setOwningPlayer(target);
+				return false;
 			}
 
-			skull.setItemMeta(skullMeta);
-
-			player.getInventory().addItem(skull);
-		} else {
-			Utility.log("/skull is a player-only command!");
-
-			return false;
+			skullMeta.setOwningPlayer(target);
 		}
 
+		skull.setItemMeta(skullMeta);
+
+		player.getInventory().addItem(skull);
+
 		return true;
+	}
+
+	@Override
+	public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull String[] args) {
+		return null;
 	}
 }

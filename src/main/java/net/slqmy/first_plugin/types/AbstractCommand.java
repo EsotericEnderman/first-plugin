@@ -1,5 +1,6 @@
 package net.slqmy.first_plugin.types;
 
+import net.slqmy.first_plugin.utility.NumberUtility;
 import net.slqmy.first_plugin.utility.Utility;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -79,7 +80,9 @@ public abstract class AbstractCommand extends BukkitCommand {
 			return true;
 		}
 
-		if (!argLengths.contains(args.length) || (args.length != 0 && "".equals(Arrays.toString(args).trim()))) {
+		if (
+						(!argLengths.contains(args.length) || (args.length != 0 && "".equals(Arrays.toString(args).trim())))
+										&& (NumberUtility.min(argLengths) >= 0 || args.length >= -NumberUtility.min(argLengths))) {
 			if (sender instanceof Player) {
 				sender.sendMessage(
 						" \n" + ChatColor.RED + "Invalid command usage!\nPlease use " + ChatColor.UNDERLINE + usage + ChatColor.RED
@@ -110,7 +113,7 @@ public abstract class AbstractCommand extends BukkitCommand {
 	@NotNull
 	@Override
 	public List<String> tabComplete(@NotNull final CommandSender sender, @NotNull final String alias,
-			@NotNull final String[] args) {
+			@NotNull final String @NotNull [] args) {
 		if (argLengths.contains(args.length) && (!playerOnly || sender instanceof Player)) {
 			final List<String> results = onTabComplete(sender, args);
 

@@ -99,6 +99,7 @@ public final class NPCCommand extends AbstractCommand {
 		final float yaw = 30;
 		final float pitch = 60;
 
+		// Modulus not needed here unless the angle is greater than 360 degrees.
 		connection.send(new ClientboundRotateHeadPacket(npc, (byte) ((yaw % 360) * 256 / 360)));
 
 		connection.send(new ClientboundMoveEntityPacket.Rot(

@@ -18,13 +18,13 @@ public final class GiveSnowballsCommand extends AbstractCommand {
 
 	public GiveSnowballsCommand() {
 		super(
-				"give-snowballs",
-				"Receive a non-parabolic snowball from the Minecraft gods.",
-				"/give-snowballs (starting velocity) (entity type)",
-				new Integer[] { 0, 1, 2 },
-				new String[] { "gs", "snowball", "sb" },
-				"first_plugin.give_snowball",
-				true);
+						"give-snowballs",
+						"Receive a non-parabolic snowball from the Minecraft gods.",
+						"/give-snowballs (starting velocity) (entity type)",
+						new Integer[]{0, 1, 2},
+						new String[]{"gs", "snowball", "sb"},
+						"first_plugin.give_snowball",
+						true);
 	}
 
 	@Override
@@ -61,11 +61,11 @@ public final class GiveSnowballsCommand extends AbstractCommand {
 			}
 
 			final ItemStack snowball = InventoryUtility.createItem(
-					Material.SNOWBALL,
-					"Non-Parabolic Snowball",
-					ChatColor.DARK_GRAY + "| " + ChatColor.GRAY + "Minecraft has air resistance...\n"
-							+ ChatColor.GRAY + "Entity: " + ChatColor.YELLOW + ChatColor.UNDERLINE + entity + "\n" + ChatColor.GRAY
-							+ "Velocity: " + ChatColor.YELLOW + ChatColor.UNDERLINE + velocity);
+							Material.SNOWBALL,
+							"Non-Parabolic Snowball",
+							ChatColor.DARK_GRAY + "| " + ChatColor.GRAY + "Minecraft has air resistance...\n"
+											+ ChatColor.GRAY + "Entity: " + ChatColor.YELLOW + ChatColor.UNDERLINE + entity + "\n" + ChatColor.GRAY
+											+ "Velocity: " + ChatColor.YELLOW + ChatColor.UNDERLINE + velocity);
 
 			snowball.setAmount(16);
 

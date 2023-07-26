@@ -1,39 +1,44 @@
 package net.slqmy.first_plugin.commands;
 
+import net.slqmy.first_plugin.types.AbstractCommand;
 import org.bukkit.ChatColor;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-import net.slqmy.first_plugin.utility.Utility;
+import java.util.List;
 
-public final class SecretMessageCommand implements CommandExecutor {
+public final class SecretMessageCommand extends AbstractCommand {
+	public SecretMessageCommand() {
+		super(
+						"secret-message",
+						"View the secret message... what could that be?",
+						"/secret-message",
+						new Integer[]{0},
+						new String[]{"sm"},
+						"first_plugin.secret_command",
+						true
+		);
+	}
+
 	@Override
-	public boolean onCommand(@NotNull final CommandSender sender, @NotNull final Command command,
-			@NotNull final String label,
-			@NotNull final String[] args) {
-		if (args.length != 0) {
-			return false;
-		}
+	public boolean execute(@NotNull final CommandSender sender, @NotNull final String[] args) {
+		final Player player = (Player) sender;
 
-		if (sender instanceof Player) {
-			final Player player = (Player) sender;
-
-			if (player.hasPermission("first_plugin.secret_message")) {
-				player.sendMessage(
-						ChatColor.GREEN + "The secret message is... " + ChatColor.BOLD + "'troll'" + ChatColor.GREEN + "!");
-			} else {
-				player.sendMessage(ChatColor.RED + "You don't have permission to see the secret message... get "
-						+ ChatColor.BOLD + "'troll'" + ChatColor.RED + "-ed!");
-			}
+		if (player.hasPermission("first_plugin.secret_message")) {
+			player.sendMessage(
+							ChatColor.GREEN + "The secret message is... " + ChatColor.BOLD + "'troll'" + ChatColor.GREEN + "!");
 		} else {
-			Utility.log("/secret-message is a player-only command!");
-
-			return false;
+			player.sendMessage(ChatColor.RED + "You don't have permission to see the secret message... get "
+							+ ChatColor.BOLD + "'troll'" + ChatColor.RED + "-ed!");
 		}
 
 		return true;
+	}
+
+	@Override
+	public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull String[] args) {
+		return null;
 	}
 }

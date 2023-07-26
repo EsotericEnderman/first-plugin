@@ -14,13 +14,13 @@ import java.util.List;
 public final class GiveRodCommand extends AbstractCommand {
 	public GiveRodCommand() {
 		super(
-				"give-rod",
-				"Receive a really weird fishing rod.",
-				"/give-rod",
-				new Integer[] { 0 },
-				new String[] { "rod", "give-fishing-rod", "gr", "gfr" },
-				"first_plugin.give_fishing_rod",
-				true);
+						"give-rod",
+						"Receive a really weird fishing rod.",
+						"/give-rod",
+						new Integer[]{0},
+						new String[]{"rod", "give-fishing-rod", "gr", "gfr"},
+						"first_plugin.give_fishing_rod",
+						true);
 	}
 
 	@Override

@@ -29,7 +29,6 @@ import org.bukkit.block.Block;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
 import org.bukkit.boss.BossBar;
-import org.bukkit.command.PluginCommand;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.*;
@@ -293,49 +292,40 @@ public final class Main extends JavaPlugin implements PluginMessageListener {
 
 		// Handling commands.
 
-		getCommand("heal").setExecutor(new HealCommand());
-		getCommand("players").setExecutor(new PlayersCommand());
-		getCommand("secret-message").setExecutor(new SecretMessageCommand());
-		getCommand("give-guns").setExecutor(new GiveGunsCommand());
-		getCommand("give-book").setExecutor(new GiveBookCommand());
-		getCommand("give-banner").setExecutor(new GiveBannerCommand());
-		getCommand("punish").setExecutor(new PunishCommand());
-		getCommand("menu").setExecutor(new MenuCommand());
-		getCommand("hypixel-menu").setExecutor(new HypixelMenuCommand());
-		getCommand("complex-gaming-menu").setExecutor(new ComplexGamingMenuCommand());
-		getCommand("buff").setExecutor(new BuffCommand());
-		getCommand("skull").setExecutor(new SkullCommand());
-		getCommand("cool-down").setExecutor(new CooldownCommand());
-		getCommand("hologram").setExecutor(new HologramCommand());
+		new HealCommand();
+		new PlayersCommand();
+		new SecretMessageCommand();
+		new GiveGunsCommand();
+		new GiveBookCommand();
+		new GiveBannerCommand();
+		new PunishCommand();
+		new MenuCommand();
+		new HypixelMenuCommand();
+		new ComplexGamingMenuCommand();
+		new BuffCommand();
+		new SkullCommand();
+		new CooldownCommand();
+		new HologramCommand();
 		new AuctionHouseCommand();
 		new GiveSnowballsCommand();
 		new GiveRodCommand();
 		new LaunchCommand();
-		new NPCCommand(this);
+		new FruitCommand();
+		new SpawnRiderCommand();
 
-		getCommand("broadcast").setExecutor(new BroadcastCommand(this));
-		getCommand("config").setExecutor(new ConfigCommand(this));
-		getCommand("set-config").setExecutor(new SetConfigCommand(this));
-		getCommand("vanish").setExecutor(new VanishCommand(this));
-		getCommand("message").setExecutor(new MessageCommand(this));
-		getCommand("reply").setExecutor(new ReplyCommand(this));
-		getCommand("permissions").setExecutor(new PermissionsCommand(this));
-		getCommand("rizz").setExecutor(new RizzCommand(this));
-		getCommand("fill").setExecutor(new FillCommand(this));
-		getCommand("talk").setExecutor(new TalkCommand(this));
+		new NPCCommand(this);
+		new BroadcastCommand(this);
+		new ConfigCommand(this);
+		new SetConfigCommand(this);
+		new VanishCommand(this);
+		new MessageCommand(this);
+		new ReplyCommand(this);
+		new PermissionsCommand(this);
+		new RizzCommand(this);
+		new FillCommand(this);
+		new TalkCommand(this);
 		new GiveRoleCommand(this);
 
-		final PluginCommand fruitCommand = getCommand("fruit");
-
-		assert fruitCommand != null;
-		fruitCommand.setExecutor(new FruitCommand());
-		fruitCommand.setTabCompleter(new FruitCommand());
-
-		final PluginCommand spawnRiderCommand = getCommand("spawn-rider");
-
-		assert spawnRiderCommand != null;
-		spawnRiderCommand.setExecutor(new SpawnRiderCommand());
-		spawnRiderCommand.setTabCompleter(new SpawnRiderCommand());
 
 		// Really easy to make recipes:
 		// Maybe make a recipe manager?
