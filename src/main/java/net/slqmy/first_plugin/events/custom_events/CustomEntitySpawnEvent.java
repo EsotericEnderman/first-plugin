@@ -26,17 +26,17 @@ public final class CustomEntitySpawnEvent
 		this.location = location;
 	}
 
+	@NotNull
+	public static HandlerList getHandlerList() {
+		return HANDLERS;
+	}
+
 	public Entity getEntity() {
 		return this.entity;
 	}
 
 	public Location getLocation() {
 		return this.location;
-	}
-
-	@NotNull
-	public static HandlerList getHandlerList() {
-		return HANDLERS;
 	}
 
 	@NotNull

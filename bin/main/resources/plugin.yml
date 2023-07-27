@@ -3,9 +3,9 @@ version: "${project.version}"
 main: net.slqmy.first_plugin.Main
 api-version: "1.20"
 prefix: First Plugin
-authors: [slqmy]
+authors: [ slqmy ]
 description: My first plugin.
-depend: ["Rank-System", "NoteBlockAPI", "WorldEdit"]
+depend: [ "Rank-System", "NoteBlockAPI", "WorldEdit" ]
 commands:
   heal:
     # Can add permissions, usage, etc. here.

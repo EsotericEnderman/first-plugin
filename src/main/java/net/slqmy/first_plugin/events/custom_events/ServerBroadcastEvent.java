@@ -22,6 +22,11 @@ public final class ServerBroadcastEvent extends Event implements Cancellable {
 	}
 
 	@NotNull
+	public static HandlerList getHandlerList() {
+		return HANDLERS;
+	}
+
+	@NotNull
 	public Player getPlayer() {
 		return player;
 	}
@@ -34,11 +39,6 @@ public final class ServerBroadcastEvent extends Event implements Cancellable {
 	@NotNull
 	@Override
 	public HandlerList getHandlers() {
-		return HANDLERS;
-	}
-
-	@NotNull
-	public static HandlerList getHandlerList() {
 		return HANDLERS;
 	}
 
