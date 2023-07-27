@@ -53,10 +53,10 @@ public final class PlayerJoinEventListener implements Listener {
 		// to have multiple spaces.
 
 		final Score address = objective
-				.getScore(
-						ChatColor.DARK_GRAY.toString() + ChatColor.BOLD + "→ " + ChatColor.GRAY + ChatColor.UNDERLINE + "localhost"
-								+ ChatColor.RESET
-								+ ChatColor.DARK_GRAY + ChatColor.BOLD + " | " + ChatColor.GRAY + ChatColor.UNDERLINE + "0");
+						.getScore(
+										ChatColor.DARK_GRAY.toString() + ChatColor.BOLD + "→ " + ChatColor.GRAY + ChatColor.UNDERLINE + "localhost"
+														+ ChatColor.RESET
+														+ ChatColor.DARK_GRAY + ChatColor.BOLD + " | " + ChatColor.GRAY + ChatColor.UNDERLINE + "0");
 		address.setScore(1);
 
 		final Score space = objective.getScore("");
@@ -67,15 +67,15 @@ public final class PlayerJoinEventListener implements Listener {
 		blocksBroken.addEntry(ChatColor.AQUA.toString());
 		blocksBroken.setPrefix(ChatColor.AQUA.toString() + ChatColor.BOLD + "Stone mined: ");
 		blocksBroken.setSuffix(
-				ChatColor.YELLOW.toString() + ChatColor.UNDERLINE + player.getStatistic(Statistic.MINE_BLOCK, Material.STONE)
+						ChatColor.YELLOW.toString() + ChatColor.UNDERLINE + player.getStatistic(Statistic.MINE_BLOCK, Material.STONE)
 		);
 
 		final Score blocksBrokenScore = objective.getScore(ChatColor.AQUA.toString());
 		blocksBrokenScore.setScore(3);
 
 		final Score name = objective
-				.getScore(ChatColor.GREEN.toString() + ChatColor.BOLD + "Name: " + ChatColor.YELLOW + ChatColor.UNDERLINE
-						+ player.getName());
+						.getScore(ChatColor.GREEN.toString() + ChatColor.BOLD + "Name: " + ChatColor.YELLOW + ChatColor.UNDERLINE
+										+ player.getName());
 		name.setScore(4);
 
 		bossBar.addPlayer(player);
@@ -84,14 +84,14 @@ public final class PlayerJoinEventListener implements Listener {
 		player.setResourcePack("assets/sword-v1-13-1551616579");
 
 		player.sendTitle(ChatColor.GREEN + "Welcome to " + ChatColor.BOLD + "The Slimy Swamp" + ChatColor.GREEN + "!",
-				ChatColor.YELLOW + "Thank you for joining. Enjoy your stay!", 20,
-				100, 20);
+						ChatColor.YELLOW + "Thank you for joining. Enjoy your stay!", 20,
+						100, 20);
 
 		player.spigot().sendMessage(ChatMessageType.ACTION_BAR,
-				TextComponent.fromLegacyText(ChatColor.AQUA + "Welcome! Have fun!"));
+						TextComponent.fromLegacyText(ChatColor.AQUA + "Welcome! Have fun!"));
 
 		player.setPlayerListHeader(
-				ChatColor.GREEN.toString() + ChatColor.BOLD + "The Slimy Swamp\n" + ChatColor.RESET + "Enjoy your stay!\n");
+						ChatColor.GREEN.toString() + ChatColor.BOLD + "The Slimy Swamp\n" + ChatColor.RESET + "Enjoy your stay!\n");
 		player.setPlayerListFooter(ChatColor.AQUA + "\nHope you have fun!");
 
 		// Clickable.
@@ -102,10 +102,10 @@ public final class PlayerJoinEventListener implements Listener {
 		clickable.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "give-guns"));
 
 		final TextComponent none = new TextComponent(ChatColor.DARK_RED.toString() + ChatColor.BOLD + "\n\nWarning:"
-				+ ChatColor.RED + " These guns are very powerful!");
+						+ ChatColor.RED + " These guns are very powerful!");
 
 		final TextComponent hoverable = new TextComponent(
-				ChatColor.YELLOW + "\n\nHover over this to view the secret message!");
+						ChatColor.YELLOW + "\n\nHover over this to view the secret message!");
 		hoverable.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("Troll!")));
 
 		final Spigot spigotPlayer = player.spigot();
@@ -116,7 +116,7 @@ public final class PlayerJoinEventListener implements Listener {
 
 		final TextComponent start = new TextComponent(ChatColor.LIGHT_PURPLE + "\nPlease join our ");
 		final TextComponent link = new TextComponent(
-				ChatColor.BLUE.toString() + ChatColor.UNDERLINE + "Discord server");
+						ChatColor.BLUE.toString() + ChatColor.UNDERLINE + "Discord server");
 
 		link.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://www.discord.gg/SjAGgJaCYc"));
 		link.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("Click to join!")));
@@ -188,9 +188,9 @@ public final class PlayerJoinEventListener implements Listener {
 		container.set(new NamespacedKey(plugin, "player_value"), PersistentDataType.STRING, "Epic slime!");
 
 		if (player.getPersistentDataContainer().has(new NamespacedKey(plugin, "player_value"),
-				PersistentDataType.STRING)) {
+						PersistentDataType.STRING)) {
 			Utility.log("player_value: " + player.getPersistentDataContainer().get(new NamespacedKey(plugin, "player_value"),
-					PersistentDataType.STRING));
+							PersistentDataType.STRING));
 		}
 	}
 }

@@ -168,7 +168,7 @@ public class Cuboid implements Iterable<Block>, Cloneable, ConfigurationSerializ
 	}
 
 	/**
-	 * Get the the centre of the Cuboid.
+	 * Get the centre of the Cuboid.
 	 *
 	 * @return Location at the centre of the Cuboid
 	 */
@@ -177,7 +177,7 @@ public class Cuboid implements Iterable<Block>, Cloneable, ConfigurationSerializ
 		int yc = this.getUpperY() + 1;
 		int zc = this.getUpperZ() + 1;
 		return new Location(this.getWorld(), this.getLowerX() + (xc - this.getLowerX()) / 2.0,
-				this.getLowerY() + (yc - this.getLowerY()) / 2.0, this.getLowerZ() + (zc - this.getLowerZ()) / 2.0);
+						this.getLowerY() + (yc - this.getLowerY()) / 2.0, this.getLowerZ() + (zc - this.getLowerZ()) / 2.0);
 	}
 
 	/**
@@ -345,7 +345,7 @@ public class Cuboid implements Iterable<Block>, Cloneable, ConfigurationSerializ
 		switch (dir) {
 			case HORIZONTAL:
 				c = expand(CuboidDirection.NORTH, amount).expand(CuboidDirection.SOUTH, amount)
-						.expand(CuboidDirection.EAST, amount).expand(CuboidDirection.WEST, amount);
+								.expand(CuboidDirection.EAST, amount).expand(CuboidDirection.WEST, amount);
 				break;
 			case VERTICAL:
 				c = expand(CuboidDirection.DOWN, amount).expand(CuboidDirection.UP, amount);
@@ -442,7 +442,7 @@ public class Cuboid implements Iterable<Block>, Cloneable, ConfigurationSerializ
 	 */
 	public Cuboid contract() {
 		return this.contract(CuboidDirection.DOWN).contract(CuboidDirection.SOUTH).contract(CuboidDirection.EAST)
-				.contract(CuboidDirection.UP).contract(CuboidDirection.NORTH).contract(CuboidDirection.WEST);
+						.contract(CuboidDirection.UP).contract(CuboidDirection.NORTH).contract(CuboidDirection.WEST);
 	}
 
 	/**
@@ -614,45 +614,8 @@ public class Cuboid implements Iterable<Block>, Cloneable, ConfigurationSerializ
 
 	@Override
 	public String toString() {
-		return new String("Cuboid: " + this.worldName + "," + this.x1 + "," + this.y1 + "," + this.z1 + "=>" + this.x2 + ","
-				+ this.y2 + "," + this.z2);
-	}
-
-	public class CuboidIterator implements Iterator<Block> {
-		private World w;
-		private int baseX, baseY, baseZ;
-		private int x, y, z;
-		private int sizeX, sizeY, sizeZ;
-
-		public CuboidIterator(World w, int x1, int y1, int z1, int x2, int y2, int z2) {
-			this.w = w;
-			this.baseX = x1;
-			this.baseY = y1;
-			this.baseZ = z1;
-			this.sizeX = Math.abs(x2 - x1) + 1;
-			this.sizeY = Math.abs(y2 - y1) + 1;
-			this.sizeZ = Math.abs(z2 - z1) + 1;
-			this.x = this.y = this.z = 0;
-		}
-
-		public boolean hasNext() {
-			return this.x < this.sizeX && this.y < this.sizeY && this.z < this.sizeZ;
-		}
-
-		public Block next() {
-			Block b = this.w.getBlockAt(this.baseX + this.x, this.baseY + this.y, this.baseZ + this.z);
-			if (++x >= this.sizeX) {
-				this.x = 0;
-				if (++this.y >= this.sizeY) {
-					this.y = 0;
-					++this.z;
-				}
-			}
-			return b;
-		}
-
-		public void remove() {
-		}
+		return "Cuboid: " + this.worldName + "," + this.x1 + "," + this.y1 + "," + this.z1 + "=>" + this.x2 + ","
+						+ this.y2 + "," + this.z2;
 	}
 
 	public enum CuboidDirection {
@@ -685,4 +648,44 @@ public class Cuboid implements Iterable<Block>, Cloneable, ConfigurationSerializ
 
 	}
 
+	public class CuboidIterator implements Iterator<Block> {
+		private final World w;
+		private final int baseX;
+		private final int baseY;
+		private final int baseZ;
+		private final int sizeX;
+		private final int sizeY;
+		private final int sizeZ;
+		private int x, y, z;
+
+		public CuboidIterator(World w, int x1, int y1, int z1, int x2, int y2, int z2) {
+			this.w = w;
+			this.baseX = x1;
+			this.baseY = y1;
+			this.baseZ = z1;
+			this.sizeX = Math.abs(x2 - x1) + 1;
+			this.sizeY = Math.abs(y2 - y1) + 1;
+			this.sizeZ = Math.abs(z2 - z1) + 1;
+			this.x = this.y = this.z = 0;
+		}
+
+		public boolean hasNext() {
+			return this.x < this.sizeX && this.y < this.sizeY && this.z < this.sizeZ;
+		}
+
+		public Block next() {
+			Block b = this.w.getBlockAt(this.baseX + this.x, this.baseY + this.y, this.baseZ + this.z);
+			if (++x >= this.sizeX) {
+				this.x = 0;
+				if (++this.y >= this.sizeY) {
+					this.y = 0;
+					++this.z;
+				}
+			}
+			return b;
+		}
+
+		public void remove() {
+		}
+	}
 }

@@ -77,8 +77,8 @@ public final class HoglinRiderUtility {
 	}
 
 	public static boolean canJump(@NotNull final Hoglin hoglin) {
-		final BlockFace[] blockFaces = new BlockFace[] { BlockFace.NORTH, BlockFace.NORTH_EAST, BlockFace.EAST,
-				BlockFace.SOUTH_EAST, BlockFace.SOUTH, BlockFace.SOUTH_WEST, BlockFace.WEST, BlockFace.NORTH_WEST };
+		final BlockFace[] blockFaces = new BlockFace[]{BlockFace.NORTH, BlockFace.NORTH_EAST, BlockFace.EAST,
+						BlockFace.SOUTH_EAST, BlockFace.SOUTH, BlockFace.SOUTH_WEST, BlockFace.WEST, BlockFace.NORTH_WEST};
 
 		final List<Block> blocks = new ArrayList<>();
 
@@ -111,7 +111,7 @@ public final class HoglinRiderUtility {
 	}
 
 	public static void playDeathSound(@NotNull final World world, @NotNull final Location location,
-			@NotNull final String mob) {
+	                                  @NotNull final String mob) {
 		if ("HOGLIN".equals(mob)) {
 			for (int i = 0; i < 10; i++) {
 				world.playSound(location, Sound.ENTITY_HOGLIN_HURT, 1, 1);
@@ -167,11 +167,11 @@ public final class HoglinRiderUtility {
 		final String passengerCustomName = passenger.getCustomName();
 
 		return entity instanceof Hoglin
-				&& customName != null
-				&& customName.equals(HOGLIN_NAME)
-				&& passenger instanceof PiglinBrute
-				&& passengerCustomName != null
-				&& passengerCustomName.equals(PIGLIN_NAME);
+						&& customName != null
+						&& customName.equals(HOGLIN_NAME)
+						&& passenger instanceof PiglinBrute
+						&& passengerCustomName != null
+						&& passengerCustomName.equals(PIGLIN_NAME);
 	}
 
 	public static boolean isRider(@Nullable final Entity entity) {
@@ -189,10 +189,10 @@ public final class HoglinRiderUtility {
 		final String vehicleCustomName = vehicle.getCustomName();
 
 		return entity instanceof PiglinBrute
-				&& customName != null
-				&& customName.equals(PIGLIN_NAME)
-				&& vehicle instanceof Hoglin
-				&& vehicleCustomName != null
-				&& vehicleCustomName.equals(HOGLIN_NAME);
+						&& customName != null
+						&& customName.equals(PIGLIN_NAME)
+						&& vehicle instanceof Hoglin
+						&& vehicleCustomName != null
+						&& vehicleCustomName.equals(HOGLIN_NAME);
 	}
 }

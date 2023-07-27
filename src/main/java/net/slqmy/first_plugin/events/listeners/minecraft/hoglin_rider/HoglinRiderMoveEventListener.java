@@ -54,7 +54,7 @@ public final class HoglinMoveEventListener implements Listener {
 		final double distance = hoglinLocation.distance(targetLocation);
 
 		if (HoglinRiderUtility.canJump(hoglin) && !hoglin.hasPotionEffect(PotionEffectType.INCREASE_DAMAGE)
-				&& distance >= 4) {
+						&& distance >= 4) {
 			hoglin.addPotionEffect(HOGLIN_JUMP_EFFECT);
 
 			hoglin.setVelocity(VectorUtility.calculateLeapVelocityVector(hoglin, targetLocation, 1.8F));

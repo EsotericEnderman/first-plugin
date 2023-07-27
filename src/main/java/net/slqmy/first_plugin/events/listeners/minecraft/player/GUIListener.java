@@ -54,14 +54,14 @@ public final class InventoryClickEventListener implements Listener {
 
 						player.teleport(new Location(world, x, y, z));
 						player.sendMessage(ChatColor.GRAY + "You have been teleported to (" + ChatColor.RED + x + ChatColor.RESET
-								+ ", " + ChatColor.GREEN + y + ChatColor.RESET + ", " + ChatColor.BLUE + z + ChatColor.RESET + ").");
+										+ ", " + ChatColor.GREEN + y + ChatColor.RESET + ", " + ChatColor.BLUE + z + ChatColor.RESET + ").");
 
 						break;
 					// KILL YOURSELF.
 					case 13:
 						player.setHealth(0);
 						player.sendMessage(
-								ChatColor.RED.toString() + ChatColor.BOLD + "RIP" + ChatColor.RED + ". You killed yourself.");
+										ChatColor.RED.toString() + ChatColor.BOLD + "RIP" + ChatColor.RED + ". You killed yourself.");
 
 						break;
 					// CLEAR INVENTORY.
@@ -79,7 +79,7 @@ public final class InventoryClickEventListener implements Listener {
 					// CREATE THE SLIMY SWAMP.
 					case 31:
 						player.sendMessage(ChatColor.RED.toString() + ChatColor.BOLD + "[Error]" + ChatColor.RED
-								+ " SlimePointerException: slime");
+										+ " SlimePointerException: slime");
 
 						break;
 					// SECRET BUTTON.
@@ -94,8 +94,8 @@ public final class InventoryClickEventListener implements Listener {
 
 				player.closeInventory();
 			} else if (ChatColor.translateAlternateColorCodes('&', event.getView().getTitle())
-					.startsWith(ChatColor.GOLD.toString() + ChatColor.BOLD + "Auction House " + ChatColor.DARK_GRAY + "» Page "
-							+ ChatColor.YELLOW)) {
+							.startsWith(ChatColor.GOLD.toString() + ChatColor.BOLD + "Auction House " + ChatColor.DARK_GRAY + "» Page "
+											+ ChatColor.YELLOW)) {
 				final int slot = event.getRawSlot();
 
 				final Inventory inventory = event.getInventory();

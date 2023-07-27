@@ -31,14 +31,14 @@ public final class PlayerToggleSneakEventListener implements Listener {
 			final FireworkMeta fireworkMeta = firework.getFireworkMeta();
 
 			fireworkMeta.addEffect(
-					FireworkEffect.builder()
-							.withColor(Color.RED)
-							.withColor(Color.BLACK)
-							.with(FireworkEffect.Type.CREEPER)
-							.withTrail()
-							.withFlicker()
-							.withFade(Color.BLACK)
-							.build());
+							FireworkEffect.builder()
+											.withColor(Color.RED)
+											.withColor(Color.BLACK)
+											.with(FireworkEffect.Type.CREEPER)
+											.withTrail()
+											.withFlicker()
+											.withFade(Color.BLACK)
+											.build());
 
 			fireworkMeta.setPower(3);
 
@@ -64,11 +64,11 @@ public final class PlayerToggleSneakEventListener implements Listener {
 				final Location targetBlockLocation = targetBlock.getLocation();
 
 				if (targetBlock.getType() == Material.OAK_SIGN) {
-					player.sendSignChange(targetBlockLocation, new String[] {
-							"I am a sign!",
-							"",
-							"And no one else",
-							"can see this!"
+					player.sendSignChange(targetBlockLocation, new String[]{
+									"I am a sign!",
+									"",
+									"And no one else",
+									"can see this!"
 					});
 				} else {
 					final BlockData targetBlockData = Material.DIAMOND_BLOCK.createBlockData();

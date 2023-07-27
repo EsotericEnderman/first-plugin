@@ -1,18 +1,16 @@
 package net.slqmy.first_plugin.utility;
 
+import net.slqmy.rank_system.utility.Utility;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.util.Vector;
 import org.jetbrains.annotations.NotNull;
 
-import net.slqmy.rank_system.utility.Utility;
-
 public final class VectorUtility {
 	private static final float GRAVITY = 32F;
 
 	@NotNull
-	public static Vector calculateLeapVelocityVector(@NotNull final Entity entity, @NotNull final Location targetLocation,
-			final float heightGainBlocks) {
+	public static Vector calculateLeapVelocityVector(@NotNull final Entity entity, @NotNull final Location targetLocation, final float heightGainBlocks) {
 		// The entity's starting location is treated as the origin.
 		final Location origin = entity.getLocation();
 
@@ -82,8 +80,8 @@ public final class VectorUtility {
 
 		// Use formula to calculate the magnitude of the velocity.
 		final double magnitude = Math
-				.sqrt((GRAVITY * midPointX * midPointX)
-						/ (2 * cosine * (midPointX * Math.sin(thetaRadians) - maxHeightGain * cosine)));
+						.sqrt((GRAVITY * midPointX * midPointX)
+										/ (2 * cosine * (midPointX * Math.sin(thetaRadians) - maxHeightGain * cosine)));
 
 		Utility.log("Magnitude: " + magnitude);
 

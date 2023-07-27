@@ -62,7 +62,6 @@ public final class ComplexGamingMenuCommand extends AbstractCommand {
 		// this.
 		final Inventory inventory = InventoryUtility.createInventory(
 						ChatColor.UNDERLINE.toString() + ChatColor.DARK_GRAY + "Active Duels", 45,
-
 						Arrays.asList(new Pair<>(frame, 4), new Pair<>(duels, 1),
 										new Pair<>(frame, 5),
 										new Pair<>(null, 7), new Pair<>(frame, 2),
@@ -71,7 +70,9 @@ public final class ComplexGamingMenuCommand extends AbstractCommand {
 										new Pair<>(null, 7), new Pair<>(frame, 1),
 										new Pair<>(duelNotifications, 1), new Pair<>(frame, 3),
 										new Pair<>(createDuel, 1),
-										new Pair<>(frame, 4)));
+										new Pair<>(frame, 4)
+						)
+		);
 
 		player.openInventory(inventory);
 

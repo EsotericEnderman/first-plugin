@@ -6,8 +6,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.jetbrains.annotations.NotNull;
 
-import net.slqmy.first_plugin.events.custom_events.ServerBroadcastEvent;
-
 public final class ServerBroadcastEventListener implements Listener {
 	@EventHandler
 	public void onServerBroadcast(@NotNull final ServerBroadcastEvent event) {

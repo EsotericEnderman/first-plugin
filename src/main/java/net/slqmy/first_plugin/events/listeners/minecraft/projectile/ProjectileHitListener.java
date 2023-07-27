@@ -48,12 +48,12 @@ public final class ProjectileHitEventListener implements Listener {
 			DECIMAL_FORMAT.setRoundingMode(RoundingMode.CEILING);
 
 			player.sendMessage(
-					ChatColor.BOLD + "→" + ChatColor.RESET + " (" + ChatColor.RED + ChatColor.BOLD + DECIMAL_FORMAT.format(x)
-							+ ChatColor.RESET
-							+ ", " + ChatColor.GREEN + ChatColor.BOLD + DECIMAL_FORMAT.format(y) + ChatColor.RESET
-							+ ", " + ChatColor.BLUE + ChatColor.BOLD + DECIMAL_FORMAT.format(z) + ChatColor.RESET
-							+ ") "
-							+ ChatColor.AQUA + DECIMAL_FORMAT.format(projectile.getVelocity().length()) + ChatColor.RESET + " m/s");
+							ChatColor.BOLD + "→" + ChatColor.RESET + " (" + ChatColor.RED + ChatColor.BOLD + DECIMAL_FORMAT.format(x)
+											+ ChatColor.RESET
+											+ ", " + ChatColor.GREEN + ChatColor.BOLD + DECIMAL_FORMAT.format(y) + ChatColor.RESET
+											+ ", " + ChatColor.BLUE + ChatColor.BOLD + DECIMAL_FORMAT.format(z) + ChatColor.RESET
+											+ ") "
+											+ ChatColor.AQUA + DECIMAL_FORMAT.format(projectile.getVelocity().length()) + ChatColor.RESET + " m/s");
 
 			final World world = location.getWorld();
 			assert world != null;
@@ -67,7 +67,7 @@ public final class ProjectileHitEventListener implements Listener {
 			final PersistentDataContainer container = projectile.getPersistentDataContainer();
 
 			if (container.has(isPistolBulletKey, PersistentDataType.BOOLEAN)
-					|| container.has(isGatlingGunBulletKey, PersistentDataType.BOOLEAN)) {
+							|| container.has(isGatlingGunBulletKey, PersistentDataType.BOOLEAN)) {
 				projectile.remove();
 			}
 		}

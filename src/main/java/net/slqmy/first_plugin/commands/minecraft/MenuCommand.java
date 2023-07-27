@@ -17,8 +17,8 @@ import java.util.Collections;
 import java.util.List;
 
 public final class MenuCommand extends AbstractCommand {
-	final String THE_SLIMY_SWAMP = ChatColor.DARK_GREEN.toString() + ChatColor.BOLD + "The Slimy Swamp";
-	final String SLIME_GPT = ChatColor.DARK_GREEN.toString() + ChatColor.BOLD + "SlimeGPT";
+	private final String THE_SLIMY_SWAMP = ChatColor.DARK_GREEN.toString() + ChatColor.BOLD + "The Slimy Swamp";
+	private final String SLIME_GPT = ChatColor.DARK_GREEN.toString() + ChatColor.BOLD + "SlimeGPT";
 
 	public MenuCommand() {
 		super(

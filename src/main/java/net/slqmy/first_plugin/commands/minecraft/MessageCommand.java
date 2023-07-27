@@ -36,7 +36,6 @@ public final class MessageCommand extends AbstractCommand {
 
 	@Override
 	public boolean execute(@NotNull final CommandSender sender, @NotNull final String @NotNull [] args) {
-
 		final Player player = (Player) sender;
 
 		final String target = args[0];

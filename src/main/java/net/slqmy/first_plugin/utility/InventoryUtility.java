@@ -20,7 +20,7 @@ import java.util.List;
 public final class InventoryUtility {
 	@NotNull
 	public static ItemStack createItem(@NotNull final Material material, @NotNull final String name,
-			@Nullable final Multimap<Attribute, AttributeModifier> modifiers) {
+	                                   @Nullable final Multimap<Attribute, AttributeModifier> modifiers) {
 		final ItemStack itemStack = new ItemStack(material);
 		final ItemMeta itemMeta = itemStack.getItemMeta();
 		assert itemMeta != null;
@@ -42,7 +42,7 @@ public final class InventoryUtility {
 
 	@NotNull
 	public static ItemStack createItem(@NotNull final Material material, @NotNull final String name,
-			@NotNull final String lore) {
+	                                   @NotNull final String lore) {
 		final ItemStack itemStack = new ItemStack(material);
 		final ItemMeta itemMeta = itemStack.getItemMeta();
 		assert itemMeta != null;
@@ -72,7 +72,7 @@ public final class InventoryUtility {
 
 	@NotNull
 	public static Inventory createInventory(@NotNull final String name, final int size,
-			@NotNull final List<Pair<ItemStack, Integer>> items) {
+	                                        @NotNull final List<Pair<ItemStack, Integer>> items) {
 		final Inventory inventory = Bukkit.createInventory(null, size, name);
 
 		int currentSlotIndex = 0;
@@ -94,13 +94,13 @@ public final class InventoryUtility {
 	}
 
 	public static boolean isValidPage(final int pageNumber, @NotNull final List<ItemStack> items,
-			final int slotsPerPage) {
+	                                  final int slotsPerPage) {
 		return pageNumber > 0 && pageNumber <= Math.ceil((double) items.size() / slotsPerPage);
 	}
 
 	@NotNull
 	public static List<ItemStack> getPageItems(@NotNull final List<ItemStack> items, final int pageNumber,
-			final int slotsPerPage) {
+	                                           final int slotsPerPage) {
 
 		return items.subList(slotsPerPage * (pageNumber - 1), Math.min(items.size(), slotsPerPage * pageNumber));
 	}

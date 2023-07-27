@@ -1,4 +1,4 @@
-package net.slqmy.first_plugin.commands;
+package net.slqmy.first_plugin.commands.minecraft;
 
 import net.slqmy.first_plugin.Main;
 import net.slqmy.first_plugin.types.AbstractCommand;
@@ -35,11 +35,12 @@ public final class ConfigCommand extends AbstractCommand {
 		player.sendMessage("Word: " + ChatColor.BLACK + config.getString("Word"));
 		player.sendMessage("Number: " + ChatColor.DARK_BLUE + config.getInt("Number"));
 
-		if (config.getBoolean("Boolean")) {
-			player.sendMessage("Boolean: " + ChatColor.GREEN + "true");
-		} else {
-			player.sendMessage("Boolean: " + ChatColor.DARK_RED + "false");
-		}
+		player.sendMessage("Boolean: " + (
+										config.getBoolean("Boolean") ?
+														ChatColor.GREEN + "true" :
+														ChatColor.DARK_RED + "false"
+						)
+		);
 
 		final List<String> stringList = config.getStringList("Fruits");
 

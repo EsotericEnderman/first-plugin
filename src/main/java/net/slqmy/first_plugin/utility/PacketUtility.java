@@ -75,6 +75,7 @@ public final class PacketUtility {
 		final ServerGamePacketListenerImpl playerConnection = ((CraftPlayer) player).getHandle().connection;
 
 		final Connection connection;
+		final String playerName = player.getName();
 
 		try {
 			field = playerConnection.getClass().getDeclaredField("h");
@@ -86,7 +87,7 @@ public final class PacketUtility {
 		}
 
 		final ChannelPipeline pipeline = connection.channel.pipeline();
-		pipeline.addBefore("packet_handler", player.getName(), channelHandler);
+		pipeline.addBefore("packet_handler", playerName, channelHandler);
 	}
 
 	public static void eject(@NotNull final Player player) {
@@ -94,6 +95,7 @@ public final class PacketUtility {
 		final ServerGamePacketListenerImpl playerConnection = ((CraftPlayer) player).getHandle().connection;
 
 		final Connection connection;
+		final String playerName = player.getName();
 
 		try {
 			field = playerConnection.getClass().getDeclaredField("h");
@@ -106,7 +108,7 @@ public final class PacketUtility {
 
 		final Channel channel = connection.channel;
 		channel.eventLoop().submit(() -> {
-			channel.pipeline().remove(player.getName());
+			channel.pipeline().remove(playerName);
 			return null;
 		});
 	}

@@ -38,7 +38,6 @@ public final class FruitCommand extends AbstractCommand {
 	public List<String> onTabComplete(@NotNull final CommandSender sender, @NotNull final String @NotNull [] args) {
 		final List<String> results = new ArrayList<>();
 
-
 		switch (args.length) {
 			case 1:
 				results.add("Pear");

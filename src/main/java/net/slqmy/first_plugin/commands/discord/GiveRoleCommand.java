@@ -19,19 +19,19 @@ public class GiveRoleCommand extends AbstractCommand {
 
 	public GiveRoleCommand(@NotNull final Main plugin) {
 		super(
-				"give-role",
-				"Give a user on Discord a role. From Minecraft...",
-				"/give-role <guild ID> <user ID> <role ID>",
-				new Integer[] { 3 },
-				new String[] {},
-				"first_plugin.give_role",
-				true);
+						"give-role",
+						"Give a user on Discord a role. From Minecraft...",
+						"/give-role <guild ID> <user ID> <role ID>",
+						new Integer[]{3},
+						new String[]{},
+						"first_plugin.give_role",
+						true);
 
-		this.jda = plugin.getJDA();
+		jda = plugin.getJDA();
 	}
 
 	@Override
-	public boolean execute(@NotNull final CommandSender sender, @NotNull final String[] args) {
+	public boolean execute(@NotNull final CommandSender sender, @NotNull final String @NotNull [] args) {
 		final String guildID = args[0];
 		final Guild guild = jda.getGuildById(guildID);
 

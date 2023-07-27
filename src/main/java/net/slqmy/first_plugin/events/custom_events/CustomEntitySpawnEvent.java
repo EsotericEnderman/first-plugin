@@ -16,7 +16,7 @@ import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 
 public final class CustomEntitySpawnEvent
-		extends Event {
+				extends Event {
 	private static final HandlerList HANDLERS = new HandlerList();
 	private final Entity entity;
 	private final Location location;

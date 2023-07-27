@@ -11,8 +11,6 @@ import net.slqmy.first_plugin.utility.Utility;
 public final class PlayerResourcePackStatusEventListener implements Listener {
 	@EventHandler
 	public void onPlayerResourcePackStatus(@NotNull final PlayerResourcePackStatusEvent event) {
-		final Status status = event.getStatus();
-
-		Utility.log("Resource pack status: " + status.name());
+		Utility.log("Resource pack status: " + event.getStatus().name());
 	}
 }

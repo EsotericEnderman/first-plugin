@@ -31,16 +31,16 @@ import java.util.UUID;
 public final class PlayerInteractEventListener implements Listener {
 	private static final Particle.DustTransition DUST_TRANSITION_GREEN = new Particle.DustTransition(Color.GREEN, Color.GREEN, 0.85F);
 	private static final PotionEffect[] poisonLauncherEffects = {
-			new PotionEffect(PotionEffectType.POISON, PotionEffect.INFINITE_DURATION, 1, true, true, true),
-			new PotionEffect(PotionEffectType.HARM, PotionEffect.INFINITE_DURATION, 1, true, true, true),
-			new PotionEffect(PotionEffectType.BLINDNESS, PotionEffect.INFINITE_DURATION, 1, true, true),
-			new PotionEffect(PotionEffectType.CONFUSION, PotionEffect.INFINITE_DURATION, 1, true, true),
-			new PotionEffect(PotionEffectType.DARKNESS, PotionEffect.INFINITE_DURATION, 1, true, true),
-			new PotionEffect(PotionEffectType.HUNGER, PotionEffect.INFINITE_DURATION, 99, true, true),
-			new PotionEffect(PotionEffectType.SLOW, PotionEffect.INFINITE_DURATION, 1, true, true),
-			new PotionEffect(PotionEffectType.SLOW_DIGGING, PotionEffect.INFINITE_DURATION, 1, true, true),
-			new PotionEffect(PotionEffectType.WEAKNESS, PotionEffect.INFINITE_DURATION, 1, true, true),
-			new PotionEffect(PotionEffectType.WITHER, PotionEffect.INFINITE_DURATION, 1, true, true)
+					new PotionEffect(PotionEffectType.POISON, PotionEffect.INFINITE_DURATION, 1, true, true, true),
+					new PotionEffect(PotionEffectType.HARM, PotionEffect.INFINITE_DURATION, 1, true, true, true),
+					new PotionEffect(PotionEffectType.BLINDNESS, PotionEffect.INFINITE_DURATION, 1, true, true),
+					new PotionEffect(PotionEffectType.CONFUSION, PotionEffect.INFINITE_DURATION, 1, true, true),
+					new PotionEffect(PotionEffectType.DARKNESS, PotionEffect.INFINITE_DURATION, 1, true, true),
+					new PotionEffect(PotionEffectType.HUNGER, PotionEffect.INFINITE_DURATION, 99, true, true),
+					new PotionEffect(PotionEffectType.SLOW, PotionEffect.INFINITE_DURATION, 1, true, true),
+					new PotionEffect(PotionEffectType.SLOW_DIGGING, PotionEffect.INFINITE_DURATION, 1, true, true),
+					new PotionEffect(PotionEffectType.WEAKNESS, PotionEffect.INFINITE_DURATION, 1, true, true),
+					new PotionEffect(PotionEffectType.WITHER, PotionEffect.INFINITE_DURATION, 1, true, true)
 	};
 
 	private final Main plugin;
@@ -109,8 +109,8 @@ public final class PlayerInteractEventListener implements Listener {
 			plugin.setChatEnabled(chatEnabled);
 
 			player.sendMessage(
-					"Chat " + (chatEnabled ? ChatColor.GREEN + "enabled" : ChatColor.RED + "disabled")
-							+ ChatColor.RESET + "!");
+							"Chat " + (chatEnabled ? ChatColor.GREEN + "enabled" : ChatColor.RED + "disabled")
+											+ ChatColor.RESET + "!");
 		} else if (mainHandMaterial == Material.LEVER) {
 			final UUID playerUUID = player.getUniqueId();
 
@@ -143,7 +143,7 @@ public final class PlayerInteractEventListener implements Listener {
 			snowball.setFireTicks(300);
 			player.spawnParticle(Particle.WHITE_ASH, playerLocation, 10, 1, 1, 1);
 		} else if (mainHandMaterial == Material.GOLDEN_HOE && itemName.equals(
-				ChatColor.DARK_BLUE.toString() + ChatColor.BOLD + "Gatling Gun")) {
+						ChatColor.DARK_BLUE.toString() + ChatColor.BOLD + "Gatling Gun")) {
 			final Trident trident = player.launchProjectile(Trident.class, playerDirection.multiply(8.5F));
 
 			final PersistentDataContainer container = trident.getPersistentDataContainer();
@@ -152,7 +152,7 @@ public final class PlayerInteractEventListener implements Listener {
 			trident.setFireTicks(300);
 			player.spawnParticle(Particle.FLAME, playerLocation, 10, 1, 1, 1);
 		} else if (mainHandMaterial == Material.DIAMOND_HOE && itemName.equals(
-				ChatColor.DARK_GREEN.toString() + ChatColor.BOLD + "Poison Launcher")) {
+						ChatColor.DARK_GREEN.toString() + ChatColor.BOLD + "Poison Launcher")) {
 			final ItemStack poisonPotion = new ItemStack(Material.LINGERING_POTION);
 			final PotionMeta meta = (PotionMeta) poisonPotion.getItemMeta();
 
@@ -199,7 +199,7 @@ public final class PlayerInteractEventListener implements Listener {
 
 			player.spawnParticle(Particle.SMOKE_LARGE, playerLocation, 10, 1, 1, 1);
 		} else if (mainHandMaterial == Material.NETHERITE_HOE && itemName.equals(
-				ChatColor.RED.toString() + ChatColor.BOLD + "Rocket Launcher")) {
+						ChatColor.RED.toString() + ChatColor.BOLD + "Rocket Launcher")) {
 			final Fireball fireball = player.launchProjectile(Fireball.class, playerDirection.multiply(4.2F));
 
 			fireball.setYield(4.2F);

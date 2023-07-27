@@ -15,10 +15,10 @@ import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.TimeUnit;
 
 public final class CooldownCommand extends AbstractCommand {
-	private final int COOLDOWN_SECONDS = 5;
+	private final int cooldownSeconds = 5;
 
 	private final Cache<UUID, Long> cooldown = CacheBuilder.newBuilder()
-					.expireAfterWrite(COOLDOWN_SECONDS, TimeUnit.SECONDS)
+					.expireAfterWrite(cooldownSeconds, TimeUnit.SECONDS)
 					.build();
 
 	public CooldownCommand() {
@@ -40,17 +40,18 @@ public final class CooldownCommand extends AbstractCommand {
 		final ConcurrentMap<UUID, Long> map = cooldown.asMap();
 
 		if (!map.containsKey(playerUUID)) {
-			player.sendMessage(ChatColor.GREEN + "Command successful! Cool-down set to " + ChatColor.BOLD + COOLDOWN_SECONDS
+			player.sendMessage(ChatColor.GREEN + "Command successful! Cool-down set to " + ChatColor.BOLD + cooldownSeconds
 							+ ChatColor.GREEN + " seconds");
 
-			cooldown.put(playerUUID, System.currentTimeMillis() + TimeUnit.SECONDS.toMillis(COOLDOWN_SECONDS));
+			cooldown.put(playerUUID, System.currentTimeMillis() + TimeUnit.SECONDS.toMillis(cooldownSeconds));
 		} else {
 			final long timeDifferenceMilliseconds = map.get(playerUUID) - System.currentTimeMillis();
 
-			player
-							.sendMessage(ChatColor.RED + "You must wait " + ChatColor.BOLD
+			player.sendMessage(
+							ChatColor.RED + "You must wait " + ChatColor.BOLD
 											+ TimeUnit.MILLISECONDS.toSeconds(timeDifferenceMilliseconds)
-											+ ChatColor.RED + " more seconds until you can run this command again!");
+											+ ChatColor.RED + " more seconds until you can run this command again!"
+			);
 		}
 
 		return true;

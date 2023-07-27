@@ -20,9 +20,10 @@ import java.util.Collections;
 import java.util.List;
 
 public final class BroadcastCommand extends AbstractCommand {
-	private static final PluginManager PLUGIN_MANAGER = Bukkit.getPluginManager();
 
-	private final Main plugin;
+	private final PluginManager pluginManager = Bukkit.getPluginManager();
+
+	private final AnvilGUI.Builder builder;
 
 	public BroadcastCommand(@NotNull final Main plugin) {
 		super(
@@ -35,22 +36,16 @@ public final class BroadcastCommand extends AbstractCommand {
 						true
 		);
 
-		this.plugin = plugin;
-	}
-
-	@Override
-	public boolean execute(@NotNull CommandSender sender, @NotNull String[] args) {
-		final Player player = (Player) sender;
-
-		new AnvilGUI.Builder()
+		builder = new AnvilGUI.Builder()
 						.title(ChatColor.BOLD + "Message")
-						.text("> Type here")
+						.text("Type here")
 						.itemLeft(new ItemStack(Material.WRITABLE_BOOK))
 						.onClick((final Integer integer, final StateSnapshot snapshot) -> {
+							final Player player = snapshot.getPlayer();
 							final String message = snapshot.getText();
 
 							final ServerBroadcastEvent event = new ServerBroadcastEvent(player, message);
-							PLUGIN_MANAGER.callEvent(event);
+							pluginManager.callEvent(event);
 
 							if (!event.isCancelled()) {
 								Bukkit.broadcastMessage(ChatColor.GOLD + "Broadcast " + ChatColor.RESET + "» "
@@ -64,8 +59,14 @@ public final class BroadcastCommand extends AbstractCommand {
 
 							return Collections.singletonList(ResponseAction.close());
 						})
-						.plugin(plugin)
-						.open(player);
+						.plugin(plugin);
+	}
+
+	@Override
+	public boolean execute(@NotNull CommandSender sender, @NotNull String[] args) {
+		final Player player = (Player) sender;
+
+		builder.open(player);
 
 		return true;
 	}

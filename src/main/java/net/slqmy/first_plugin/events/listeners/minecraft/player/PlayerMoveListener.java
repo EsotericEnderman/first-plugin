@@ -36,10 +36,10 @@ public final class PlayerMoveEventListener implements Listener {
 
 		if (latestFill != null && latestFill.contains(player.getLocation())) {
 			player.spigot().sendMessage(ChatMessageType.ACTION_BAR,
-					TextComponent
-							.fromLegacyText(ChatColor.GRAY.toString() + ChatColor.BOLD + "- " + ChatColor.RED + ChatColor.BOLD
-									+ "BEWARE" + ChatColor.RED + ": " + ChatColor.YELLOW + "You are in the latest fill region!"
-									+ ChatColor.GRAY + ChatColor.BOLD + " -"));
+							TextComponent
+											.fromLegacyText(ChatColor.GRAY.toString() + ChatColor.BOLD + "- " + ChatColor.RED + ChatColor.BOLD
+															+ "BEWARE" + ChatColor.RED + ": " + ChatColor.YELLOW + "You are in the latest fill region!"
+															+ ChatColor.GRAY + ChatColor.BOLD + " -"));
 		}
 	}
 }

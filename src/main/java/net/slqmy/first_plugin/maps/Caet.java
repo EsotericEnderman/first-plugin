@@ -28,7 +28,7 @@ public final class Caet extends MapRenderer {
 			// But in item frames, it fully works.
 			// JPEGs work too.
 			final BufferedImage image = ImageIO.read(new URL(
-					"https://cdn.discordapp.com/avatars/500690028960284672/5b556e4ef15daab8d2f8743cb443eb22.png?size=128"));
+							"https://cdn.discordapp.com/avatars/500690028960284672/5b556e4ef15daab8d2f8743cb443eb22.png?size=128"));
 
 			canvas.drawImage(0, 0, image);
 		} catch (final IOException exception) {

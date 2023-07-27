@@ -25,7 +25,7 @@ public class LaunchCommand extends AbstractCommand {
 	}
 
 	@Override
-	public boolean execute(@NotNull final CommandSender sender, @NotNull final String[] args) {
+	public boolean execute(@NotNull final CommandSender sender, @NotNull final String @NotNull [] args) {
 		final Player player = (Player) sender;
 
 		try {
@@ -50,7 +50,7 @@ public class LaunchCommand extends AbstractCommand {
 	}
 
 	@Override
-	public @Nullable List<String> onTabComplete(@NotNull final CommandSender sender, @NotNull final String[] args) {
+	public @Nullable List<String> onTabComplete(@NotNull final CommandSender sender, @NotNull final String @NotNull [] args) {
 		final Player player = (Player) sender;
 		final Location location = player.getLocation();
 

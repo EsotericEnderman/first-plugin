@@ -5,4 +5,4 @@ api-version: "1.20"
 prefix: First Plugin
 author: slqmy
 description: My first plugin.
-depend: ["Rank-System", "NoteBlockAPI", "WorldEdit"]
+depend: [ "Rank-System", "NoteBlockAPI", "WorldEdit" ]

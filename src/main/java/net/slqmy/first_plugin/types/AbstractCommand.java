@@ -26,8 +26,7 @@ public abstract class AbstractCommand extends BukkitCommand {
 	private final String permission;
 	private final boolean playerOnly;
 
-	protected AbstractCommand(@NotNull final String name, final String description, final String usage,
-			final Integer[] argLengths, final String[] aliases, final String permission, final boolean playerOnly) {
+	protected AbstractCommand(@NotNull final String name, final String description, final String usage, final Integer[] argLengths, final String[] aliases, final String permission, final boolean playerOnly) {
 		super(name);
 		this.name = name;
 
@@ -44,9 +43,9 @@ public abstract class AbstractCommand extends BukkitCommand {
 		this.permission = permission;
 
 		setPermissionMessage(
-				"[" + ChatColor.AQUA + ChatColor.BOLD + "First" + ChatColor.DARK_GRAY + "-" + ChatColor.AQUA + ChatColor.BOLD
-						+ "Plugin" + ChatColor.RESET + "] " + ChatColor.RED + "You must have the " + ChatColor.UNDERLINE
-						+ permission + ChatColor.RED + " permission to execute this command!");
+						"[" + ChatColor.AQUA + ChatColor.BOLD + "First" + ChatColor.DARK_GRAY + "-" + ChatColor.AQUA + ChatColor.BOLD
+										+ "Plugin" + ChatColor.RESET + "] " + ChatColor.RED + "You must have the " + ChatColor.UNDERLINE
+										+ permission + ChatColor.RED + " permission to execute this command!");
 
 		this.playerOnly = playerOnly;
 
@@ -74,7 +73,7 @@ public abstract class AbstractCommand extends BukkitCommand {
 
 	@Override
 	public boolean execute(@NotNull final CommandSender sender, @NotNull final String label,
-			@NotNull final String[] args) {
+	                       @NotNull final String[] args) {
 		if (playerOnly && !(sender instanceof Player)) {
 			Utility.log("/" + name + " is a player-only command!");
 			return true;
@@ -85,14 +84,14 @@ public abstract class AbstractCommand extends BukkitCommand {
 										&& (NumberUtility.min(argLengths) >= 0 || args.length >= -NumberUtility.min(argLengths))) {
 			if (sender instanceof Player) {
 				sender.sendMessage(
-						" \n" + ChatColor.RED + "Invalid command usage!\nPlease use " + ChatColor.UNDERLINE + usage + ChatColor.RED
-								+ "!\n \n"
-								+ ChatColor.RESET + ChatColor.UNDERLINE + "/" + name + "\n"
-								+ ChatColor.DARK_GRAY + "• " + ChatColor.GRAY + description + "\n"
-								+ ChatColor.DARK_GRAY + "• " + ChatColor.RESET + "Usage: " + ChatColor.GRAY + usage + "\n"
-								+ ChatColor.DARK_GRAY + "• " + ChatColor.RESET + "Aliases: " + ChatColor.GRAY
-								+ String.join(", ", aliases) + "\n"
-								+ ChatColor.DARK_GRAY + "• " + ChatColor.RESET + "Permission: " + ChatColor.GRAY + permission + "\n ");
+								" \n" + ChatColor.RED + "Invalid command usage!\nPlease use " + ChatColor.UNDERLINE + usage + ChatColor.RED
+												+ "!\n \n"
+												+ ChatColor.RESET + ChatColor.UNDERLINE + "/" + name + "\n"
+												+ ChatColor.DARK_GRAY + "• " + ChatColor.GRAY + description + "\n"
+												+ ChatColor.DARK_GRAY + "• " + ChatColor.RESET + "Usage: " + ChatColor.GRAY + usage + "\n"
+												+ ChatColor.DARK_GRAY + "• " + ChatColor.RESET + "Aliases: " + ChatColor.GRAY
+												+ String.join(", ", aliases) + "\n"
+												+ ChatColor.DARK_GRAY + "• " + ChatColor.RESET + "Permission: " + ChatColor.GRAY + permission + "\n ");
 
 			} else {
 				Utility.log("Invalid command usage! Please use " + usage + "!");
@@ -113,12 +112,12 @@ public abstract class AbstractCommand extends BukkitCommand {
 	@NotNull
 	@Override
 	public List<String> tabComplete(@NotNull final CommandSender sender, @NotNull final String alias,
-			@NotNull final String @NotNull [] args) {
+	                                @NotNull final String @NotNull [] args) {
 		if (argLengths.contains(args.length) && (!playerOnly || sender instanceof Player)) {
 			final List<String> results = onTabComplete(sender, args);
 
 			return results == null ? new ArrayList<>()
-					: StringUtil.copyPartialMatches(args[args.length - 1], results, new ArrayList<>());
+							: StringUtil.copyPartialMatches(args[args.length - 1], results, new ArrayList<>());
 		}
 
 		return new ArrayList<>();

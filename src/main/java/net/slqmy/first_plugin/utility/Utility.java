@@ -15,7 +15,6 @@ import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -30,9 +29,8 @@ public final class Utility {
 	private static final String TEXTURES_KEY = "textures";
 
 	@Nullable
-	public static Pair<@NotNull File, @NotNull YamlConfiguration> initiateYAMLFile(@NotNull String name,
-			final @NotNull Main plugin)
-			throws IOException {
+	public static Pair<@NotNull File, @NotNull YamlConfiguration> initiateYAMLFile(@NotNull String name, final @NotNull Main plugin)
+					throws IOException {
 		final File pluginDataFolder = plugin.getDataFolder();
 		name += ".yml";
 
@@ -83,8 +81,7 @@ public final class Utility {
 	}
 
 	@NotNull
-	public static String replaceAll(@NotNull final String input, @NotNull final Pattern pattern,
-			@NotNull final String replaceString) {
+	public static String replaceAll(@NotNull final String input, @NotNull final Pattern pattern, @NotNull final String replaceString) {
 		final Matcher matcher = pattern.matcher(input);
 		return matcher.replaceAll(replaceString);
 	}

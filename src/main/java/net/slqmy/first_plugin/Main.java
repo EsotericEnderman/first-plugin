@@ -53,18 +53,15 @@ import java.util.*;
 public final class Main extends JavaPlugin implements PluginMessageListener {
 	private static final PluginManager PLUGIN_MANAGER = Bukkit.getPluginManager();
 	private static final BukkitScheduler SCHEDULER = Bukkit.getScheduler();
-	private static final String WORLD_NAME = "world";
-	private static final int MAX_LIGHT_LEVEL = 15;
-
-	private static final BossBar bossBar = Bukkit.createBossBar(
-			ChatColor.LIGHT_PURPLE.toString() + ChatColor.BOLD + "Wither Storm",
-			BarColor.PURPLE,
-			BarStyle.SEGMENTED_20
-	// BarFlag.CREATE_FOG, - a bit annoying, but good for atmosphere. Could be used
-	// in actual boss fights or server-wide events to add more immersion. (Also, I'm
-	// not sure if this actually does anything)
-	// BarFlag.DARKEN_SKY, - Same as above, but this definitely does something.
-	// BarFlag.PLAY_BOSS_MUSIC - Seems to not do anything... (I might be wrong).
+	private final BossBar bossBar = Bukkit.createBossBar(
+					ChatColor.LIGHT_PURPLE.toString() + ChatColor.BOLD + "Wither Storm",
+					BarColor.PURPLE,
+					BarStyle.SEGMENTED_20
+					// BarFlag.CREATE_FOG, - a bit annoying, but good for atmosphere. Could be used
+					// in actual boss fights or server-wide events to add more immersion. (Also, I'm
+					// not sure if this actually does anything)
+					// BarFlag.DARKEN_SKY, - Same as above, but this definitely does something.
+					// BarFlag.PLAY_BOSS_MUSIC - Seems to not do anything... (I might be wrong).
 	);
 	private final RankSystem rankSystem = (RankSystem) PLUGIN_MANAGER.getPlugin("Rank-System");
 	private final PlayerManager playerManager = new PlayerManager();
@@ -109,8 +106,20 @@ public final class Main extends JavaPlugin implements PluginMessageListener {
 		return latestFill;
 	}
 
+	public void setLatestFill(@NotNull final Cuboid newFill) {
+		latestFill = newFill;
+	}
+
 	public boolean isChatEnabled() {
 		return chatEnabled;
+	}
+
+	public void setChatEnabled(final boolean state) {
+		if (state == chatEnabled) {
+			throw new IllegalArgumentException("Chat is already " + (state ? "enabled" : "disabled") + "!");
+		}
+
+		chatEnabled = state;
 	}
 
 	public BossBar getBossBar() {
@@ -131,18 +140,6 @@ public final class Main extends JavaPlugin implements PluginMessageListener {
 
 	public NamespacedKey getIsGatlingGunBulletKey() {
 		return isGatlingGunBulletKey;
-	}
-
-	public void setLatestFill(@NotNull final Cuboid newFill) {
-		latestFill = newFill;
-	}
-
-	public void setChatEnabled(final boolean state) {
-		if (state == chatEnabled) {
-			throw new IllegalArgumentException("Chat is already " + (state ? "enabled" : "disabled") + "!");
-		}
-
-		chatEnabled = state;
 	}
 
 	@Override
@@ -249,7 +246,7 @@ public final class Main extends JavaPlugin implements PluginMessageListener {
 		Utility.log("Connected to database? " + (database.isConnected() ? "yes" : "no") + "!");
 
 		final String connectionString = "mongodb+srv://firstplugin:" + config.getString("MongoDB-Password")
-				+ "@datacluster.z5vohpt.mongodb.net/📄・First-Plugin?retryWrites=true&w=majority";
+						+ "@datacluster.z5vohpt.mongodb.net/📄・First-Plugin?retryWrites=true&w=majority";
 
 		try (final MongoClient client = MongoClients.create(connectionString)) {
 			final MongoDatabase database = client.getDatabase("📄・First-Plugin");
@@ -331,24 +328,24 @@ public final class Main extends JavaPlugin implements PluginMessageListener {
 		// Maybe make a recipe manager?
 
 		final ShapedRecipe diamondSwordRecipe = new ShapedRecipe(new NamespacedKey(this, "custom_diamond_sword"),
-				new ItemStack(Material.DIAMOND_SWORD));
+						new ItemStack(Material.DIAMOND_SWORD));
 
 		diamondSwordRecipe.shape(
-				" D ",
-				" D ",
-				" D ");
+						" D ",
+						" D ",
+						" D ");
 
 		diamondSwordRecipe.setIngredient('D', Material.DIAMOND);
 
 		Bukkit.addRecipe(diamondSwordRecipe);
 
 		final ShapedRecipe elytraRecipe = new ShapedRecipe(new NamespacedKey(this, "custom_elytra"),
-				new ItemStack(Material.ELYTRA));
+						new ItemStack(Material.ELYTRA));
 
 		elytraRecipe.shape(
-				" L ",
-				"PNP",
-				"L L");
+						" L ",
+						"PNP",
+						"L L");
 
 		elytraRecipe.setIngredient('L', Material.LEATHER);
 		elytraRecipe.setIngredient('P', Material.PHANTOM_MEMBRANE);
@@ -357,12 +354,12 @@ public final class Main extends JavaPlugin implements PluginMessageListener {
 		Bukkit.addRecipe(elytraRecipe);
 
 		final ShapedRecipe barrierRecipe = new ShapedRecipe(new NamespacedKey(this, "custom_barrier"),
-				new ItemStack(Material.BARRIER));
+						new ItemStack(Material.BARRIER));
 
 		barrierRecipe.shape(
-				"R R",
-				" R ",
-				"R R");
+						"R R",
+						" R ",
+						"R R");
 
 		barrierRecipe.setIngredient('R', Material.RED_CONCRETE);
 
@@ -380,9 +377,9 @@ public final class Main extends JavaPlugin implements PluginMessageListener {
 		final ShapedRecipe stickRecipe = new ShapedRecipe(new NamespacedKey(this, "custom_stick"), customStick);
 
 		stickRecipe.shape(
-				"GGG",
-				"GSG",
-				"GGG");
+						"GGG",
+						"GSG",
+						"GGG");
 
 		stickRecipe.setIngredient('G', Material.GOLD_BLOCK);
 		stickRecipe.setIngredient('S', Material.STICK);
@@ -485,6 +482,7 @@ public final class Main extends JavaPlugin implements PluginMessageListener {
 
 		Utility.log("The plugin 'FirstPlugin' has been fully enabled!");
 
+		final String WORLD_NAME = "world";
 		final World world = Bukkit.getWorld(WORLD_NAME);
 
 		assert world != null;
@@ -495,10 +493,10 @@ public final class Main extends JavaPlugin implements PluginMessageListener {
 		final TextDisplay textDisplay = (TextDisplay) world.spawnEntity(displaysLocation, EntityType.TEXT_DISPLAY);
 
 		textDisplay.setText(ChatColor.DARK_GREEN.toString() + ChatColor.STRIKETHROUGH + "  " + ChatColor.GREEN
-				+ ChatColor.BOLD + "THE" + ChatColor.DARK_GREEN + ChatColor.STRIKETHROUGH + " " + ChatColor.GREEN
-				+ ChatColor.BOLD + "SLIMY" + ChatColor.DARK_GREEN + ChatColor.STRIKETHROUGH + " " + ChatColor.GREEN
-				+ ChatColor.BOLD + "SWAMP"
-				+ ChatColor.DARK_GREEN + ChatColor.STRIKETHROUGH + "  ");
+						+ ChatColor.BOLD + "THE" + ChatColor.DARK_GREEN + ChatColor.STRIKETHROUGH + " " + ChatColor.GREEN
+						+ ChatColor.BOLD + "SLIMY" + ChatColor.DARK_GREEN + ChatColor.STRIKETHROUGH + " " + ChatColor.GREEN
+						+ ChatColor.BOLD + "SWAMP"
+						+ ChatColor.DARK_GREEN + ChatColor.STRIKETHROUGH + "  ");
 		textDisplay.setShadowed(true);
 		textDisplay.setBrightness(new Display.Brightness(MAX_LIGHT_LEVEL, MAX_LIGHT_LEVEL));
 		textDisplay.setTransformation(
@@ -509,9 +507,9 @@ public final class Main extends JavaPlugin implements PluginMessageListener {
 		// BLOCK DISPLAY
 
 		final BlockDisplay blockDisplay = (BlockDisplay) world.spawnEntity(displaysLocation.add(5, -2, 0),
-				EntityType.BLOCK_DISPLAY);
+						EntityType.BLOCK_DISPLAY);
 		blockDisplay.setBlock(Material.END_PORTAL_FRAME.createBlockData());
-		blockDisplay.setBrightness(new Display.Brightness(MAX_LIGHT_LEVEL, MAX_LIGHT_LEVEL));
+		blockDisplay.setBrightness(new Display.Brightness(15, 15));
 
 		// ITEM DISPLAY
 
@@ -534,7 +532,7 @@ public final class Main extends JavaPlugin implements PluginMessageListener {
 		bee.setGlowing(true);
 
 		final ArmorStand armourStand = (ArmorStand) world.spawnEntity(new Location(world, 0, 320, 0),
-				EntityType.ARMOR_STAND);
+						EntityType.ARMOR_STAND);
 
 		armourStand.setArms(true);
 		armourStand.setGlowing(true);
@@ -576,18 +574,19 @@ public final class Main extends JavaPlugin implements PluginMessageListener {
 		// 18000 = 24:00.
 		world.setTime(0);
 
-		/* BukkitTask bukkitTask = */ SCHEDULER.runTaskLater/* Asynchronously */(this,
-				() -> Bukkit.broadcastMessage(
-						"Server has started! Up for " + ChatColor.BOLD + "10" + ChatColor.RESET + " seconds and counting."),
-				200);
+		/* BukkitTask bukkitTask = */
+		SCHEDULER.runTaskLater/* Asynchronously */(this,
+						() -> Bukkit.broadcastMessage(
+										"Server has started! Up for " + ChatColor.BOLD + "10" + ChatColor.RESET + " seconds and counting."),
+						200);
 
 		// Use bukkitTask.cancel(); to cancel tasks.
 
 		SCHEDULER.runTaskTimer/* Asynchronously */(this,
-				() -> Bukkit
-						.broadcastMessage("This executes every " + ChatColor.BOLD + "1500" + ChatColor.RESET + " seconds! ...and "
-								+ ChatColor.BOLD + "10" + ChatColor.RESET + " seconds after the server has started."),
-				200, 30_000);
+						() -> Bukkit
+										.broadcastMessage("This executes every " + ChatColor.BOLD + "1500" + ChatColor.RESET + " seconds! ...and "
+														+ ChatColor.BOLD + "10" + ChatColor.RESET + " seconds after the server has started."),
+						200, 30_000);
 	}
 
 	private void registerEnchantment(@NotNull final Enchantment enchantment) {

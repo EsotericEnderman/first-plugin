@@ -36,12 +36,7 @@ public final class FillCommand extends AbstractCommand {
 	public boolean execute(@NotNull final CommandSender sender, @NotNull final String @NotNull [] args) {
 		final Player player = (Player) sender;
 
-		final int x1;
-		final int y1;
-		final int z1;
-		final int x2;
-		final int y2;
-		final int z2;
+		final int x1, y1, z1, x2, y2, z2;
 
 		try {
 			x1 = Integer.parseInt(args[0]);
@@ -76,10 +71,10 @@ public final class FillCommand extends AbstractCommand {
 			return false;
 		}
 
-		player
-						.sendMessage(
-										ChatColor.GREEN + "Successfully filled a cuboid with block type " + ChatColor.RESET + ChatColor.BOLD
-														+ blockType + ChatColor.GREEN + "!");
+		player.sendMessage(
+						ChatColor.GREEN + "Successfully filled cuboid with block type " + ChatColor.RESET + ChatColor.BOLD
+										+ blockType + ChatColor.GREEN + "!"
+		);
 
 		return true;
 	}

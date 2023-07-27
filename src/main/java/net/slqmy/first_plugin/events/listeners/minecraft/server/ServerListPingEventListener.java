@@ -19,13 +19,13 @@ public final class ServerListPingEventListener implements Listener {
 		event.setMaxPlayers(Bukkit.getOnlinePlayers().size() + 1);
 
 		event.setMotd(
-				ChatColor.BOLD + "| " + ChatColor.GREEN + ChatColor.BOLD + "Local host server " + ChatColor.RESET
-						+ ChatColor.BOLD + "-"
-						+ ChatColor.AQUA
-						+ " for testing my plugins!\n" + ChatColor.RESET
-						+ ChatColor.BOLD + "| " + ChatColor.YELLOW + "Enjoy your stay and remember to " + ChatColor.BOLD
-						+ "work hard" + ChatColor.YELLOW
-						+ "!");
+						ChatColor.BOLD + "| " + ChatColor.GREEN + ChatColor.BOLD + "Local host server " + ChatColor.RESET
+										+ ChatColor.BOLD + "-"
+										+ ChatColor.AQUA
+										+ " for testing my plugins!\n" + ChatColor.RESET
+										+ ChatColor.BOLD + "| " + ChatColor.YELLOW + "Enjoy your stay and remember to " + ChatColor.BOLD
+										+ "work hard" + ChatColor.YELLOW
+										+ "!");
 
 		try {
 			event.setServerIcon(Bukkit.loadServerIcon(SERVER_ICON_PNG_FILE));

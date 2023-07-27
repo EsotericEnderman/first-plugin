@@ -59,7 +59,8 @@ public class TalkCommand extends AbstractCommand implements Listener {
 
 			player.sendMessage(
 							ChatColor.DARK_GRAY.toString() + ChatColor.BOLD + "\n| " + ChatColor.GRAY + "Your conversation with "
-											+ ChatColor.DARK_GREEN + ChatColor.BOLD + "SlimeGPT " + ChatColor.GRAY + "has ended.\n ");
+											+ ChatColor.DARK_GREEN + ChatColor.BOLD + "SlimeGPT " + ChatColor.GRAY + "has ended.\n "
+			);
 		} else {
 			conversations.put(
 							uuid,
@@ -67,7 +68,9 @@ public class TalkCommand extends AbstractCommand implements Listener {
 											"The following is a conversation on a Minecraft server between a Minecraft player and an AI assistant. The assistant is helpful, creative, clever, and very friendly. The name of the AI assistant is SlimeGPT.\n"
 															+
 															"\n" +
-															"Player: Hello, who are you?"));
+															"Player: Hello, who are you?"
+							)
+			);
 
 			player.sendMessage(ChatColor.DARK_GRAY.toString() + ChatColor.BOLD + "\n| " + ChatColor.GRAY
 							+ "You have started a new conversation with " + ChatColor.DARK_GREEN + ChatColor.BOLD + "SlimeGPT"
