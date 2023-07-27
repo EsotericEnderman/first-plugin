@@ -62,7 +62,9 @@ import java.util.*;
 
 public final class Main extends JavaPlugin implements PluginMessageListener {
 	private static final PluginManager PLUGIN_MANAGER = Bukkit.getPluginManager();
+
 	private static final BukkitScheduler SCHEDULER = Bukkit.getScheduler();
+
 	private final BossBar bossBar = Bukkit.createBossBar(
 					ChatColor.LIGHT_PURPLE.toString() + ChatColor.BOLD + "Wither Storm",
 					BarColor.PURPLE,
@@ -73,14 +75,23 @@ public final class Main extends JavaPlugin implements PluginMessageListener {
 					// BarFlag.DARKEN_SKY, - Same as above, but this definitely does something.
 					// BarFlag.PLAY_BOSS_MUSIC - Seems to not do anything... (I might be wrong).
 	);
+
 	private final RankSystem rankSystem = (RankSystem) PLUGIN_MANAGER.getPlugin("Rank-System");
+
 	private final PlayerManager playerManager = new PlayerManager();
+
 	private final Map<UUID, UUID> recentMessages = new HashMap<>();
+
+	private final Map<Integer, UUID> npcs = new HashMap<>();
+
 	private final List<UUID> movementDisabled = new ArrayList<>();
 
 	private Database database;
+
 	private JDA jda;
+
 	private Cuboid latestFill;
+
 	private NamespacedKey isPistolBulletKey;
 	private NamespacedKey isShotgunBulletKey;
 	private NamespacedKey isMiniGunBulletKey;
@@ -106,6 +117,10 @@ public final class Main extends JavaPlugin implements PluginMessageListener {
 
 	public Map<UUID, UUID> getRecentMessages() {
 		return recentMessages;
+	}
+
+	public Map<Integer, UUID> getNPCs() {
+		return npcs;
 	}
 
 	public List<UUID> getMovementDisabled() {
@@ -136,6 +151,7 @@ public final class Main extends JavaPlugin implements PluginMessageListener {
 		return bossBar;
 	}
 
+	// Maybe make some sort of manager for this in other plugins.
 	public NamespacedKey getIsPistolBulletKey() {
 		return isPistolBulletKey;
 	}
@@ -247,7 +263,7 @@ public final class Main extends JavaPlugin implements PluginMessageListener {
 			throw new RuntimeException(exception);
 		}
 
-		Utility.log("Connected to database? " + (database.isConnected() ? "yes" : "no") + "!");
+		Utility.log("Connected to SQL database? " + (database.isConnected() ? "yes" : "no") + "!");
 
 		final String connectionString = "mongodb+srv://firstplugin:" + config.getString("MongoDB-Password")
 						+ "@datacluster.z5vohpt.mongodb.net/📄・First-Plugin?retryWrites=true&w=majority";
@@ -264,7 +280,7 @@ public final class Main extends JavaPlugin implements PluginMessageListener {
 			document.put("rank", "Owner");
 			document.put("coins", 5);
 
-			playerData.insertOne(document);
+			// Inserting the document: 	playerData.insertOne(document);. (commented out because it was overly annoying)
 
 			// To replace a document: playerData.replaceOne(Filters.eq("uuid",
 			// UUID.randomUUID()), document);.
@@ -393,6 +409,7 @@ public final class Main extends JavaPlugin implements PluginMessageListener {
 
 		bossBar.setProgress(1);
 
+		// Again, maybe make a manager for this. And maybe for the boss bar as well.
 		isPistolBulletKey = new NamespacedKey(this, "is_pistol_bullet");
 		isShotgunBulletKey = new NamespacedKey(this, "is_shotgun_bullet");
 		isMiniGunBulletKey = new NamespacedKey(this, "is_mini-gun_bullet");
@@ -542,7 +559,7 @@ public final class Main extends JavaPlugin implements PluginMessageListener {
 		armourStand.setArms(true);
 		armourStand.setGlowing(true);
 
-		// Use armourStand.remove(); to get rid of armour stands (or any entity really).
+		// Use armourStand.remove(); to get rid of armour stands (or most entities really).
 
 		final ItemStack netherite = new ItemStack(Material.NETHERITE_INGOT, 4);
 		final ItemMeta netheriteMeta = netherite.getItemMeta();
@@ -594,6 +611,7 @@ public final class Main extends JavaPlugin implements PluginMessageListener {
 						200, 30_000);
 	}
 
+	// Maybe make some sort of enchantment manager in future plugins?
 	private void registerEnchantment(@NotNull final Enchantment enchantment) {
 		try {
 			final Field field = Enchantment.class.getDeclaredField("acceptingNew");
