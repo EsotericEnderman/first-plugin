@@ -1,5 +1,6 @@
-package net.slqmy.first_plugin.events.listeners.minecraft;
+package net.slqmy.first_plugin.events.listeners.minecraft.server;
 
+import net.slqmy.first_plugin.events.custom_events.ServerBroadcastEvent;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

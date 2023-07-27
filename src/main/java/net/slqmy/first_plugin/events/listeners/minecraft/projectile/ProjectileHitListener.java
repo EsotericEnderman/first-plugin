@@ -1,4 +1,4 @@
-package net.slqmy.first_plugin.events.listeners.minecraft;
+package net.slqmy.first_plugin.events.listeners.minecraft.projectile;
 
 import net.slqmy.first_plugin.Main;
 import org.bukkit.ChatColor;
@@ -18,13 +18,13 @@ import org.jetbrains.annotations.NotNull;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 
-public final class ProjectileHitEventListener implements Listener {
-	private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#.##");
+public final class ProjectileHitListener implements Listener {
+	private final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#.##");
 
 	private final NamespacedKey isPistolBulletKey;
 	private final NamespacedKey isGatlingGunBulletKey;
 
-	public ProjectileHitEventListener(@NotNull final Main plugin) {
+	public ProjectileHitListener(@NotNull final Main plugin) {
 		isPistolBulletKey = plugin.getIsPistolBulletKey();
 		isGatlingGunBulletKey = plugin.getIsGatlingGunBulletKey();
 	}

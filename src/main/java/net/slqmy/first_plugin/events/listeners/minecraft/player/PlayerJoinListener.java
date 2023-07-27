@@ -1,4 +1,4 @@
-package net.slqmy.first_plugin.events.listeners.minecraft;
+package net.slqmy.first_plugin.events.listeners.minecraft.player;
 
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.ClickEvent;
@@ -25,13 +25,13 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scoreboard.*;
 import org.jetbrains.annotations.NotNull;
 
-public final class PlayerJoinEventListener implements Listener {
+public final class PlayerJoinListener implements Listener {
 	private static final ScoreboardManager SCOREBOARD_MANAGER = Bukkit.getScoreboardManager();
 
 	private final Main plugin;
 	private final BossBar bossBar;
 
-	public PlayerJoinEventListener(@NotNull final Main plugin) {
+	public PlayerJoinListener(@NotNull final Main plugin) {
 		this.plugin = plugin;
 		this.bossBar = plugin.getBossBar();
 	}

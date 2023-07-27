@@ -1,4 +1,4 @@
-package net.slqmy.first_plugin.commands;
+package net.slqmy.first_plugin.commands.minecraft;
 
 import com.google.common.collect.Multimap;
 import net.slqmy.first_plugin.types.AbstractCommand;

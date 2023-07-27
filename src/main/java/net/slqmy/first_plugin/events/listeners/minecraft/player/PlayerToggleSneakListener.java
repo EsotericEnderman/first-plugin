@@ -1,4 +1,4 @@
-package net.slqmy.first_plugin.events.listeners.minecraft;
+package net.slqmy.first_plugin.events.listeners.minecraft.player;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.protocol.game.ClientboundAnimatePacket;
@@ -18,7 +18,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.FireworkMeta;
 import org.jetbrains.annotations.NotNull;
 
-public final class PlayerToggleSneakEventListener implements Listener {
+public final class PlayerToggleSneakListener implements Listener {
 	@EventHandler
 	public void onPlayerToggleSneak(@NotNull final PlayerToggleSneakEvent event) {
 		final Player player = event.getPlayer();

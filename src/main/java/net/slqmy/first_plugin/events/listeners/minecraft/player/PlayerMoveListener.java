@@ -1,4 +1,4 @@
-package net.slqmy.first_plugin.events.listeners.minecraft;
+package net.slqmy.first_plugin.events.listeners.minecraft.player;
 
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -14,11 +14,11 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 import java.util.UUID;
 
-public final class PlayerMoveEventListener implements Listener {
+public final class PlayerMoveListener implements Listener {
 	private final Main plugin;
 	private final List<UUID> movementDisabled;
 
-	public PlayerMoveEventListener(@NotNull final Main plugin) {
+	public PlayerMoveListener(@NotNull final Main plugin) {
 		this.plugin = plugin;
 		this.movementDisabled = plugin.getMovementDisabled();
 	}

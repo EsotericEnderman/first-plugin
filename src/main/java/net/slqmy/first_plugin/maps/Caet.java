@@ -1,13 +1,12 @@
 package net.slqmy.first_plugin.maps;
 
+import net.slqmy.first_plugin.utility.DebugUtility;
 import org.bukkit.entity.Player;
 import org.bukkit.map.MapCanvas;
 import org.bukkit.map.MapRenderer;
 import org.bukkit.map.MapView;
 import org.bukkit.map.MinecraftFont;
 import org.jetbrains.annotations.NotNull;
-
-import net.slqmy.first_plugin.utility.Utility;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -32,9 +31,7 @@ public final class Caet extends MapRenderer {
 
 			canvas.drawImage(0, 0, image);
 		} catch (final IOException exception) {
-			Utility.log(exception.getMessage());
-			exception.printStackTrace();
-			Utility.log(exception);
+			DebugUtility.logError(exception, "There was an error while loading the 'Caet' map image!");
 		}
 
 		canvas.drawText(1, 1, MinecraftFont.Font, "Caet! ~ <3");

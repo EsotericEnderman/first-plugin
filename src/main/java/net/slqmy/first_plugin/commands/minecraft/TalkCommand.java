@@ -1,4 +1,4 @@
-package net.slqmy.first_plugin.commands;
+package net.slqmy.first_plugin.commands.minecraft;
 
 import com.theokanning.openai.OpenAiService;
 import com.theokanning.openai.completion.CompletionRequest;

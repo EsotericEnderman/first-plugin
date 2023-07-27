@@ -1,4 +1,4 @@
-package net.slqmy.first_plugin.events.listeners.minecraft;
+package net.slqmy.first_plugin.events.listeners.minecraft.player;
 
 import net.slqmy.first_plugin.types.AuctionHouseGUI;
 import org.bukkit.ChatColor;
@@ -16,7 +16,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Random;
 
-public final class InventoryClickEventListener implements Listener {
+public final class GUIListener implements Listener {
 	private static final Random random = new Random();
 
 	@EventHandler
@@ -34,7 +34,7 @@ public final class InventoryClickEventListener implements Listener {
 			final Player player = (Player) event.getWhoClicked();
 
 			if (ChatColor.translateAlternateColorCodes('&', event.getView().getTitle())
-					.equals(ChatColor.RED.toString() + ChatColor.BOLD + "ADMIN MENU")) {
+							.equals(ChatColor.RED.toString() + ChatColor.BOLD + "ADMIN MENU")) {
 				final int slot = event.getRawSlot();
 
 				switch (slot) {

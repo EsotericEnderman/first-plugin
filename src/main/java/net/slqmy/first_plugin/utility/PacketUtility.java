@@ -7,6 +7,7 @@ import io.netty.channel.ChannelPipeline;
 import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.game.ServerboundInteractPacket;
 import net.minecraft.server.network.ServerGamePacketListenerImpl;
+import org.bukkit.ChatColor;
 import org.bukkit.craftbukkit.v1_20_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -27,7 +28,6 @@ public final class PacketUtility {
 					final Object actionType = actionTypeField.get(packet);
 
 					if (actionType.toString().split("\\$")[1].charAt(0) == 'c') {
-						Utility.log("Packet was not of type PlayerInteract!");
 						return;
 					}
 
@@ -55,6 +55,7 @@ public final class PacketUtility {
 							return;
 						}
 					} catch (final NoSuchFieldException ignoredException) {
+						// Not exactly the way try-catches are intended to work, but... it works :shrug:.
 					}
 
 					final Field entityIDField = packet.getClass().getDeclaredField("a");
@@ -64,6 +65,7 @@ public final class PacketUtility {
 					// Idea: create a custom npc click event, and an NPC manager.
 
 					final int entityID = entityIDField.getInt(packet);
+					Utility.log("Entity ID: " + entityID);
 				}
 
 				super.channelRead(context, rawPacket);
@@ -83,7 +85,10 @@ public final class PacketUtility {
 
 			connection = (Connection) field.get(playerConnection);
 		} catch (final NoSuchFieldException | IllegalAccessException exception) {
-			throw new RuntimeException(exception);
+			DebugUtility.logError(exception, "Error while injecting packet listener into player " + playerName + "!");
+			player.kickPlayer(ChatColor.RED + "Sorry, an error has occurred. Please contact a server admin!");
+
+			return;
 		}
 
 		final ChannelPipeline pipeline = connection.channel.pipeline();
@@ -103,7 +108,8 @@ public final class PacketUtility {
 
 			connection = (Connection) field.get(playerConnection);
 		} catch (final NoSuchFieldException | IllegalAccessException exception) {
-			throw new RuntimeException(exception);
+			DebugUtility.logError(exception, "Error while ejecting packet listener from player " + playerName + "!");
+			return;
 		}
 
 		final Channel channel = connection.channel;

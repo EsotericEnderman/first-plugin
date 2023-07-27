@@ -12,12 +12,22 @@ import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.requests.GatewayIntent;
-import net.slqmy.first_plugin.commands.*;
+import net.slqmy.first_plugin.commands.discord.GiveRoleCommand;
+import net.slqmy.first_plugin.commands.minecraft.*;
 import net.slqmy.first_plugin.data.Data;
 import net.slqmy.first_plugin.enchantments.AutoSmeltingEnchantment;
-import net.slqmy.first_plugin.events.listeners.discord.MessageReceivedEventListener;
-import net.slqmy.first_plugin.events.listeners.minecraft.*;
+import net.slqmy.first_plugin.events.listeners.discord.MessageListener;
+import net.slqmy.first_plugin.events.listeners.minecraft.hoglin_rider.*;
+import net.slqmy.first_plugin.events.listeners.minecraft.item.MapListener;
+import net.slqmy.first_plugin.events.listeners.minecraft.player.*;
+import net.slqmy.first_plugin.events.listeners.minecraft.projectile.EggThrowListener;
+import net.slqmy.first_plugin.events.listeners.minecraft.projectile.GunHitListener;
+import net.slqmy.first_plugin.events.listeners.minecraft.projectile.ProjectileHitListener;
+import net.slqmy.first_plugin.events.listeners.minecraft.projectile.ProjectileLaunchListener;
+import net.slqmy.first_plugin.events.listeners.minecraft.server.ServerBroadcastEventListener;
+import net.slqmy.first_plugin.events.listeners.minecraft.server.ServerListPingEventListener;
 import net.slqmy.first_plugin.managers.PlayerManager;
+import net.slqmy.first_plugin.utility.DebugUtility;
 import net.slqmy.first_plugin.utility.HoglinRiderUtility;
 import net.slqmy.first_plugin.utility.Utility;
 import net.slqmy.first_plugin.utility.types.Cuboid;
@@ -168,10 +178,7 @@ public final class Main extends JavaPlugin implements PluginMessageListener {
 		try {
 			tuple = Utility.initiateYAMLFile("data", this);
 		} catch (final IOException exception) {
-			Utility.log("Error creating file 'data.yml'. Cancelled plugin startup!");
-			Utility.log(exception.getMessage());
-			exception.printStackTrace();
-			Utility.log(exception);
+			DebugUtility.logError(exception, "Error creating file 'data.yml'. Cancelled plugin startup!");
 			return;
 		}
 
@@ -191,10 +198,7 @@ public final class Main extends JavaPlugin implements PluginMessageListener {
 				Utility.log("File created successfully.");
 			}
 		} catch (final IOException exception) {
-			Utility.log("Can't load data.json! Error: ");
-			Utility.log(exception.getMessage());
-			exception.printStackTrace();
-			Utility.log(exception);
+			DebugUtility.logError(exception, "Can't load data.json! Error: ");
 		}
 
 		final Data rawData = new Data("Slqmy", "Hello world!", new Date());
@@ -283,7 +287,7 @@ public final class Main extends JavaPlugin implements PluginMessageListener {
 
 		builder.setEnabledIntents(Arrays.asList(GatewayIntent.values()));
 
-		builder.addEventListeners(new MessageReceivedEventListener());
+		builder.addEventListeners(new MessageListener());
 
 		jda = builder.build();
 
@@ -397,32 +401,31 @@ public final class Main extends JavaPlugin implements PluginMessageListener {
 		PLUGIN_MANAGER.registerEvents(autoSmelting, this);
 		registerEnchantment(autoSmelting);
 
-		PLUGIN_MANAGER.registerEvents(new EntityDamageEventListener(), this);
-		PLUGIN_MANAGER.registerEvents(new EntityRegenerateEventListener(), this);
-		PLUGIN_MANAGER.registerEvents(new EntityTargetEntityEventListener(), this);
-		PLUGIN_MANAGER.registerEvents(new InventoryClickEventListener(), this);
-		PLUGIN_MANAGER.registerEvents(new MapInitialiseEventListener(), this);
-		PLUGIN_MANAGER.registerEvents(new PlayerInteractEntityEventListener(), this);
-		PLUGIN_MANAGER.registerEvents(new PlayerResourcePackStatusEventListener(), this);
-		PLUGIN_MANAGER.registerEvents(new PlayerToggleSneakEventListener(), this);
+		PLUGIN_MANAGER.registerEvents(new HoglinRiderDamageListener(), this);
+		PLUGIN_MANAGER.registerEvents(new HoglinRiderRegenerateListener(), this);
+		PLUGIN_MANAGER.registerEvents(new HoglinRiderTargetEntityListener(), this);
+		PLUGIN_MANAGER.registerEvents(new GUIListener(), this);
+		PLUGIN_MANAGER.registerEvents(new MapListener(), this);
+		PLUGIN_MANAGER.registerEvents(new PlayerInteractEntityListener(), this);
+		PLUGIN_MANAGER.registerEvents(new PlayerResourcePackStatusListener(), this);
+		PLUGIN_MANAGER.registerEvents(new PlayerToggleSneakListener(), this);
 		PLUGIN_MANAGER.registerEvents(new ServerBroadcastEventListener(), this);
 		PLUGIN_MANAGER.registerEvents(new ServerListPingEventListener(), this);
 
-		PLUGIN_MANAGER.registerEvents(new AsyncPlayerChatEventListener(this), this);
+		PLUGIN_MANAGER.registerEvents(new ChatListener(this), this);
 		PLUGIN_MANAGER.registerEvents(new ConnectionListener(this), this);
-		PLUGIN_MANAGER.registerEvents(new CustomEntitySpawnEventListener(this), this);
-		PLUGIN_MANAGER.registerEvents(new EntityDamageByEntityEventListener(this), this);
-		PLUGIN_MANAGER.registerEvents(new EntityDeathEventListener(this), this);
-		PLUGIN_MANAGER.registerEvents(new HoglinMoveEventListener(this), this);
-		PLUGIN_MANAGER.registerEvents(new PlayerEggThrowEventListener(this), this);
-		PLUGIN_MANAGER.registerEvents(new PlayerInteractEventListener(this), this);
-		PLUGIN_MANAGER.registerEvents(new PlayerJoinEventListener(this), this);
-		PLUGIN_MANAGER.registerEvents(new PlayerMoveEventListener(this), this);
-		PLUGIN_MANAGER.registerEvents(new PlayerQuitEventListener(this), this);
-		PLUGIN_MANAGER.registerEvents(new ProjectileHitEventListener(this), this);
-		PLUGIN_MANAGER.registerEvents(new ProjectileLaunchEventListener(this), this);
+		PLUGIN_MANAGER.registerEvents(new HoglinRiderSpawnListener(this), this);
+		PLUGIN_MANAGER.registerEvents(new GunHitListener(this), this);
+		PLUGIN_MANAGER.registerEvents(new HoglinRiderDeathListener(this), this);
+		PLUGIN_MANAGER.registerEvents(new HoglinRiderMoveEventListener(this), this);
+		PLUGIN_MANAGER.registerEvents(new EggThrowListener(this), this);
+		PLUGIN_MANAGER.registerEvents(new PlayerInteractListener(this), this);
+		PLUGIN_MANAGER.registerEvents(new PlayerJoinListener(this), this);
+		PLUGIN_MANAGER.registerEvents(new PlayerMoveListener(this), this);
+		PLUGIN_MANAGER.registerEvents(new ProjectileHitListener(this), this);
+		PLUGIN_MANAGER.registerEvents(new ProjectileLaunchListener(this), this);
 		PLUGIN_MANAGER.registerEvents(new TalkCommand(this), this);
-		PLUGIN_MANAGER.registerEvents(new PlayerDeathEventListener(), this);
+		PLUGIN_MANAGER.registerEvents(new PlayerDeathListener(), this);
 
 		HoglinRiderUtility.manageHoglinRiders(this);
 
@@ -498,10 +501,10 @@ public final class Main extends JavaPlugin implements PluginMessageListener {
 						+ ChatColor.BOLD + "SWAMP"
 						+ ChatColor.DARK_GREEN + ChatColor.STRIKETHROUGH + "  ");
 		textDisplay.setShadowed(true);
-		textDisplay.setBrightness(new Display.Brightness(MAX_LIGHT_LEVEL, MAX_LIGHT_LEVEL));
+		textDisplay.setBrightness(new Display.Brightness(15, 15));
 		textDisplay.setTransformation(
-				new Transformation(new Vector3f(0, 0, 0), new AxisAngle4f(0, 0, 0, 0), new Vector3f(7.5F, 7.5F, 7.5F),
-						new AxisAngle4f(0, 0, 0, 0)));
+						new Transformation(new Vector3f(0, 0, 0), new AxisAngle4f(0, 0, 0, 0), new Vector3f(7.5F, 7.5F, 7.5F),
+										new AxisAngle4f(0, 0, 0, 0)));
 		textDisplay.setBillboard(Billboard.CENTER);
 
 		// BLOCK DISPLAY
@@ -522,7 +525,7 @@ public final class Main extends JavaPlugin implements PluginMessageListener {
 		diamondSword.setItemMeta(diamondSwordMeta);
 
 		final ItemDisplay itemDisplay = (ItemDisplay) world.spawnEntity(displaysLocation.subtract(10, 0, 0),
-				EntityType.ITEM_DISPLAY);
+						EntityType.ITEM_DISPLAY);
 		itemDisplay.setItemStack(diamondSword);
 		itemDisplay.setItemDisplayTransform(ItemDisplay.ItemDisplayTransform.HEAD);
 
@@ -597,9 +600,7 @@ public final class Main extends JavaPlugin implements PluginMessageListener {
 
 			Enchantment.registerEnchantment(enchantment);
 		} catch (final NoSuchFieldException | IllegalAccessException exception) {
-			Utility.log("There was an error registering enchantment " + enchantment.getName() + "!");
-
-			throw new RuntimeException(exception);
+			DebugUtility.logError(exception, "There was an error registering enchantment " + enchantment + "!");
 		}
 	}
 

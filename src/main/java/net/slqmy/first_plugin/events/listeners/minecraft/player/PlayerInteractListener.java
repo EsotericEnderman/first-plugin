@@ -1,4 +1,4 @@
-package net.slqmy.first_plugin.events.listeners.minecraft;
+package net.slqmy.first_plugin.events.listeners.minecraft.player;
 
 import net.slqmy.first_plugin.Main;
 import org.bukkit.*;
@@ -28,7 +28,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 import java.util.UUID;
 
-public final class PlayerInteractEventListener implements Listener {
+public final class PlayerInteractListener implements Listener {
 	private static final Particle.DustTransition DUST_TRANSITION_GREEN = new Particle.DustTransition(Color.GREEN, Color.GREEN, 0.85F);
 	private static final PotionEffect[] poisonLauncherEffects = {
 					new PotionEffect(PotionEffectType.POISON, PotionEffect.INFINITE_DURATION, 1, true, true, true),
@@ -52,7 +52,7 @@ public final class PlayerInteractEventListener implements Listener {
 	private final NamespacedKey isMiniGunBullet;
 	private final NamespacedKey isGatlingGunBullet;
 
-	public PlayerInteractEventListener(@NotNull final Main plugin) {
+	public PlayerInteractListener(@NotNull final Main plugin) {
 		this.plugin = plugin;
 
 		this.movementDisabled = plugin.getMovementDisabled();

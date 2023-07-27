@@ -101,18 +101,4 @@ public final class Utility {
 
 		propertyMap.put(TEXTURES_KEY, new Property(TEXTURES_KEY, textureValue));
 	}
-
-	public static double minAbs(@NotNull final List<Double> numbers) {
-		double min = numbers.get(0);
-
-		for (int i = 1; i < numbers.size(); i++) {
-			final double currentNumber = numbers.get(i);
-
-			if (Math.abs(currentNumber) < Math.abs(min)) {
-				min = currentNumber;
-			}
-		}
-
-		return min;
-	}
 }

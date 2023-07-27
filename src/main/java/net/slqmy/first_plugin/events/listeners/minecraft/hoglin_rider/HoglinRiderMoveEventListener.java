@@ -1,6 +1,9 @@
-package net.slqmy.first_plugin.events.listeners.minecraft;
+package net.slqmy.first_plugin.events.listeners.minecraft.hoglin_rider;
 
+import io.papermc.paper.event.entity.EntityMoveEvent;
 import net.slqmy.first_plugin.Main;
+import net.slqmy.first_plugin.utility.HoglinRiderUtility;
+import net.slqmy.first_plugin.utility.VectorUtility;
 import org.bukkit.Location;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
@@ -15,17 +18,12 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
 
-import io.papermc.paper.event.entity.EntityMoveEvent;
-import net.slqmy.first_plugin.utility.HoglinRiderUtility;
-import net.slqmy.first_plugin.utility.VectorUtility;
-
-public final class HoglinMoveEventListener implements Listener {
-	private static final PotionEffect HOGLIN_JUMP_EFFECT = new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 80, 0, true,
-			true);
+public final class HoglinRiderMoveEventListener implements Listener {
+	private final PotionEffect HOGLIN_JUMP_EFFECT = new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 80, 0, true, true);
 
 	private final Main plugin;
 
-	public HoglinMoveEventListener(@NotNull final Main plugin) {
+	public HoglinRiderMoveEventListener(@NotNull final Main plugin) {
 		this.plugin = plugin;
 	}
 

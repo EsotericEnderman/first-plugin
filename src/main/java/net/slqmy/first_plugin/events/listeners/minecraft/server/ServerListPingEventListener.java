@@ -1,7 +1,6 @@
-package net.slqmy.first_plugin.events.listeners.minecraft;
+package net.slqmy.first_plugin.events.listeners.minecraft.server;
 
-import java.io.File;
-
+import net.slqmy.first_plugin.utility.Utility;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
@@ -9,10 +8,10 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.server.ServerListPingEvent;
 import org.jetbrains.annotations.NotNull;
 
-import net.slqmy.first_plugin.utility.Utility;
+import java.io.File;
 
 public final class ServerListPingEventListener implements Listener {
-	private static final File SERVER_ICON_PNG_FILE = new File("assets/server-icon.png");
+	private final File SERVER_ICON_PNG_FILE = new File("assets/server-icon.png");
 
 	@EventHandler
 	public void onServerListPing(@NotNull final ServerListPingEvent event) {

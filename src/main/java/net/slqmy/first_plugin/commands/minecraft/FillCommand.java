@@ -1,4 +1,4 @@
-package net.slqmy.first_plugin.commands;
+package net.slqmy.first_plugin.commands.minecraft;
 
 import net.slqmy.first_plugin.Main;
 import net.slqmy.first_plugin.types.AbstractCommand;

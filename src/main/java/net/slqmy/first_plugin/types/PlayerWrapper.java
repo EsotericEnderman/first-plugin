@@ -2,7 +2,7 @@ package net.slqmy.first_plugin.types;
 
 import com.zaxxer.hikari.HikariDataSource;
 import net.slqmy.first_plugin.Main;
-import net.slqmy.first_plugin.utility.Utility;
+import net.slqmy.first_plugin.utility.DebugUtility;
 import org.jetbrains.annotations.NotNull;
 
 import java.sql.Connection;
@@ -50,8 +50,7 @@ public final class PlayerWrapper {
 				}
 			}
 		} catch (final SQLException exception) {
-			Utility.log("There was en error with accessing data of player with UUID " + uuid + "!");
-			throw new RuntimeException(exception);
+			DebugUtility.logError(exception, "There was en error with accessing data of player with UUID " + uuid + "!");
 		}
 	}
 
@@ -69,9 +68,7 @@ public final class PlayerWrapper {
 		try (final Connection connection = hikari.getConnection(); final PreparedStatement statement = connection.prepareStatement("UPDATE player_information SET RANK = '" + rank + "' WHERE UUID = '" + uuid + "';")) {
 			statement.executeUpdate();
 		} catch (final SQLException exception) {
-			Utility.log("There was an error setting the rank of player with UUID " + uuid + " to rank " + rank + "!");
-
-			throw new RuntimeException(exception);
+			DebugUtility.logError(exception, "There was an error setting the rank of player with UUID ");
 		}
 	}
 
@@ -85,9 +82,7 @@ public final class PlayerWrapper {
 		try (final Connection connection = hikari.getConnection(); final PreparedStatement statement = connection.prepareStatement("UPDATE player_information SET COINS = " + coins + " WHERE UUID = '" + uuid + "';")) {
 			statement.executeUpdate();
 		} catch (final SQLException exception) {
-			Utility.log("There was an error setting the coins of player with UUID " + uuid + " to " + coins + "!");
-
-			throw new RuntimeException(exception);
+			DebugUtility.logError(exception, "There was an error setting the coins of player with UUID " + uuid + " to " + coins + "!");
 		}
 	}
 }
