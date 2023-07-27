@@ -276,6 +276,7 @@ public final class Main extends JavaPlugin implements PluginMessageListener {
 					final Document output = cursor.next();
 
 					Utility.log("How many coins does the owner have? " + output.get("coins") + ".");
+					playerData.deleteOne(output);
 				}
 			}
 		}
