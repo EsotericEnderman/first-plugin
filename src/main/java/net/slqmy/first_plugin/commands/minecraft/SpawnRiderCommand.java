@@ -14,7 +14,7 @@
  */
 package net.slqmy.first_plugin.commands.minecraft;
 
-import net.slqmy.first_plugin.events.custom_events.CustomEntitySpawnEvent;
+import net.slqmy.first_plugin.events.custom_events.HoglinRiderSpawnEvent;
 import net.slqmy.first_plugin.types.AbstractCommand;
 import net.slqmy.first_plugin.utility.HoglinRiderUtility;
 import org.bukkit.Bukkit;
@@ -67,7 +67,7 @@ public final class SpawnRiderCommand extends AbstractCommand {
 		final World world = player.getWorld();
 
 		final Hoglin hoglin = HoglinRiderUtility.spawnHoglinRider(world, spawnLocation);
-		final CustomEntitySpawnEvent event = new CustomEntitySpawnEvent(hoglin, spawnLocation);
+		final HoglinRiderSpawnEvent event = new HoglinRiderSpawnEvent(hoglin, spawnLocation);
 
 		PLUGIN_MANAGER.callEvent(event);
 

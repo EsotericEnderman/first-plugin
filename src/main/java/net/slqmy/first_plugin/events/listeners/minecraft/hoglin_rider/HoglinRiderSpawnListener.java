@@ -1,7 +1,7 @@
 package net.slqmy.first_plugin.events.listeners.minecraft.hoglin_rider;
 
 import net.slqmy.first_plugin.Main;
-import net.slqmy.first_plugin.events.custom_events.CustomEntitySpawnEvent;
+import net.slqmy.first_plugin.events.custom_events.HoglinRiderSpawnEvent;
 import net.slqmy.first_plugin.utility.HoglinRiderUtility;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Entity;
@@ -21,7 +21,7 @@ public final class HoglinRiderSpawnListener implements Listener {
 	}
 
 	@EventHandler
-	public void onCustomEntitySpawn(@NotNull final CustomEntitySpawnEvent event) {
+	public void onCustomEntitySpawn(@NotNull final HoglinRiderSpawnEvent event) {
 		final Entity entity = event.getEntity();
 
 		if (HoglinRiderUtility.isHoglin(entity)) {
