@@ -411,6 +411,7 @@ public final class Main extends JavaPlugin implements PluginMessageListener {
 		PLUGIN_MANAGER.registerEvents(new PlayerToggleSneakListener(), this);
 		PLUGIN_MANAGER.registerEvents(new ServerBroadcastEventListener(), this);
 		PLUGIN_MANAGER.registerEvents(new ServerListPingEventListener(), this);
+		PLUGIN_MANAGER.registerEvents(new NPCClickListener(), this);
 
 		PLUGIN_MANAGER.registerEvents(new ChatListener(this), this);
 		PLUGIN_MANAGER.registerEvents(new ConnectionListener(this), this);

@@ -7,27 +7,41 @@ import io.netty.channel.ChannelPipeline;
 import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.game.ServerboundInteractPacket;
 import net.minecraft.server.network.ServerGamePacketListenerImpl;
+import net.slqmy.first_plugin.Main;
+import net.slqmy.first_plugin.events.custom_events.NPCClickEvent;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.craftbukkit.v1_20_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.PluginManager;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.Field;
 
 public final class PacketUtility {
-	public static void inject(@NotNull final Player player) {
+	private static final PluginManager pluginManager = Bukkit.getPluginManager();
+
+	public static void inject(@NotNull final Main plugin, @NotNull final Player player) {
 		final ChannelDuplexHandler channelHandler = new ChannelDuplexHandler() {
 			@Override
 			public void channelRead(@NotNull final ChannelHandlerContext context, @NotNull final Object rawPacket) throws Exception {
 				if (rawPacket instanceof ServerboundInteractPacket) {
 					final ServerboundInteractPacket packet = (ServerboundInteractPacket) rawPacket;
 
-					final Field actionTypeField = packet.getClass().getDeclaredField("b");
+					final String obfActionFieldName = "b";
+
+					final Field actionTypeField = packet.getClass().getDeclaredField(obfActionFieldName);
 					actionTypeField.setAccessible(true);
 
+					// ServerboundInteractPacket.Action
 					final Object actionType = actionTypeField.get(packet);
 
-					if (actionType.toString().split("\\$")[1].charAt(0) == 'c') {
+					Utility.log(actionType.toString());
+
+					final char obfActionInteractAtFieldName = 'e'; // Not the correct name according to the website, but it works.
+
+					if (actionType.toString().split("\\$")[1].charAt(0) == obfActionInteractAtFieldName) {
 						return;
 					}
 
@@ -47,8 +61,10 @@ public final class PacketUtility {
 					    code continues as usual.
 					*/
 
+					final String obfActionHandFieldName = "a";
+
 					try {
-						final Field hand = actionType.getClass().getDeclaredField("a");
+						final Field hand = actionType.getClass().getDeclaredField(obfActionHandFieldName);
 						hand.setAccessible(true);
 
 						if (!hand.get(actionType).toString().equals("MAIN_HAND")) {
@@ -58,20 +74,36 @@ public final class PacketUtility {
 						// Not exactly the way try-catches are intended to work, but... it works :shrug:.
 					}
 
-					final Field entityIDField = packet.getClass().getDeclaredField("a");
+					final String obfEntityIDFieldName = "a";
+
+					final Field entityIDField = packet.getClass().getDeclaredField(obfEntityIDFieldName);
 					entityIDField.setAccessible(true);
 
 					// Compare entity ID with NPC ID (save it).
 					// Idea: create a custom npc click event, and an NPC manager.
 
 					final int entityID = entityIDField.getInt(packet);
+
 					Utility.log("Entity ID: " + entityID);
+					Utility.log(plugin.getNPCs().containsKey(entityID));
+					Utility.log(plugin.getNPCs().get(entityID));
+
+					if (plugin.getNPCs().containsKey(entityID)) {
+						new BukkitRunnable() {
+							@Override
+							public void run() {
+								Utility.log("Running task!");
+
+								final NPCClickEvent event = new NPCClickEvent(plugin, player, entityID);
+								pluginManager.callEvent(event);
+							}
+						}.runTaskLater(plugin, 1); // Runs on the next tick.
+					}
 				}
 
 				super.channelRead(context, rawPacket);
 			}
 		};
-
 
 		final Field field;
 		final ServerGamePacketListenerImpl playerConnection = ((CraftPlayer) player).getHandle().connection;

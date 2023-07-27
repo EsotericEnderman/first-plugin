@@ -11,6 +11,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.network.ServerGamePacketListenerImpl;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.Pose;
 import net.slqmy.first_plugin.Main;
 import net.slqmy.first_plugin.types.AbstractCommand;
 import org.bukkit.Bukkit;
@@ -68,6 +69,10 @@ public final class NPCCommand extends AbstractCommand {
 						npcProfile
 		);
 
+		plugin.getNPCs().put(npc.getBukkitEntity().getEntityId(), npc.getUUID());
+		// Many more methods available, such as adding items to the NPC's inventory, could be useful.
+		npc.setPose(Pose.SWIMMING); // Doesn't seem to work though...
+
 		final Location playerLocation = player.getLocation();
 
 		npc.setPos(
@@ -80,6 +85,9 @@ public final class NPCCommand extends AbstractCommand {
 
 		final byte bitmask = 125;
 		data.set(new EntityDataAccessor<>(17, EntityDataSerializers.BYTE), bitmask);
+
+		// If I want everyone online to be able to see the NPC,
+		// Then I have to send packets to everyone.
 
 		final ServerGamePacketListenerImpl connection = serverPlayer.connection;
 		connection.send(new ClientboundPlayerInfoUpdatePacket(ClientboundPlayerInfoUpdatePacket.Action.ADD_PLAYER, npc));
@@ -128,7 +136,8 @@ public final class NPCCommand extends AbstractCommand {
 										new ClientboundPlayerInfoRemovePacket(
 														Collections.singletonList(npc.getUUID())
 										)
-						), 20);
+						), 20
+		);
 
 		return true;
 	}

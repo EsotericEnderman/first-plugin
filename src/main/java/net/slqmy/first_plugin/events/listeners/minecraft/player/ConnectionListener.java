@@ -33,7 +33,7 @@ public final class ConnectionListener implements Listener {
 	public void onJoin(@NotNull final PlayerJoinEvent event) {
 		final Player player = event.getPlayer();
 
-		PacketUtility.inject(player);
+		PacketUtility.inject(plugin, player);
 
 		final UUID uuid = player.getUniqueId();
 
