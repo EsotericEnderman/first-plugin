@@ -91,14 +91,16 @@ public final class Utility {
 		return replaceAll(input, FORMAT_PATTERN, "");
 	}
 
-	public static void setSkin(@NotNull final Player player, @NotNull final String textureValue) {
-		final ServerPlayer entityPlayer = ((CraftPlayer) player).getHandle();
-		final GameProfile gameProfile = entityPlayer.getBukkitEntity().getProfile();
+	// Only works if you rejoin the server.
+	// Probably need NMS and packets to do it in real time.
+	public static void setSkin(@NotNull final Player player, @NotNull final String textureValue, @NotNull final String textureSignature) {
+		final ServerPlayer serverPlayer = ((CraftPlayer) player).getHandle();
+		final GameProfile gameProfile = serverPlayer.getGameProfile();
 		final PropertyMap propertyMap = gameProfile.getProperties();
 		final Property property = propertyMap.get(TEXTURES_KEY).iterator().next();
 
 		propertyMap.remove(TEXTURES_KEY, property);
 
-		propertyMap.put(TEXTURES_KEY, new Property(TEXTURES_KEY, textureValue));
+		propertyMap.put(TEXTURES_KEY, new Property(TEXTURES_KEY, textureValue, textureSignature));
 	}
 }
