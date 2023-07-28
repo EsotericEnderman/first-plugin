@@ -228,7 +228,7 @@ public final class Main extends JavaPlugin implements PluginMessageListener {
 		final Gson gson = new Gson();
 
 		try {
-			final Writer writer = new FileWriter(file, false);
+			final Writer writer = new FileWriter(jsonFile, false);
 
 			gson.toJson(rawData, writer);
 
