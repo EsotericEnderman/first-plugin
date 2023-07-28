@@ -44,7 +44,7 @@ public final class GiveBookCommand extends AbstractCommand {
 		final String bookTitle = ChatColor.RED + "The Entire History of " + ChatColor.GREEN
 						+ ChatColor.BOLD
 						+ "The Slimy Swamp" + ChatColor.RED + ", I Guess";
-		bookMeta.setTitle(bookTitle);
+		bookMeta.setTitle("Blank");
 		bookMeta.setDisplayName(bookTitle);
 
 		final String slqmy = "Slqmy";
