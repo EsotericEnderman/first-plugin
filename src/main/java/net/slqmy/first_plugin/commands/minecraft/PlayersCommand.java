@@ -28,9 +28,11 @@ public final class PlayersCommand extends AbstractCommand {
 	@Override
 	public boolean execute(@NotNull final CommandSender sender, @NotNull final String @NotNull [] args) {
 		if (sender instanceof ConsoleCommandSender) {
+			final int playerCount = Bukkit.getOnlinePlayers().size();
+
 			// ChatColor does not work in console.
-			Utility.log(/* ChatColor.LIGHT_PURPLE + */ "There are currently "
-							+ Bukkit.getOnlinePlayers().size() + " players online!");
+			Utility.log(/* ChatColor.LIGHT_PURPLE + */ "There " + (playerCount == 1 ? "is" : "are") + " currently "
+							+ playerCount + " player" + (playerCount == 1 ? "" : "s") + " online!");
 		} else if (sender instanceof Player) {
 			sender.sendMessage(ChatColor.RED + "This is a console-only command!");
 
