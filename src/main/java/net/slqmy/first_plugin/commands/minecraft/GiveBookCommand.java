@@ -53,35 +53,41 @@ public final class GiveBookCommand extends AbstractCommand {
 		final Spigot spigotBook = bookMeta.spigot();
 
 		final TextComponent plainFirstPage = new TextComponent(
-						ChatColor.GREEN.toString() + ChatColor.BOLD + "The Slimy Swamp" + ChatColor.RESET
-										+ "was a Minecraft server founded by" + ChatColor.GREEN + ChatColor.BOLD + slqmy
+						ChatColor.GREEN.toString() + ChatColor.BOLD + "The Slimy Swamp " + ChatColor.BLACK // ChatColor.RESET doesn't seem to work here.
+										+ "was a Minecraft server founded by " + ChatColor.GREEN + ChatColor.BOLD + slqmy
 										+ ChatColor.RESET + ".\n\n"
-										+ "It had very humble beginnings, with the first three players being" + ChatColor.GREEN + ChatColor.BOLD
-										+ slqmy + ChatColor.RESET + ", " + ChatColor.BLACK + "rolyPolyVole" + ChatColor.RESET
-										+ "and" + ChatColor.GOLD + "Crafty_Crafter2" + ChatColor.RESET + ".\n"
-										+ "It was a really cool server, so it grew in size.\n"
-										+ "It had many players.\n"
-										+ "And the players had lots of fun.\n"
-										+ "Until one day the server died - no one plays on it anymore."
-										+ "But it will be revived! Hopefully.\n");
+										+ "It had very humble beginnings, with the first three players being " + ChatColor.GREEN + ChatColor.BOLD
+										+ slqmy + ChatColor.RESET + ", " + ChatColor.DARK_GRAY + "rolyPolyVole " + ChatColor.RESET
+										+ "and " + ChatColor.GOLD + "Crafty_Crafter2" + ChatColor.BLACK + ".\n\n" // Same with here.
+										+ "It was a really cool server, so it grew in\n"
+		);
 
 		spigotBook.addPage(new BaseComponent[]{plainFirstPage});
+
+		final TextComponent storyContinued = new TextComponent(
+						"size. It had many players.\n\n"
+										+ "And the players had lots of fun.\n\n"
+										+ "Until one day the server died - no one plays on it anymore.\n\n"
+										+ "But it will be revived! Hopefully."
+		);
+
+		spigotBook.addPage(new BaseComponent[]{storyContinued});
 
 		// Could be really useful for large books that have many pages.
 		// There could be a contents section, where each section / chapter is clickable,
 		// and it brings you to that section / chapter.
 		final TextComponent clickable = new TextComponent(
-						ChatColor.BLUE.toString() + ChatColor.BOLD + "Click me to go back to the first page!\n");
+						ChatColor.BLUE.toString() + ChatColor.BOLD + "Click me to go back to the first page!");
 		clickable.setClickEvent(new ClickEvent(ClickEvent.Action.CHANGE_PAGE, "1"));
 
 		final TextComponent none = new TextComponent(
-						ChatColor.GRAY + "This text does nothing... whether you click it or hover over it... \n");
+						ChatColor.GRAY + "\n\nThis text does nothing... whether you click it or hover over it...\n\n");
 
 		final TextComponent hoverable = new TextComponent(ChatColor.AQUA + "Hover over me to see the secret message...");
 		hoverable
 						.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("The secret message is... 'troll'!")));
 
-		spigotBook.addPage(new BaseComponent[]{clickable, none, hoverable});
+		spigotBook.addPage(new BaseComponent[] { clickable, none, hoverable });
 
 		book.setItemMeta(bookMeta);
 
