@@ -82,6 +82,8 @@ public final class Main extends JavaPlugin implements PluginMessageListener {
 
 	private final Map<UUID, UUID> recentMessages = new HashMap<>();
 
+	private final Map<UUID, StringBuilder> aiConversations = new HashMap<>();
+
 	private final Map<Integer, UUID> npcs = new HashMap<>();
 
 	private final List<UUID> movementDisabled = new ArrayList<>();
@@ -117,6 +119,10 @@ public final class Main extends JavaPlugin implements PluginMessageListener {
 
 	public Map<UUID, UUID> getRecentMessages() {
 		return recentMessages;
+	}
+
+	public Map<UUID, StringBuilder> getAiConversations() {
+		return aiConversations;
 	}
 
 	public Map<Integer, UUID> getNPCs() {

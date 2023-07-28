@@ -18,13 +18,6 @@ import java.util.UUID;
 
 public final class BuffCommand extends AbstractCommand {
 
-	private final AttributeModifier modifier = new AttributeModifier(
-					UUID.nameUUIDFromBytes("attack_damage_modifier".getBytes()),
-					Attribute.GENERIC_ATTACK_DAMAGE.toString(), 10,
-					AttributeModifier.Operation.ADD_NUMBER,
-					EquipmentSlot.HAND
-	);
-
 	public BuffCommand() {
 		super(
 						"buff",
@@ -49,6 +42,25 @@ public final class BuffCommand extends AbstractCommand {
 			player.sendMessage(ChatColor.RED + "You must be holding a valid item to run this command!");
 			return true;
 		}
+
+		/*
+		 Note: if I don't want the modifiers to stack on top of each other, E.g., like this:
+
+		 + 10 Attack
+		 + 10 Attack
+		 And instead be one modifier:
+		 + 20 Attack
+		 Then I have to check if a modifier exists first,
+		 I could also use UUID.nameUUIDFromBytes, but I have to make sure
+		 That I don't add a modifier that already exists. (UUID's of modifiers have to be unique)
+		*/
+
+		final AttributeModifier modifier = new AttributeModifier(
+						UUID.randomUUID(),
+						Attribute.GENERIC_ATTACK_DAMAGE.toString(), 10,
+						AttributeModifier.Operation.ADD_NUMBER,
+						EquipmentSlot.HAND
+		);
 
 		mainHandMeta.addAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE, modifier);
 
