@@ -328,7 +328,7 @@ public final class ProjectileLaunchListener implements Listener {
 								yPredictionErrorAverages[i] += Math.abs(errors.get(i));
 							}
 
-							final double smallestError = NumberUtility.minAbs(errors);
+							final double smallestError = NumberUtility.absMin(errors);
 
 							yPredictionAccuracies[errors.indexOf(smallestError)]++;
 

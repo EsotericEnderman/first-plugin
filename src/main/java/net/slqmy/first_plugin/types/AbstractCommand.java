@@ -113,7 +113,7 @@ public abstract class AbstractCommand extends BukkitCommand {
 	@Override
 	public List<String> tabComplete(@NotNull final CommandSender sender, @NotNull final String alias,
 	                                @NotNull final String @NotNull [] args) {
-		if (argLengths.contains(args.length) && (!playerOnly || sender instanceof Player)) {
+		if (args.length <= NumberUtility.absMax(argLengths) && (!playerOnly || sender instanceof Player)) {
 			final List<String> results = onTabComplete(sender, args);
 
 			return results == null ? new ArrayList<>()

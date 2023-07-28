@@ -29,7 +29,7 @@ public final class NumberUtility {
 		return min;
 	}
 
-	public static double minAbs(@NotNull final List<Double> numbers) {
+	public static double absMin(@NotNull final List<Double> numbers) {
 		double min = numbers.get(0);
 
 		for (int i = 1; i < numbers.size(); i++) {
@@ -41,5 +41,19 @@ public final class NumberUtility {
 		}
 
 		return min;
+	}
+
+	public static double absMax(@NotNull final List<Integer> numbers) {
+		double max = Math.abs(numbers.get(0));
+
+		for (int i = 1; i < numbers.size(); i++) {
+			final double currentNumber = Math.abs(numbers.get(i));
+
+			if (currentNumber > max) {
+				max = currentNumber;
+			}
+		}
+
+		return max;
 	}
 }
