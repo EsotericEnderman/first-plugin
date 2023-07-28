@@ -65,11 +65,6 @@ public final class ProjectileLaunchListener implements Listener {
 
 				projectile.addPassenger(player);
 			} else if (projectile instanceof Snowball || projectile instanceof FishHook) {
-
-				if (projectile instanceof Snowball) {
-					event.setCancelled(true);
-				}
-
 				final PlayerInventory playerInventory = player.getInventory();
 
 				final ItemStack mainHand = playerInventory.getItemInMainHand();
@@ -87,6 +82,10 @@ public final class ProjectileLaunchListener implements Listener {
 				}
 
 				if (meta != null) {
+					if (projectile instanceof Snowball) {
+						event.setCancelled(true);
+					}
+
 					final Location currentLocation = projectile.getLocation();
 					final World currentWorld = projectile.getWorld();
 					currentLocation.add(0, 5, 0);
