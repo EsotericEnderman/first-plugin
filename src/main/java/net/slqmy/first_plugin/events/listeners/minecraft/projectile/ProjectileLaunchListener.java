@@ -2,6 +2,7 @@ package net.slqmy.first_plugin.events.listeners.minecraft.projectile;
 
 import net.slqmy.first_plugin.Main;
 import net.slqmy.first_plugin.utility.NumberUtility;
+import net.slqmy.first_plugin.utility.Utility;
 import org.bukkit.*;
 import org.bukkit.Particle.DustTransition;
 import org.bukkit.attribute.Attribute;
@@ -192,14 +193,54 @@ public final class ProjectileLaunchListener implements Listener {
 					final int[] ticksPassed = {0};
 
 					final int[] xPredictionAccuracies = {0, 0};
-					final Double[] xPredictionErrorAverages = {0D, 0D};
+					final Double[] xPredictionErrorAverages = {0D, 0D, 0D};
 
 					final int[] yPredictionAccuracies = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-					final Double[] yPredictionErrorAverages = {0D, 0D, 0D, 0D, 0D, 0D, 0D, 0D, 0D, 0D, 0D, 0D, 0D, 0D, 0D};
+					final Double[] yPredictionErrorAverages = {0D, 0D, 0D, 0D, 0D, 0D, 0D, 0D, 0D, 0D, 0D, 0D, 0D, 0D, 0D, 0D};
+
+					final Double[] zPredictionErrorAverages = {0D};
+
+					final double[] estimatedYVelocity = {v_0_y};
+					final double[] estimatedXVelocity = {x};
+					final double[] estimatedZVelocity = {z};
 
 					new BukkitRunnable() {
 						@Override
 						public void run() {
+							if (newProjectile.isDead() || newProjectile.isOnGround()) {
+								newProjectile.remove();
+
+								player.sendMessage(ChatColor.DARK_GRAY + "• " + ChatColor.GRAY + "X Prediction Accuracies: " + Arrays.toString(xPredictionAccuracies));
+
+								for (int i = 0; i < xPredictionErrorAverages.length; i++) {
+									xPredictionErrorAverages[i] /= ticksPassed[0];
+								}
+
+								player.sendMessage(ChatColor.DARK_GRAY + "• " + ChatColor.GRAY + "X Prediction Error Averages: " + Arrays.toString(xPredictionErrorAverages));
+
+
+								player.sendMessage(ChatColor.DARK_GRAY + "• " + ChatColor.GRAY + "Y Prediction Accuracies: " + Arrays.toString(yPredictionAccuracies));
+
+								for (int i = 0; i < yPredictionErrorAverages.length; i++) {
+									yPredictionErrorAverages[i] /= ticksPassed[0];
+								}
+
+								player.sendMessage(ChatColor.DARK_GRAY + "• " + ChatColor.GRAY + "Y Prediction Error Averages: " + Arrays.toString(yPredictionErrorAverages));
+
+								player.sendMessage(ChatColor.DARK_GRAY + "• " + ChatColor.GRAY + "X Drag Value Used: " + ChatColor.YELLOW + ChatColor.UNDERLINE + DRAG_X);
+								player.sendMessage(ChatColor.DARK_GRAY + "• " + ChatColor.GRAY + "Y Drag Value Used: " + ChatColor.YELLOW + ChatColor.UNDERLINE + DRAG_Y);
+
+								player.sendMessage(ChatColor.DARK_GRAY + "• " + ChatColor.GRAY + "Gravity Value Used: " + ChatColor.YELLOW + ChatColor.UNDERLINE + GRAVITY);
+
+								Utility.log("Absolute X Prediction Error Average: " + (xPredictionErrorAverages[2] / ticksPassed[0]));
+								Utility.log("Absolute Y Prediction Error Average: " + (yPredictionErrorAverages[15] / ticksPassed[0]));
+								Utility.log("Absolute Z Prediction Error Average: " + (zPredictionErrorAverages[0] / ticksPassed[0]));
+
+								player.setCollidable(true);
+								cancel();
+								return;
+							}
+
 							final Location location = newProjectile.getLocation();
 							final World world = location.getWorld();
 							assert world != null;
@@ -291,14 +332,42 @@ public final class ProjectileLaunchListener implements Listener {
 
 							yPredictionAccuracies[errors.indexOf(smallestError)]++;
 
-							ticksPassed[0]++;
-
 							final double x_t = location.getX();
 							final double z_t = location.getZ();
+
+							estimatedYVelocity[0] -= 0.08D;
+							estimatedYVelocity[0] *= 0.9800000190734863;
+
+							Utility.log("Estimated Y Velocity: " + estimatedYVelocity[0]);
+							Utility.log("Actual Y Velocity: " + actualYVelocity);
+
+							Utility.log("Error: " + Math.abs(estimatedYVelocity[0] - actualYVelocity));
+
+							yPredictionErrorAverages[15] += Math.abs(estimatedYVelocity[0] - actualYVelocity);
+
+							estimatedXVelocity[0] *= 0.91D;
+							estimatedZVelocity[0] *= 0.91D;
+
+							Utility.log("Estimated X Velocity: " + estimatedXVelocity[0]);
+							Utility.log("Error: " + Math.abs(estimatedXVelocity[0] - v_t_x));
+
+							xPredictionErrorAverages[2] += Math.abs(estimatedXVelocity[0] - v_t_x);
+
+							Utility.log("Estimated Z Velocity: " + estimatedZVelocity[0]);
+							Utility.log("Error: " + Math.abs(estimatedZVelocity[0] - v_t_z));
+
+							zPredictionErrorAverages[0] += Math.abs(estimatedZVelocity[0] - v_t_z);
+
+							ticksPassed[0]++;
 
 							new BukkitRunnable() {
 								@Override
 								public void run() {
+									if (newProjectile.isDead() || newProjectile.isOnGround()) {
+										cancel();
+										return;
+									}
+
 									world.spawnParticle(Particle.DUST_COLOR_TRANSITION, location, 1, DUST_TRANSITION_RED);
 
 									world.spawnParticle(
@@ -377,44 +446,10 @@ public final class ProjectileLaunchListener implements Listener {
 													1,
 													DUST_TRANSITION_SILVER
 									);
-
-									if (newProjectile.isDead() || newProjectile.isOnGround()) {
-										cancel();
-									}
 								}
-							}.runTaskTimer(plugin, 0, 0);
-
-							if (newProjectile.isDead() || newProjectile.isOnGround()) {
-								cancel();
-
-								newProjectile.remove();
-
-								player.sendMessage(ChatColor.DARK_GRAY + "• " + ChatColor.GRAY + "X Prediction Accuracies: " + Arrays.toString(xPredictionAccuracies));
-
-								for (int i = 0; i < xPredictionErrorAverages.length; i++) {
-									xPredictionErrorAverages[i] /= ticksPassed[0];
-								}
-
-								player.sendMessage(ChatColor.DARK_GRAY + "• " + ChatColor.GRAY + "X Prediction Error Averages: " + Arrays.toString(xPredictionErrorAverages));
-
-
-								player.sendMessage(ChatColor.DARK_GRAY + "• " + ChatColor.GRAY + "Y Prediction Accuracies: " + Arrays.toString(yPredictionAccuracies));
-
-								for (int i = 0; i < yPredictionErrorAverages.length; i++) {
-									yPredictionErrorAverages[i] /= ticksPassed[0];
-								}
-
-								player.sendMessage(ChatColor.DARK_GRAY + "• " + ChatColor.GRAY + "Y Prediction Error Averages: " + Arrays.toString(yPredictionErrorAverages));
-
-								player.sendMessage(ChatColor.DARK_GRAY + "• " + ChatColor.GRAY + "X Drag Value Used: " + ChatColor.YELLOW + ChatColor.UNDERLINE + DRAG_X);
-								player.sendMessage(ChatColor.DARK_GRAY + "• " + ChatColor.GRAY + "Y Drag Value Used: " + ChatColor.YELLOW + ChatColor.UNDERLINE + DRAG_Y);
-
-								player.sendMessage(ChatColor.DARK_GRAY + "• " + ChatColor.GRAY + "Gravity Value Used: " + ChatColor.YELLOW + ChatColor.UNDERLINE + GRAVITY);
-
-								player.setCollidable(true);
-							}
+							}.runTaskTimer(plugin, 0, 1);
 						}
-					}.runTaskTimer(plugin, 1, 0);
+					}.runTaskTimer(plugin, 0, 1);
 				}
 			}
 		}
