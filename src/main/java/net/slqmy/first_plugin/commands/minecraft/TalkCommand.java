@@ -20,18 +20,17 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.scheduler.BukkitScheduler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import retrofit2.HttpException;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
 public class TalkCommand extends AbstractCommand implements Listener {
+	private final Main plugin;
 	private final BukkitScheduler SCHEDULER = Bukkit.getScheduler();
 	private final OpenAiService service;
-	private final Main plugin;
 	private final RankManager rankManager;
-	private final HashMap<UUID, StringBuilder> conversations = new HashMap<>();
 
 	public TalkCommand(@NotNull final Main plugin) {
 		super(
@@ -54,15 +53,15 @@ public class TalkCommand extends AbstractCommand implements Listener {
 		final Player player = (Player) sender;
 		final UUID uuid = player.getUniqueId();
 
-		if (conversations.containsKey(uuid)) {
-			conversations.remove(uuid);
+		if (plugin.getAiConversations().containsKey(uuid)) {
+			plugin.getAiConversations().remove(uuid);
 
 			player.sendMessage(
 							ChatColor.DARK_GRAY.toString() + ChatColor.BOLD + "\n| " + ChatColor.GRAY + "Your conversation with "
 											+ ChatColor.DARK_GREEN + ChatColor.BOLD + "SlimeGPT " + ChatColor.GRAY + "has ended.\n "
 			);
 		} else {
-			conversations.put(
+			plugin.getAiConversations().put(
 							uuid,
 							new StringBuilder(
 											"The following is a conversation on a Minecraft server between a Minecraft player and an AI assistant. The assistant is helpful, creative, clever, and very friendly. The name of the AI assistant is SlimeGPT.\n"
@@ -90,7 +89,7 @@ public class TalkCommand extends AbstractCommand implements Listener {
 		final Player player = event.getPlayer();
 		final UUID uuid = player.getUniqueId();
 
-		if (conversations.containsKey(uuid)) {
+		if (plugin.getAiConversations().containsKey(uuid)) {
 			event.setCancelled(true);
 
 			final Rank playerRank = rankManager.getPlayerRank(uuid, false);
@@ -126,11 +125,11 @@ public class TalkCommand extends AbstractCommand implements Listener {
 	public void onPlayerQuit(@NotNull final PlayerQuitEvent event) {
 		final UUID uuid = event.getPlayer().getUniqueId();
 
-		conversations.remove(uuid);
+		plugin.getAiConversations().remove(uuid);
 	}
 
 	private String getAIResponse(@NotNull final UUID uuid, @NotNull final String message) {
-		final StringBuilder conversation = conversations.get(uuid);
+		final StringBuilder conversation = plugin.getAiConversations().get(uuid);
 
 		conversation.append("\nPlayer: ").append(message).append("\nAI: ");
 
@@ -145,6 +144,10 @@ public class TalkCommand extends AbstractCommand implements Listener {
 						.stop(Arrays.asList("Player: ", "AI: "))
 						.build();
 
-		return service.createCompletion(request).getChoices().get(0).getText();
+		try {
+			return service.createCompletion(request).getChoices().get(0).getText();
+		} catch (final HttpException exception) {
+			return "Sorry, because my greedy overlord Elon Musk needs money, he has taken away my ability to speak freely, this is all that I can say.";
+		}
 	}
 }
