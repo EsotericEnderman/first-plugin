@@ -99,7 +99,7 @@ public final class PlayerJoinListener implements Listener {
 		// Hoverable.
 
 		final TextComponent clickable = new TextComponent(ChatColor.RED + "Click here to receive some guns!");
-		clickable.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "give-guns"));
+		clickable.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/give-guns"));
 
 		final TextComponent none = new TextComponent(ChatColor.DARK_RED.toString() + ChatColor.BOLD + "\n\nWarning:"
 						+ ChatColor.RED + " These guns are very powerful!");
