@@ -80,8 +80,8 @@ public final class PlayerJoinListener implements Listener {
 
 		bossBar.addPlayer(player);
 
-		player.setResourcePack("assets/Trading Wanderer v1.1 - 1.20.1");
-		player.setResourcePack("assets/sword-v1-13-1551616579");
+		player.setResourcePack("http://resourcepack.host/dl/DAM7DcTEtBWbA7MZ0ePGKpdlGOxKf3vi/sword-v1-13-1551616579.zip");
+		player.setResourcePack("http://resourcepack.host/dl/Kqc33b8ZCNBps4WQIysKQ0FeOFmdpN76/Trading+Wanderer+v1.1+-+1.20.1.zip");
 
 		player.sendTitle(ChatColor.GREEN + "Welcome to " + ChatColor.BOLD + "The Slimy Swamp" + ChatColor.GREEN + "!",
 						ChatColor.YELLOW + "Thank you for joining. Enjoy your stay!", 20,
