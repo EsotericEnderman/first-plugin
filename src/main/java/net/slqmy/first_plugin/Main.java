@@ -28,6 +28,7 @@ import net.slqmy.first_plugin.events.listeners.minecraft.server.ServerBroadcastE
 import net.slqmy.first_plugin.events.listeners.minecraft.server.ServerListPingEventListener;
 import net.slqmy.first_plugin.managers.ConfigManager;
 import net.slqmy.first_plugin.managers.PlayerManager;
+import net.slqmy.first_plugin.placeholders.IsHoldingSpongePlaceholder;
 import net.slqmy.first_plugin.utility.DebugUtility;
 import net.slqmy.first_plugin.utility.HoglinRiderUtility;
 import net.slqmy.first_plugin.utility.Utility;
@@ -342,6 +343,7 @@ public final class Main extends JavaPlugin implements PluginMessageListener {
 		new LaunchCommand();
 		new FruitCommand();
 		new SpawnRiderCommand();
+		new PAPICommand();
 
 		new NPCCommand(this);
 		new BroadcastCommand(this);
