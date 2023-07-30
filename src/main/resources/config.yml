@@ -2,6 +2,10 @@
 Word: Banana
 Number: 42
 
+# Type the name of the language here.
+# E.g., en, nl...
+Language: en
+
 # Hello, this is a comment!
 
 Boolean: true

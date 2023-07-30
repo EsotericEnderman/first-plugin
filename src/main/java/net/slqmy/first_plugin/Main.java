@@ -26,6 +26,7 @@ import net.slqmy.first_plugin.events.listeners.minecraft.projectile.ProjectileHi
 import net.slqmy.first_plugin.events.listeners.minecraft.projectile.ProjectileLaunchListener;
 import net.slqmy.first_plugin.events.listeners.minecraft.server.ServerBroadcastEventListener;
 import net.slqmy.first_plugin.events.listeners.minecraft.server.ServerListPingEventListener;
+import net.slqmy.first_plugin.managers.ConfigManager;
 import net.slqmy.first_plugin.managers.PlayerManager;
 import net.slqmy.first_plugin.utility.DebugUtility;
 import net.slqmy.first_plugin.utility.HoglinRiderUtility;
@@ -196,6 +197,9 @@ public final class Main extends JavaPlugin implements PluginMessageListener {
 
 		config.options().copyDefaults();
 		saveDefaultConfig();
+
+		saveResource("en", false);
+		saveResource("nl", false);
 
 		final Pair<File, YamlConfiguration> tuple;
 
