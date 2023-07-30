@@ -65,7 +65,7 @@ import java.sql.SQLException;
 import java.util.*;
 
 public final class Main extends JavaPlugin implements PluginMessageListener {
-	private static final PluginManager PLUGIN_MANAGER = Bukkit.getPluginManager();
+	private static final PluginManager pluginManager = Bukkit.getPluginManager();
 
 	private static final BukkitScheduler SCHEDULER = Bukkit.getScheduler();
 
@@ -80,7 +80,7 @@ public final class Main extends JavaPlugin implements PluginMessageListener {
 					// BarFlag.PLAY_BOSS_MUSIC - Seems to not do anything... (I might be wrong).
 	);
 
-	private final RankSystem rankSystem = (RankSystem) PLUGIN_MANAGER.getPlugin("Rank-System");
+	private final RankSystem rankSystem = (RankSystem) pluginManager.getPlugin("Rank-System");
 
 	private final PlayerManager playerManager = new PlayerManager();
 
@@ -260,10 +260,7 @@ public final class Main extends JavaPlugin implements PluginMessageListener {
 			Utility.log("Is best plugin? " + data.isBestPlugin());
 			Utility.log("Date: " + data.getDate());
 		} catch (final FileNotFoundException exception) {
-			Utility.log("Can't load data.json! Error: ");
-			Utility.log(exception.getMessage());
-			exception.printStackTrace();
-			Utility.log(exception);
+			DebugUtility.logError(exception, "Can't load data.json! Error: ");
 		}
 
 		database = new Database(this);
@@ -271,9 +268,7 @@ public final class Main extends JavaPlugin implements PluginMessageListener {
 		try {
 			database.connect();
 		} catch (final SQLException exception) {
-			Utility.log("There was an error while connection to the database!");
-
-			throw new RuntimeException(exception);
+			DebugUtility.logError(exception, "There was an error while connection to the database!");
 		}
 
 		Utility.log("Connected to SQL database? " + (database.isConnected() ? "yes" : "no") + "!");
@@ -358,7 +353,6 @@ public final class Main extends JavaPlugin implements PluginMessageListener {
 		new TalkCommand(this);
 		new GiveRoleCommand(this);
 
-
 		// Really easy to make recipes:
 		// Maybe make a recipe manager?
 
@@ -430,35 +424,35 @@ public final class Main extends JavaPlugin implements PluginMessageListener {
 		isGatlingGunBulletKey = new NamespacedKey(this, "is_gatling_gun_bullet");
 
 		final AutoSmeltingEnchantment autoSmelting = new AutoSmeltingEnchantment();
-		PLUGIN_MANAGER.registerEvents(autoSmelting, this);
+		pluginManager.registerEvents(autoSmelting, this);
 		registerEnchantment(autoSmelting);
 
-		PLUGIN_MANAGER.registerEvents(new HoglinRiderDamageListener(), this);
-		PLUGIN_MANAGER.registerEvents(new HoglinRiderRegenerateListener(), this);
-		PLUGIN_MANAGER.registerEvents(new HoglinRiderTargetEntityListener(), this);
-		PLUGIN_MANAGER.registerEvents(new GUIListener(), this);
-		PLUGIN_MANAGER.registerEvents(new MapListener(), this);
-		PLUGIN_MANAGER.registerEvents(new PlayerInteractEntityListener(), this);
-		PLUGIN_MANAGER.registerEvents(new PlayerResourcePackStatusListener(), this);
-		PLUGIN_MANAGER.registerEvents(new PlayerToggleSneakListener(), this);
-		PLUGIN_MANAGER.registerEvents(new ServerBroadcastEventListener(), this);
-		PLUGIN_MANAGER.registerEvents(new ServerListPingEventListener(), this);
-		PLUGIN_MANAGER.registerEvents(new NPCClickListener(), this);
+		pluginManager.registerEvents(new HoglinRiderDamageListener(), this);
+		pluginManager.registerEvents(new HoglinRiderRegenerateListener(), this);
+		pluginManager.registerEvents(new HoglinRiderTargetEntityListener(), this);
+		pluginManager.registerEvents(new GUIListener(), this);
+		pluginManager.registerEvents(new MapListener(), this);
+		pluginManager.registerEvents(new PlayerInteractEntityListener(), this);
+		pluginManager.registerEvents(new PlayerResourcePackStatusListener(), this);
+		pluginManager.registerEvents(new PlayerToggleSneakListener(), this);
+		pluginManager.registerEvents(new ServerBroadcastEventListener(), this);
+		pluginManager.registerEvents(new ServerListPingEventListener(), this);
+		pluginManager.registerEvents(new NPCClickListener(), this);
 
-		PLUGIN_MANAGER.registerEvents(new ChatListener(this), this);
-		PLUGIN_MANAGER.registerEvents(new ConnectionListener(this), this);
-		PLUGIN_MANAGER.registerEvents(new HoglinRiderSpawnListener(this), this);
-		PLUGIN_MANAGER.registerEvents(new GunHitListener(this), this);
-		PLUGIN_MANAGER.registerEvents(new HoglinRiderDeathListener(this), this);
-		PLUGIN_MANAGER.registerEvents(new HoglinRiderMoveEventListener(this), this);
-		PLUGIN_MANAGER.registerEvents(new EggThrowListener(this), this);
-		PLUGIN_MANAGER.registerEvents(new PlayerInteractListener(this), this);
-		PLUGIN_MANAGER.registerEvents(new PlayerJoinListener(this), this);
-		PLUGIN_MANAGER.registerEvents(new PlayerMoveListener(this), this);
-		PLUGIN_MANAGER.registerEvents(new ProjectileHitListener(this), this);
-		PLUGIN_MANAGER.registerEvents(new ProjectileLaunchListener(this), this);
-		PLUGIN_MANAGER.registerEvents(new TalkCommand(this), this);
-		PLUGIN_MANAGER.registerEvents(new PlayerDeathListener(), this);
+		pluginManager.registerEvents(new ChatListener(this), this);
+		pluginManager.registerEvents(new ConnectionListener(this), this);
+		pluginManager.registerEvents(new HoglinRiderSpawnListener(this), this);
+		pluginManager.registerEvents(new GunHitListener(this), this);
+		pluginManager.registerEvents(new HoglinRiderDeathListener(this), this);
+		pluginManager.registerEvents(new HoglinRiderMoveEventListener(this), this);
+		pluginManager.registerEvents(new EggThrowListener(this), this);
+		pluginManager.registerEvents(new PlayerInteractListener(this), this);
+		pluginManager.registerEvents(new PlayerJoinListener(this), this);
+		pluginManager.registerEvents(new PlayerMoveListener(this), this);
+		pluginManager.registerEvents(new ProjectileHitListener(this), this);
+		pluginManager.registerEvents(new ProjectileLaunchListener(this), this);
+		pluginManager.registerEvents(new TalkCommand(this), this);
+		pluginManager.registerEvents(new PlayerDeathListener(), this);
 
 		HoglinRiderUtility.manageHoglinRiders(this);
 
@@ -628,6 +622,8 @@ public final class Main extends JavaPlugin implements PluginMessageListener {
 		// 12000 = 18:00.
 		// 18000 = 24:00.
 		world.setTime(0);
+		world.setStorm(true);
+		world.setWeatherDuration(400);
 
 		/* BukkitTask bukkitTask = */
 		SCHEDULER.runTaskLater/* Asynchronously */(this,

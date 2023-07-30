@@ -9,7 +9,6 @@ import org.bukkit.block.data.type.Cake;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
@@ -70,11 +69,8 @@ public final class PlayerInteractListener implements Listener {
 		final ItemStack mainHand = player.getInventory().getItemInMainHand();
 		final ItemMeta mainHandMeta = mainHand.getItemMeta();
 
-		if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
-			final Block rightClickedBlocked = event.getClickedBlock();
-
-			assert rightClickedBlocked != null;
-
+		final Block rightClickedBlocked = event.getClickedBlock();
+		if (rightClickedBlocked != null) {
 			final BlockState blockState = rightClickedBlocked.getState();
 			final BlockData blockData = blockState.getBlockData();
 
