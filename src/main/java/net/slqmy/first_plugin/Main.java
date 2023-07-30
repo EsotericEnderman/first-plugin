@@ -34,6 +34,8 @@ import net.slqmy.first_plugin.utility.types.Cuboid;
 import net.slqmy.first_plugin.utility.types.Pair;
 import net.slqmy.rank_system.RankSystem;
 import org.bson.Document;
+import org.bstats.bukkit.Metrics;
+import org.bstats.charts.SimplePie;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.boss.BarColor;
@@ -507,6 +509,25 @@ public final class Main extends JavaPlugin implements PluginMessageListener {
 
 		// NMS introduction code:
 		// final ServerPlayer player = ((CraftPlayer) Bukkit.getPlayer("Slqmy")).getHandle();
+
+		new IsHoldingSpongePlaceholder().register();
+
+		// Check the version and adjust this variable accordingly.
+		final InterfaceExample example = new InterfaceExample1_8();
+
+		// ...
+
+		// Can also use this: https://github.com/CryptoMorin/XSeries.
+
+		example.doSomething();
+
+		Utility.log(new ConfigManager(this).getMessage("welcome-message"));
+
+		// Takes ~5 minutes after the server starts to update, then every ~30 minutes.
+
+		int pluginId = 19300;
+		Metrics metrics = new Metrics(this, pluginId);
+		metrics.addCustomChart(new SimplePie("languages_used", () -> config.getString("Language")));
 
 		Utility.log("The plugin 'FirstPlugin' has been fully enabled!");
 
