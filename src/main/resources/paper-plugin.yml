@@ -1,1 +1,5 @@
+name: first-plugin
+main: net.slqmy.first_plugin.FirstPlugin
+version: 1.0.0-SNAPSHOT
+api-version: "1.21"
 depend: [ "NoteBlockAPI", "WorldEdit" ]
