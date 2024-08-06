@@ -15,7 +15,6 @@ import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.slqmy.first_plugin.commands.discord.GiveRoleCommand;
 import net.slqmy.first_plugin.commands.minecraft.*;
 import net.slqmy.first_plugin.data.Data;
-import net.slqmy.first_plugin.enchantments.AutoSmeltingEnchantment;
 import net.slqmy.first_plugin.events.listeners.discord.MessageListener;
 import net.slqmy.first_plugin.events.listeners.minecraft.hoglin_rider.*;
 import net.slqmy.first_plugin.events.listeners.minecraft.item.MapListener;
@@ -399,7 +398,7 @@ public final class FirstPlugin extends JavaPlugin implements PluginMessageListen
 		final ItemMeta stickMeta = customStick.getItemMeta();
 		assert stickMeta != null;
 		stickMeta.setDisplayName(ChatColor.GREEN.toString() + ChatColor.BOLD + "Epic Stick!");
-		stickMeta.addEnchant(Enchantment.DAMAGE_ALL, 15, true);
+		stickMeta.addEnchant(Enchantment.SHARPNESS, 15, true);
 
 		customStick.setItemMeta(stickMeta);
 
@@ -422,10 +421,6 @@ public final class FirstPlugin extends JavaPlugin implements PluginMessageListen
 		isShotgunBulletKey = new NamespacedKey(this, "is_shotgun_bullet");
 		isMiniGunBulletKey = new NamespacedKey(this, "is_mini-gun_bullet");
 		isGatlingGunBulletKey = new NamespacedKey(this, "is_gatling_gun_bullet");
-
-		final AutoSmeltingEnchantment autoSmelting = new AutoSmeltingEnchantment();
-		pluginManager.registerEvents(autoSmelting, this);
-		registerEnchantment(autoSmelting);
 
 		pluginManager.registerEvents(new HoglinRiderDamageListener(), this);
 		pluginManager.registerEvents(new HoglinRiderRegenerateListener(), this);
@@ -638,19 +633,6 @@ public final class FirstPlugin extends JavaPlugin implements PluginMessageListen
 										.broadcastMessage("This executes every " + ChatColor.BOLD + "1500" + ChatColor.RESET + " seconds! ...and "
 														+ ChatColor.BOLD + "10" + ChatColor.RESET + " seconds after the server has started."),
 						200, 30_000);
-	}
-
-	// Maybe make some sort of enchantment manager in future plugins?
-	private void registerEnchantment(@NotNull final Enchantment enchantment) {
-		try {
-			final Field field = Enchantment.class.getDeclaredField("acceptingNew");
-			field.setAccessible(true);
-			field.set(null, true);
-
-			Enchantment.registerEnchantment(enchantment);
-		} catch (final NoSuchFieldException | IllegalAccessException exception) {
-			DebugUtility.logError(exception, "There was an error registering enchantment " + enchantment + "!");
-		}
 	}
 
 	@Override

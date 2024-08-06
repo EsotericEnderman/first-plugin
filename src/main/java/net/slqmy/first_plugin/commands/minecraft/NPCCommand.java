@@ -88,7 +88,7 @@ public final class NPCCommand extends AbstractCommand {
 		final ServerGamePacketListenerImpl connection = serverPlayer.connection;
 		connection.send(new ClientboundPlayerInfoUpdatePacket(ClientboundPlayerInfoUpdatePacket.Action.ADD_PLAYER, npc));
 
-		connection.send(new ClientboundAddPlayerPacket(npc));
+		connection.send(new ClientboundAddEntityPacket(npc, null));
 
 		connection.send(
 						new ClientboundSetEntityDataPacket(
