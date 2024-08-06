@@ -71,6 +71,7 @@ dependencies {
   implementation("org.mongodb", "mongodb-driver-sync", "5.1.1")
   implementation("com.theokanning.openai-gpt3-java", "service", "0.18.2")
   implementation("org.bstats", "bstats-bukkit", "3.0.2")
+  implementation("com.github.koca2000", "NoteBlockAPI", "1.6.2")
   compileOnly("com.sk89q.worldedit", "worldedit-core", "7.4.0-SNAPSHOT")
   compileOnly("com.github.Slqmy", "rank-system", "1.0.0")
   compileOnly("me.clip", "placeholderapi", "2.11.6")
