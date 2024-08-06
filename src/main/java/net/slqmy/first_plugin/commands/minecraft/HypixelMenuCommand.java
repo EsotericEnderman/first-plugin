@@ -45,7 +45,7 @@ public final class HypixelMenuCommand extends AbstractCommand {
 						ChatColor.RESET.toString() + ChatColor.GRAY + "full breakdown of what's",
 						ChatColor.RESET.toString() + ChatColor.GRAY + "included in this event!", "",
 						ChatColor.YELLOW + "Click to open!"));
-		eventPage.addUnsafeEnchantment(Enchantment.ARROW_INFINITE, 1);
+		eventPage.addUnsafeEnchantment(Enchantment.INFINITY, 1);
 		eventPageMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
 		eventPage.setItemMeta(eventPageMeta);
 

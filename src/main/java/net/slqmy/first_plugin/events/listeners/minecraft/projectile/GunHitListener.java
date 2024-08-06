@@ -44,19 +44,19 @@ public final class GunHitListener implements Listener {
 			if (container.has(isPistolBulletKey, PersistentDataType.BOOLEAN)) {
 
 				damaged.setHealth(Math.max(health - 10, 0));
-				world.spawnParticle(Particle.BLOCK_CRACK, location, 2, REDSTONE_BLOCK_DATA);
+				world.spawnParticle(Particle.BLOCK, location, 2, REDSTONE_BLOCK_DATA);
 			} else if (container.has(isShotgunBulletKey, PersistentDataType.BOOLEAN)) {
 
 				damaged.setHealth(Math.max(health - 24, 0));
-				world.spawnParticle(Particle.BLOCK_CRACK, location, 5, REDSTONE_BLOCK_DATA);
+				world.spawnParticle(Particle.BLOCK, location, 5, REDSTONE_BLOCK_DATA);
 			} else if (container.has(isMiniGunBulletKey, PersistentDataType.BOOLEAN)) {
 
 				damaged.setHealth(Math.max(health - 14, 0));
-				world.spawnParticle(Particle.BLOCK_CRACK, location, 2, REDSTONE_BLOCK_DATA);
+				world.spawnParticle(Particle.BLOCK, location, 2, REDSTONE_BLOCK_DATA);
 			} else if (container.has(isGatlingGunBulletKey, PersistentDataType.BOOLEAN)) {
 
 				damaged.setHealth(Math.max(health - 14.5F, 0));
-				world.spawnParticle(Particle.BLOCK_CRACK, location, 6, REDSTONE_BLOCK_DATA);
+				world.spawnParticle(Particle.BLOCK, location, 6, REDSTONE_BLOCK_DATA);
 			}
 		}
 	}

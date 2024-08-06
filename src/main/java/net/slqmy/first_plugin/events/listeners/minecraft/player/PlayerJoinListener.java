@@ -176,7 +176,7 @@ public final class PlayerJoinListener implements Listener {
 
 		playerInventory.addItem(sword);
 
-		final PotionEffect potionEffect = new PotionEffect(PotionEffectType.JUMP, 200, 20, false, false, false);
+		final PotionEffect potionEffect = new PotionEffect(PotionEffectType.JUMP_BOOST, 200, 20, false, false, false);
 
 		player.addPotionEffect(potionEffect);
 

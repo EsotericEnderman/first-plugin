@@ -31,13 +31,12 @@ public final class PlayerInteractListener implements Listener {
 	private static final Particle.DustTransition DUST_TRANSITION_GREEN = new Particle.DustTransition(Color.GREEN, Color.GREEN, 0.85F);
 	private static final PotionEffect[] poisonLauncherEffects = {
 					new PotionEffect(PotionEffectType.POISON, PotionEffect.INFINITE_DURATION, 1, true, true, true),
-					new PotionEffect(PotionEffectType.HARM, PotionEffect.INFINITE_DURATION, 1, true, true, true),
+					new PotionEffect(PotionEffectType.INSTANT_DAMAGE, PotionEffect.INFINITE_DURATION, 1, true, true, true),
 					new PotionEffect(PotionEffectType.BLINDNESS, PotionEffect.INFINITE_DURATION, 1, true, true),
-					new PotionEffect(PotionEffectType.CONFUSION, PotionEffect.INFINITE_DURATION, 1, true, true),
 					new PotionEffect(PotionEffectType.DARKNESS, PotionEffect.INFINITE_DURATION, 1, true, true),
 					new PotionEffect(PotionEffectType.HUNGER, PotionEffect.INFINITE_DURATION, 99, true, true),
-					new PotionEffect(PotionEffectType.SLOW, PotionEffect.INFINITE_DURATION, 1, true, true),
-					new PotionEffect(PotionEffectType.SLOW_DIGGING, PotionEffect.INFINITE_DURATION, 1, true, true),
+					new PotionEffect(PotionEffectType.SLOWNESS, PotionEffect.INFINITE_DURATION, 1, true, true),
+					new PotionEffect(PotionEffectType.MINING_FATIGUE, PotionEffect.INFINITE_DURATION, 1, true, true),
 					new PotionEffect(PotionEffectType.WEAKNESS, PotionEffect.INFINITE_DURATION, 1, true, true),
 					new PotionEffect(PotionEffectType.WITHER, PotionEffect.INFINITE_DURATION, 1, true, true)
 	};
@@ -193,7 +192,7 @@ public final class PlayerInteractListener implements Listener {
 				}
 			}.runTaskTimer(plugin, 0, 0);
 
-			player.spawnParticle(Particle.SMOKE_LARGE, playerLocation, 10, 1, 1, 1);
+			player.spawnParticle(Particle.LARGE_SMOKE, playerLocation, 10, 1, 1, 1);
 		} else if (mainHandMaterial == Material.NETHERITE_HOE && itemName.equals(
 						ChatColor.RED.toString() + ChatColor.BOLD + "Rocket Launcher")) {
 			final Fireball fireball = player.launchProjectile(Fireball.class, playerDirection.multiply(4.2F));
@@ -201,7 +200,7 @@ public final class PlayerInteractListener implements Listener {
 			fireball.setYield(4.2F);
 			fireball.setIsIncendiary(true);
 			fireball.setFireTicks(300);
-			player.spawnParticle(Particle.EXPLOSION_NORMAL, playerLocation, 10, 1, 1, 1);
+			player.spawnParticle(Particle.EXPLOSION, playerLocation, 10, 1, 1, 1);
 		}
 	}
 }

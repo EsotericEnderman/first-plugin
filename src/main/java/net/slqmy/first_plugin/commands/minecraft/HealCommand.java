@@ -17,15 +17,14 @@ public final class HealCommand extends AbstractCommand {
 
 	private static final PotionEffectType[] negativePotionEffects = {
 					PotionEffectType.BLINDNESS,
-					PotionEffectType.CONFUSION,
 					PotionEffectType.BAD_OMEN,
 					PotionEffectType.DARKNESS,
-					PotionEffectType.HARM,
+					PotionEffectType.INSTANT_DAMAGE,
 					PotionEffectType.HUNGER,
 					PotionEffectType.LEVITATION,
 					PotionEffectType.POISON,
-					PotionEffectType.SLOW,
-					PotionEffectType.SLOW_DIGGING,
+					PotionEffectType.SLOWNESS,
+					PotionEffectType.MINING_FATIGUE,
 					PotionEffectType.UNLUCK,
 					PotionEffectType.WEAKNESS,
 					PotionEffectType.WITHER,

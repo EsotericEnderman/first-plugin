@@ -19,7 +19,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
 
 public final class HoglinRiderMoveEventListener implements Listener {
-	private final PotionEffect HOGLIN_JUMP_EFFECT = new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 80, 0, true, true);
+	private final PotionEffect HOGLIN_JUMP_EFFECT = new PotionEffect(PotionEffectType.STRENGTH, 80, 0, true, true);
 
 	private final FirstPlugin plugin;
 
@@ -51,7 +51,7 @@ public final class HoglinRiderMoveEventListener implements Listener {
 
 		final double distance = hoglinLocation.distance(targetLocation);
 
-		if (HoglinRiderUtility.canJump(hoglin) && !hoglin.hasPotionEffect(PotionEffectType.INCREASE_DAMAGE)
+		if (HoglinRiderUtility.canJump(hoglin) && !hoglin.hasPotionEffect(PotionEffectType.STRENGTH)
 						&& distance >= 4) {
 			hoglin.addPotionEffect(HOGLIN_JUMP_EFFECT);
 

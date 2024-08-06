@@ -49,7 +49,7 @@ public final class GiveSnowballsCommand extends AbstractCommand {
 			try {
 				entity = EntityType.valueOf(args[1]);
 
-				if (entity == EntityType.PLAYER || entity == EntityType.FISHING_HOOK) {
+				if (entity == EntityType.PLAYER || entity == EntityType.FISHING_BOBBER) {
 					throw new IllegalArgumentException();
 				}
 			} catch (IllegalArgumentException exception) {
@@ -83,7 +83,7 @@ public final class GiveSnowballsCommand extends AbstractCommand {
 		final List<String> entities = new ArrayList<>();
 
 		for (final EntityType entity : EntityType.values()) {
-			if (entity != EntityType.PLAYER && entity != EntityType.FISHING_HOOK) {
+			if (entity != EntityType.PLAYER && entity != EntityType.FISHING_BOBBER) {
 				entities.add(entity.toString());
 			}
 		}

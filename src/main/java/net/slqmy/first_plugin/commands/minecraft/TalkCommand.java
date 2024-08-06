@@ -1,6 +1,6 @@
 package net.slqmy.first_plugin.commands.minecraft;
 
-import com.theokanning.openai.OpenAiService;
+import com.theokanning.openai.service.OpenAiService;
 import com.theokanning.openai.completion.CompletionRequest;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -45,7 +45,7 @@ public class TalkCommand extends AbstractCommand implements Listener {
 
 		this.plugin = plugin;
 		this.rankManager = plugin.getRankSystem().getRankManager();
-		this.service = new OpenAiService(plugin.getConfig().getString("OpenAI-Key"), 0);
+		this.service = new OpenAiService(plugin.getConfig().getString("OpenAI-Key"));
 	}
 
 	@Override

@@ -134,7 +134,7 @@ public final class HoglinRiderUtility {
 						final Location location = hoglin.getLocation();
 						location.add(0.0, hoglin.getHeight() + 1.5, 0.0);
 
-						Objects.requireNonNull(location.getWorld()).spawnParticle(Particle.VILLAGER_ANGRY, location, 1);
+						Objects.requireNonNull(location.getWorld()).spawnParticle(Particle.ANGRY_VILLAGER, location, 1);
 					} else if (!hoglinRiders.contains(hoglinUUID)) {
 						cancel();
 					}

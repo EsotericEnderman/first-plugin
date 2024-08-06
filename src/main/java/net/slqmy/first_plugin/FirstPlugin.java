@@ -566,7 +566,7 @@ public final class FirstPlugin extends JavaPlugin implements PluginMessageListen
 
 		final ItemMeta diamondSwordMeta = diamondSword.getItemMeta();
 		assert diamondSwordMeta != null;
-		diamondSwordMeta.addEnchant(Enchantment.DAMAGE_ALL, 1, false);
+		diamondSwordMeta.addEnchant(Enchantment.SHARPNESS, 1, false);
 
 		diamondSword.setItemMeta(diamondSwordMeta);
 

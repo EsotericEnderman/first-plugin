@@ -18,9 +18,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
-import org.bukkit.craftbukkit.v1_20_R1.CraftWorld;
-import org.bukkit.craftbukkit.v1_20_R1.entity.CraftPlayer;
-import org.bukkit.craftbukkit.v1_20_R1.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.CraftWorld;
+import org.bukkit.craftbukkit.entity.CraftPlayer;
+import org.bukkit.craftbukkit.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
@@ -63,11 +63,7 @@ public final class NPCCommand extends AbstractCommand {
 						)
 		);
 
-		final ServerPlayer npc = new ServerPlayer(
-						server,
-						((CraftWorld) player.getWorld()).getHandle().getLevel(),
-						npcProfile
-		);
+		final ServerPlayer npc = new ServerPlayer(server, ((CraftWorld) player.getWorld()).getHandle().getLevel(), npcProfile, null);
 
 		plugin.getNPCs().put(npc.getBukkitEntity().getEntityId(), npc.getUUID());
 		// Many more methods available, such as adding items to the NPC's inventory, could be useful.
