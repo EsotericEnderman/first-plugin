@@ -638,7 +638,9 @@ public final class FirstPlugin extends JavaPlugin implements PluginMessageListen
 	@Override
 	public void onDisable() {
 		// Plugin shutdown logic.
-		database.disconnect();
+		if (database != null) {
+			database.disconnect();
+		}
 	}
 
 	@Override
