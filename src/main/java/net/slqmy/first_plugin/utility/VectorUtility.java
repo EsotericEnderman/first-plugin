@@ -1,6 +1,5 @@
 package net.slqmy.first_plugin.utility;
 
-import net.slqmy.rank_system.utility.Utility;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.util.Vector;

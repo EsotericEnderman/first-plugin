@@ -4,6 +4,7 @@ import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
 import com.google.gson.Gson;
+import com.mongodb.MongoTimeoutException;
 import com.mongodb.client.*;
 import com.mongodb.client.model.Filters;
 import com.sk89q.worldedit.WorldEdit;
@@ -33,7 +34,6 @@ import net.slqmy.first_plugin.utility.HoglinRiderUtility;
 import net.slqmy.first_plugin.utility.Utility;
 import net.slqmy.first_plugin.utility.types.Cuboid;
 import net.slqmy.first_plugin.utility.types.Pair;
-import net.slqmy.rank_system.RankSystem;
 import org.bson.Document;
 import org.bstats.bukkit.Metrics;
 import org.bstats.charts.SimplePie;
@@ -69,17 +69,15 @@ public final class FirstPlugin extends JavaPlugin implements PluginMessageListen
 	private static final BukkitScheduler SCHEDULER = Bukkit.getScheduler();
 
 	private final BossBar bossBar = Bukkit.createBossBar(
-					ChatColor.LIGHT_PURPLE.toString() + ChatColor.BOLD + "Wither Storm",
-					BarColor.PURPLE,
-					BarStyle.SEGMENTED_20
-					// BarFlag.CREATE_FOG, - a bit annoying, but good for atmosphere. Could be used
-					// in actual boss fights or server-wide events to add more immersion. (Also, I'm
-					// not sure if this actually does anything)
-					// BarFlag.DARKEN_SKY, - Same as above, but this definitely does something.
-					// BarFlag.PLAY_BOSS_MUSIC - Seems to not do anything... (I might be wrong).
+			ChatColor.LIGHT_PURPLE.toString() + ChatColor.BOLD + "Wither Storm",
+			BarColor.PURPLE,
+			BarStyle.SEGMENTED_20
+	// BarFlag.CREATE_FOG, - a bit annoying, but good for atmosphere. Could be used
+	// in actual boss fights or server-wide events to add more immersion. (Also, I'm
+	// not sure if this actually does anything)
+	// BarFlag.DARKEN_SKY, - Same as above, but this definitely does something.
+	// BarFlag.PLAY_BOSS_MUSIC - Seems to not do anything... (I might be wrong).
 	);
-
-	private final RankSystem rankSystem = (RankSystem) pluginManager.getPlugin("Rank-System");
 
 	private final PlayerManager playerManager = new PlayerManager();
 
@@ -114,10 +112,6 @@ public final class FirstPlugin extends JavaPlugin implements PluginMessageListen
 
 	public PlayerManager getPlayerManager() {
 		return playerManager;
-	}
-
-	public RankSystem getRankSystem() {
-		return rankSystem;
 	}
 
 	public Map<UUID, UUID> getRecentMessages() {
@@ -198,8 +192,8 @@ public final class FirstPlugin extends JavaPlugin implements PluginMessageListen
 		config.options().copyDefaults();
 		saveDefaultConfig();
 
-		saveResource("en", false);
-		saveResource("nl", false);
+		saveResource("en.yml", false);
+		saveResource("nl.yml", false);
 
 		final Pair<File, YamlConfiguration> tuple;
 
@@ -258,7 +252,7 @@ public final class FirstPlugin extends JavaPlugin implements PluginMessageListen
 			Utility.log("Message: " + data.getMessage());
 			Utility.log("Is best plugin? " + data.isBestPlugin());
 			Utility.log("Date: " + data.getDate());
-		} catch (final FileNotFoundException exception) {
+		} catch (final FileNotFoundException | NullPointerException exception) {
 			DebugUtility.logError(exception, "Can't load data.json! Error: ");
 		}
 
@@ -266,14 +260,14 @@ public final class FirstPlugin extends JavaPlugin implements PluginMessageListen
 
 		try {
 			database.connect();
-		} catch (final SQLException exception) {
+		} catch (final SQLException | NullPointerException exception) {
 			DebugUtility.logError(exception, "There was an error while connection to the database!");
 		}
 
 		Utility.log("Connected to SQL database? " + (database.isConnected() ? "yes" : "no") + "!");
 
 		final String connectionString = "mongodb+srv://firstplugin:" + config.getString("MongoDB-Password")
-						+ "@datacluster.z5vohpt.mongodb.net/📄・First-Plugin?retryWrites=true&w=majority";
+				+ "@datacluster.z5vohpt.mongodb.net/📄・First-Plugin?retryWrites=true&w=majority";
 
 		try (final MongoClient client = MongoClients.create(connectionString)) {
 			final MongoDatabase database = client.getDatabase("📄・First-Plugin");
@@ -287,7 +281,8 @@ public final class FirstPlugin extends JavaPlugin implements PluginMessageListen
 			document.put("rank", "Owner");
 			document.put("coins", 5);
 
-			// Inserting the document: 	playerData.insertOne(document);. (commented out because it was overly annoying)
+			// Inserting the document: playerData.insertOne(document);. (commented out
+			// because it was overly annoying)
 
 			// To replace a document: playerData.replaceOne(Filters.eq("uuid",
 			// UUID.randomUUID()), document);.
@@ -302,18 +297,24 @@ public final class FirstPlugin extends JavaPlugin implements PluginMessageListen
 					playerData.deleteOne(output);
 				}
 			}
+		} catch (final MongoTimeoutException exception) {
+			exception.printStackTrace();
 		}
 
-		final JDABuilder builder = JDABuilder.createDefault(config.getString("Discord-Bot-Token"));
+		String botToken = config.getString("Discord-Bot-Token");
 
-		builder.setActivity(Activity.playing("on The Slimy Swamp"));
-		builder.setStatus(OnlineStatus.DO_NOT_DISTURB);
+		if (botToken != null) {
+			final JDABuilder builder = JDABuilder.createDefault(config.getString("Discord-Bot-Token"));
 
-		builder.setEnabledIntents(Arrays.asList(GatewayIntent.values()));
+			builder.setActivity(Activity.playing("on The Slimy Swamp"));
+			builder.setStatus(OnlineStatus.DO_NOT_DISTURB);
 
-		builder.addEventListeners(new MessageListener());
+			builder.setEnabledIntents(Arrays.asList(GatewayIntent.values()));
 
-		jda = builder.build();
+			builder.addEventListeners(new MessageListener());
+
+			jda = builder.build();
+		}
 
 		// Handling commands.
 
@@ -340,40 +341,36 @@ public final class FirstPlugin extends JavaPlugin implements PluginMessageListen
 		new PAPICommand();
 
 		new NPCCommand(this);
-		new BroadcastCommand(this);
 		new ConfigCommand(this);
 		new SetConfigCommand(this);
 		new VanishCommand(this);
-		new MessageCommand(this);
-		new ReplyCommand(this);
 		new PermissionsCommand(this);
 		new RizzCommand(this);
 		new FillCommand(this);
-		new TalkCommand(this);
 		new GiveRoleCommand(this);
 
 		// Really easy to make recipes:
 		// Maybe make a recipe manager?
 
 		final ShapedRecipe diamondSwordRecipe = new ShapedRecipe(new NamespacedKey(this, "custom_diamond_sword"),
-						new ItemStack(Material.DIAMOND_SWORD));
+				new ItemStack(Material.DIAMOND_SWORD));
 
 		diamondSwordRecipe.shape(
-						" D ",
-						" D ",
-						" D ");
+				" D ",
+				" D ",
+				" D ");
 
 		diamondSwordRecipe.setIngredient('D', Material.DIAMOND);
 
 		Bukkit.addRecipe(diamondSwordRecipe);
 
 		final ShapedRecipe elytraRecipe = new ShapedRecipe(new NamespacedKey(this, "custom_elytra"),
-						new ItemStack(Material.ELYTRA));
+				new ItemStack(Material.ELYTRA));
 
 		elytraRecipe.shape(
-						" L ",
-						"PNP",
-						"L L");
+				" L ",
+				"PNP",
+				"L L");
 
 		elytraRecipe.setIngredient('L', Material.LEATHER);
 		elytraRecipe.setIngredient('P', Material.PHANTOM_MEMBRANE);
@@ -382,12 +379,12 @@ public final class FirstPlugin extends JavaPlugin implements PluginMessageListen
 		Bukkit.addRecipe(elytraRecipe);
 
 		final ShapedRecipe barrierRecipe = new ShapedRecipe(new NamespacedKey(this, "custom_barrier"),
-						new ItemStack(Material.BARRIER));
+				new ItemStack(Material.BARRIER));
 
 		barrierRecipe.shape(
-						"R R",
-						" R ",
-						"R R");
+				"R R",
+				" R ",
+				"R R");
 
 		barrierRecipe.setIngredient('R', Material.RED_CONCRETE);
 
@@ -405,9 +402,9 @@ public final class FirstPlugin extends JavaPlugin implements PluginMessageListen
 		final ShapedRecipe stickRecipe = new ShapedRecipe(new NamespacedKey(this, "custom_stick"), customStick);
 
 		stickRecipe.shape(
-						"GGG",
-						"GSG",
-						"GGG");
+				"GGG",
+				"GSG",
+				"GGG");
 
 		stickRecipe.setIngredient('G', Material.GOLD_BLOCK);
 		stickRecipe.setIngredient('S', Material.STICK);
@@ -446,7 +443,6 @@ public final class FirstPlugin extends JavaPlugin implements PluginMessageListen
 		pluginManager.registerEvents(new PlayerMoveListener(this), this);
 		pluginManager.registerEvents(new ProjectileHitListener(this), this);
 		pluginManager.registerEvents(new ProjectileLaunchListener(this), this);
-		pluginManager.registerEvents(new TalkCommand(this), this);
 		pluginManager.registerEvents(new PlayerDeathListener(), this);
 
 		HoglinRiderUtility.manageHoglinRiders(this);
@@ -462,28 +458,28 @@ public final class FirstPlugin extends JavaPlugin implements PluginMessageListen
 		final ByteArrayDataOutput out = ByteStreams.newDataOutput();
 
 		/*
-		 Sending a player to a different server:
-
-		 out.writeUTF("Connect");
-		 out.writeUTF("Server-2");
-		 final Player player;
-		 player.sendPluginMessage(this, "BungeeCord", out.toByteArray());
-
-		 Getting persistent data from items:
-		 Create a new ItemStack: ItemStack sponge = new ItemStack(Material.SPONGE);.
-		 Get the ItemMeta: ItemMeta spongeMeta = sponge.getItemMeta();.
-		 Get the persistent data container: spongeMeta.getPersistentDataContainer();.
-		 Get block state by: Bukkit.getWorld("world").getBlockAt(1, 1, 1).getState();.
-
-		 Determine what it is.
-		 E.g., a sign.
-		 To get the sign's data container, use sign.getPersistentDataContainer();.
-		 ! VERY IMPORTANT!
-		 FOR ALL TILE ENTITIES:
-
-		 Use block.update(); when updating tile entities (blocks like chests, hoppers,
-		 etc.)
-		*/
+		 * Sending a player to a different server:
+		 * 
+		 * out.writeUTF("Connect");
+		 * out.writeUTF("Server-2");
+		 * final Player player;
+		 * player.sendPluginMessage(this, "BungeeCord", out.toByteArray());
+		 * 
+		 * Getting persistent data from items:
+		 * Create a new ItemStack: ItemStack sponge = new ItemStack(Material.SPONGE);.
+		 * Get the ItemMeta: ItemMeta spongeMeta = sponge.getItemMeta();.
+		 * Get the persistent data container: spongeMeta.getPersistentDataContainer();.
+		 * Get block state by: Bukkit.getWorld("world").getBlockAt(1, 1, 1).getState();.
+		 * 
+		 * Determine what it is.
+		 * E.g., a sign.
+		 * To get the sign's data container, use sign.getPersistentDataContainer();.
+		 * ! VERY IMPORTANT!
+		 * FOR ALL TILE ENTITIES:
+		 * 
+		 * Use block.update(); when updating tile entities (blocks like chests, hoppers,
+		 * etc.)
+		 */
 
 		Bukkit.getScheduler().runTaskLater(this, () -> {
 			out.writeUTF("PlayerCount");
@@ -503,7 +499,8 @@ public final class FirstPlugin extends JavaPlugin implements PluginMessageListen
 		}, 200);
 
 		// NMS introduction code:
-		// final ServerPlayer player = ((CraftPlayer) Bukkit.getPlayer("Slqmy")).getHandle();
+		// final ServerPlayer player = ((CraftPlayer)
+		// Bukkit.getPlayer("Slqmy")).getHandle();
 
 		new IsHoldingSpongePlaceholder().register();
 
@@ -537,21 +534,21 @@ public final class FirstPlugin extends JavaPlugin implements PluginMessageListen
 		final TextDisplay textDisplay = (TextDisplay) world.spawnEntity(displaysLocation, EntityType.TEXT_DISPLAY);
 
 		textDisplay.setText(ChatColor.DARK_GREEN.toString() + ChatColor.STRIKETHROUGH + "  " + ChatColor.GREEN
-						+ ChatColor.BOLD + "THE" + ChatColor.DARK_GREEN + ChatColor.STRIKETHROUGH + " " + ChatColor.GREEN
-						+ ChatColor.BOLD + "SLIMY" + ChatColor.DARK_GREEN + ChatColor.STRIKETHROUGH + " " + ChatColor.GREEN
-						+ ChatColor.BOLD + "SWAMP"
-						+ ChatColor.DARK_GREEN + ChatColor.STRIKETHROUGH + "  ");
+				+ ChatColor.BOLD + "THE" + ChatColor.DARK_GREEN + ChatColor.STRIKETHROUGH + " " + ChatColor.GREEN
+				+ ChatColor.BOLD + "SLIMY" + ChatColor.DARK_GREEN + ChatColor.STRIKETHROUGH + " " + ChatColor.GREEN
+				+ ChatColor.BOLD + "SWAMP"
+				+ ChatColor.DARK_GREEN + ChatColor.STRIKETHROUGH + "  ");
 		textDisplay.setShadowed(true);
 		textDisplay.setBrightness(new Display.Brightness(15, 15));
 		textDisplay.setTransformation(
-						new Transformation(new Vector3f(0, 0, 0), new AxisAngle4f(0, 0, 0, 0), new Vector3f(7.5F, 7.5F, 7.5F),
-										new AxisAngle4f(0, 0, 0, 0)));
+				new Transformation(new Vector3f(0, 0, 0), new AxisAngle4f(0, 0, 0, 0), new Vector3f(7.5F, 7.5F, 7.5F),
+						new AxisAngle4f(0, 0, 0, 0)));
 		textDisplay.setBillboard(Billboard.CENTER);
 
 		// BLOCK DISPLAY
 
 		final BlockDisplay blockDisplay = (BlockDisplay) world.spawnEntity(displaysLocation.add(5, -2, 0),
-						EntityType.BLOCK_DISPLAY);
+				EntityType.BLOCK_DISPLAY);
 		blockDisplay.setBlock(Material.END_PORTAL_FRAME.createBlockData());
 		blockDisplay.setBrightness(new Display.Brightness(15, 15));
 
@@ -566,7 +563,7 @@ public final class FirstPlugin extends JavaPlugin implements PluginMessageListen
 		diamondSword.setItemMeta(diamondSwordMeta);
 
 		final ItemDisplay itemDisplay = (ItemDisplay) world.spawnEntity(displaysLocation.subtract(10, 0, 0),
-						EntityType.ITEM_DISPLAY);
+				EntityType.ITEM_DISPLAY);
 		itemDisplay.setItemStack(diamondSword);
 		itemDisplay.setItemDisplayTransform(ItemDisplay.ItemDisplayTransform.HEAD);
 
@@ -576,12 +573,13 @@ public final class FirstPlugin extends JavaPlugin implements PluginMessageListen
 		bee.setGlowing(true);
 
 		final ArmorStand armourStand = (ArmorStand) world.spawnEntity(new Location(world, 0, 320, 0),
-						EntityType.ARMOR_STAND);
+				EntityType.ARMOR_STAND);
 
 		armourStand.setArms(true);
 		armourStand.setGlowing(true);
 
-		// Use armourStand.remove(); to get rid of armour stands (or most entities really).
+		// Use armourStand.remove(); to get rid of armour stands (or most entities
+		// really).
 
 		final ItemStack netherite = new ItemStack(Material.NETHERITE_INGOT, 4);
 		final ItemMeta netheriteMeta = netherite.getItemMeta();
@@ -622,17 +620,19 @@ public final class FirstPlugin extends JavaPlugin implements PluginMessageListen
 
 		/* BukkitTask bukkitTask = */
 		SCHEDULER.runTaskLater/* Asynchronously */(this,
-						() -> Bukkit.broadcastMessage(
-										"Server has started! Up for " + ChatColor.BOLD + "10" + ChatColor.RESET + " seconds and counting."),
-						200);
+				() -> Bukkit.broadcastMessage(
+						"Server has started! Up for " + ChatColor.BOLD + "10" + ChatColor.RESET
+								+ " seconds and counting."),
+				200);
 
 		// Use bukkitTask.cancel(); to cancel tasks.
 
 		SCHEDULER.runTaskTimer/* Asynchronously */(this,
-						() -> Bukkit
-										.broadcastMessage("This executes every " + ChatColor.BOLD + "1500" + ChatColor.RESET + " seconds! ...and "
-														+ ChatColor.BOLD + "10" + ChatColor.RESET + " seconds after the server has started."),
-						200, 30_000);
+				() -> Bukkit
+						.broadcastMessage("This executes every " + ChatColor.BOLD + "1500" + ChatColor.RESET
+								+ " seconds! ...and "
+								+ ChatColor.BOLD + "10" + ChatColor.RESET + " seconds after the server has started."),
+				200, 30_000);
 	}
 
 	@Override
@@ -644,7 +644,8 @@ public final class FirstPlugin extends JavaPlugin implements PluginMessageListen
 	}
 
 	@Override
-	public void onPluginMessageReceived(@NotNull final String channel, @NotNull final Player player, final byte @NotNull [] data) {
+	public void onPluginMessageReceived(@NotNull final String channel, @NotNull final Player player,
+			final byte @NotNull [] data) {
 		if (!channel.equals("BungeeCord")) {
 			return;
 		}
