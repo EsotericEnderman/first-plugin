@@ -449,8 +449,16 @@ public final class FirstPlugin extends JavaPlugin implements PluginMessageListen
 
 		// If plugin doesn't support Maven, then add it by going to file => project
 		// structure => libraries.
-		final WorldEdit worldEdit = WorldEdit.getInstance();
-		Utility.log("Is WorldEdit API working? " + (worldEdit == null ? "no" : "yes") + "...");
+		
+		WorldEdit worldEdit = null;
+
+		try {
+			worldEdit = WorldEdit.getInstance();
+		} catch (NoClassDefFoundError error) {
+			error.printStackTrace();
+		}
+
+		Utility.log("Is WorldEdit API working? " + (worldEdit == null ? "no" : "yes") + "...");	
 
 		getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
 		getServer().getMessenger().registerIncomingPluginChannel(this, "BungeeCord", this);
@@ -502,7 +510,11 @@ public final class FirstPlugin extends JavaPlugin implements PluginMessageListen
 		// final ServerPlayer player = ((CraftPlayer)
 		// Bukkit.getPlayer("Slqmy")).getHandle();
 
-		new IsHoldingSpongePlaceholder().register();
+		try {
+			new IsHoldingSpongePlaceholder().register();
+		} catch (NoClassDefFoundError error) {
+			error.printStackTrace();
+		}
 
 		// Check the version and adjust this variable accordingly.
 		final InterfaceExample example = new InterfaceExample1_8();
@@ -518,8 +530,12 @@ public final class FirstPlugin extends JavaPlugin implements PluginMessageListen
 		// Takes ~5 minutes after the server starts to update, then every ~30 minutes.
 
 		int pluginId = 19300;
-		Metrics metrics = new Metrics(this, pluginId);
-		metrics.addCustomChart(new SimplePie("languages_used", () -> config.getString("Language")));
+		try {
+			Metrics metrics = new Metrics(this, pluginId);
+			metrics.addCustomChart(new SimplePie("languages_used", () -> config.getString("Language")));
+		} catch (IllegalStateException exception) {
+			exception.printStackTrace();
+		}
 
 		Utility.log("The plugin 'FirstPlugin' has been fully enabled!");
 
