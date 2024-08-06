@@ -7,7 +7,7 @@ import io.netty.channel.ChannelPipeline;
 import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.game.ServerboundInteractPacket;
 import net.minecraft.server.network.ServerGamePacketListenerImpl;
-import net.slqmy.first_plugin.Main;
+import net.slqmy.first_plugin.FirstPlugin;
 import net.slqmy.first_plugin.events.custom_events.NPCClickEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -22,7 +22,7 @@ import java.lang.reflect.Field;
 public final class PacketUtility {
 	private static final PluginManager pluginManager = Bukkit.getPluginManager();
 
-	public static void inject(@NotNull final Main plugin, @NotNull final Player player) {
+	public static void inject(@NotNull final FirstPlugin plugin, @NotNull final Player player) {
 		final ChannelDuplexHandler channelHandler = new ChannelDuplexHandler() {
 			@Override
 			public void channelRead(@NotNull final ChannelHandlerContext context, @NotNull final Object rawPacket) throws Exception {

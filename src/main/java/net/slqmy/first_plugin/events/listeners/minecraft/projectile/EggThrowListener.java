@@ -1,6 +1,6 @@
 package net.slqmy.first_plugin.events.listeners.minecraft.projectile;
 
-import net.slqmy.first_plugin.Main;
+import net.slqmy.first_plugin.FirstPlugin;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Egg;
 import org.bukkit.event.EventHandler;
@@ -13,7 +13,7 @@ import org.jetbrains.annotations.NotNull;
 public final class EggThrowListener implements Listener {
 	private final NamespacedKey isShotgunBulletKey;
 
-	public EggThrowListener(@NotNull final Main plugin) {
+	public EggThrowListener(@NotNull final FirstPlugin plugin) {
 		isShotgunBulletKey = plugin.getIsShotgunBulletKey();
 	}
 

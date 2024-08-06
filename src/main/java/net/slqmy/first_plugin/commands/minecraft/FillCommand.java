@@ -1,6 +1,6 @@
 package net.slqmy.first_plugin.commands.minecraft;
 
-import net.slqmy.first_plugin.Main;
+import net.slqmy.first_plugin.FirstPlugin;
 import net.slqmy.first_plugin.types.AbstractCommand;
 import net.slqmy.first_plugin.utility.types.Cuboid;
 import org.bukkit.ChatColor;
@@ -16,9 +16,9 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public final class FillCommand extends AbstractCommand {
-	private final Main plugin;
+	private final FirstPlugin plugin;
 
-	public FillCommand(@NotNull final Main plugin) {
+	public FillCommand(@NotNull final FirstPlugin plugin) {
 		super(
 						"fill",
 						"Fill a region with a certain type of block!",

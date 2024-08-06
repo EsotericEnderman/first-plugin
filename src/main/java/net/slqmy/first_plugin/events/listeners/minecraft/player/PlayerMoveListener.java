@@ -2,7 +2,7 @@ package net.slqmy.first_plugin.events.listeners.minecraft.player;
 
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
-import net.slqmy.first_plugin.Main;
+import net.slqmy.first_plugin.FirstPlugin;
 import net.slqmy.first_plugin.utility.types.Cuboid;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -15,10 +15,10 @@ import java.util.List;
 import java.util.UUID;
 
 public final class PlayerMoveListener implements Listener {
-	private final Main plugin;
+	private final FirstPlugin plugin;
 	private final List<UUID> movementDisabled;
 
-	public PlayerMoveListener(@NotNull final Main plugin) {
+	public PlayerMoveListener(@NotNull final FirstPlugin plugin) {
 		this.plugin = plugin;
 		this.movementDisabled = plugin.getMovementDisabled();
 	}

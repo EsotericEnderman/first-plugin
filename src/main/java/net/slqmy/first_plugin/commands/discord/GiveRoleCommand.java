@@ -4,7 +4,7 @@ import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
-import net.slqmy.first_plugin.Main;
+import net.slqmy.first_plugin.FirstPlugin;
 import net.slqmy.first_plugin.types.AbstractCommand;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -17,7 +17,7 @@ import java.util.List;
 public class GiveRoleCommand extends AbstractCommand {
 	private final JDA jda;
 
-	public GiveRoleCommand(@NotNull final Main plugin) {
+	public GiveRoleCommand(@NotNull final FirstPlugin plugin) {
 		super(
 						"give-role",
 						"Give a user on Discord a role. From Minecraft...",

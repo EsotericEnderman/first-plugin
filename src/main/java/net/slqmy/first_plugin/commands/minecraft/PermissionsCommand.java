@@ -1,6 +1,6 @@
 package net.slqmy.first_plugin.commands.minecraft;
 
-import net.slqmy.first_plugin.Main;
+import net.slqmy.first_plugin.FirstPlugin;
 import net.slqmy.first_plugin.types.AbstractCommand;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -14,13 +14,13 @@ import java.util.List;
 import java.util.UUID;
 
 public final class PermissionsCommand extends AbstractCommand {
-	private final Main plugin;
+	private final FirstPlugin plugin;
 
 	// In actually good plugins remember to remove unnecessary data when the player
 	// leaves the server.
 	private final HashMap<UUID, PermissionAttachment> permissions = new HashMap<>();
 
-	public PermissionsCommand(@NotNull final Main plugin) {
+	public PermissionsCommand(@NotNull final FirstPlugin plugin) {
 		super(
 						"permissions",
 						"Give yourself a secret permission to access a very secret command!",

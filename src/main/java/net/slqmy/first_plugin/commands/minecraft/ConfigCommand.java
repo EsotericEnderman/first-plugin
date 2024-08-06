@@ -1,6 +1,6 @@
 package net.slqmy.first_plugin.commands.minecraft;
 
-import net.slqmy.first_plugin.Main;
+import net.slqmy.first_plugin.FirstPlugin;
 import net.slqmy.first_plugin.types.AbstractCommand;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -14,7 +14,7 @@ import java.util.List;
 public final class ConfigCommand extends AbstractCommand {
 	private final YamlConfiguration config;
 
-	public ConfigCommand(@NotNull final Main plugin) {
+	public ConfigCommand(@NotNull final FirstPlugin plugin) {
 		super(
 						"config",
 						"View the server config. How interesting...",

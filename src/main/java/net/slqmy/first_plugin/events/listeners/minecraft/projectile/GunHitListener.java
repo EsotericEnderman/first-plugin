@@ -1,6 +1,6 @@
 package net.slqmy.first_plugin.events.listeners.minecraft.projectile;
 
-import net.slqmy.first_plugin.Main;
+import net.slqmy.first_plugin.FirstPlugin;
 import org.bukkit.*;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.entity.Entity;
@@ -20,7 +20,7 @@ public final class GunHitListener implements Listener {
 	private final NamespacedKey isMiniGunBulletKey;
 	private final NamespacedKey isGatlingGunBulletKey;
 
-	public GunHitListener(@NotNull final Main plugin) {
+	public GunHitListener(@NotNull final FirstPlugin plugin) {
 		isPistolBulletKey = plugin.getIsPistolBulletKey();
 		isShotgunBulletKey = plugin.getIsShotgunBulletKey();
 		isMiniGunBulletKey = plugin.getIsMiniGunBulletKey();

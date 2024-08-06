@@ -4,7 +4,7 @@ import com.theokanning.openai.OpenAiService;
 import com.theokanning.openai.completion.CompletionRequest;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
-import net.slqmy.first_plugin.Main;
+import net.slqmy.first_plugin.FirstPlugin;
 import net.slqmy.first_plugin.types.AbstractCommand;
 import net.slqmy.rank_system.managers.RankManager;
 import net.slqmy.rank_system.types.Rank;
@@ -27,12 +27,12 @@ import java.util.List;
 import java.util.UUID;
 
 public class TalkCommand extends AbstractCommand implements Listener {
-	private final Main plugin;
+	private final FirstPlugin plugin;
 	private final BukkitScheduler SCHEDULER = Bukkit.getScheduler();
 	private final OpenAiService service;
 	private final RankManager rankManager;
 
-	public TalkCommand(@NotNull final Main plugin) {
+	public TalkCommand(@NotNull final FirstPlugin plugin) {
 		super(
 						"talk",
 						"Talk to the legendary Slime GPT AI!",

@@ -1,6 +1,6 @@
 package net.slqmy.first_plugin.commands.minecraft;
 
-import net.slqmy.first_plugin.Main;
+import net.slqmy.first_plugin.FirstPlugin;
 import net.slqmy.first_plugin.types.AbstractCommand;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -15,10 +15,10 @@ import java.util.List;
 import java.util.UUID;
 
 public final class VanishCommand extends AbstractCommand {
-	private final Main plugin;
+	private final FirstPlugin plugin;
 	private final List<UUID> vanished = new ArrayList<>();
 
-	public VanishCommand(@NotNull final Main plugin) {
+	public VanishCommand(@NotNull final FirstPlugin plugin) {
 		super(
 						"vanish",
 						"Disappear forever (or temporarily).",

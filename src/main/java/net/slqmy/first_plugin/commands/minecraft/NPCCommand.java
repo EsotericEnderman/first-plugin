@@ -12,7 +12,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.network.ServerGamePacketListenerImpl;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.Pose;
-import net.slqmy.first_plugin.Main;
+import net.slqmy.first_plugin.FirstPlugin;
 import net.slqmy.first_plugin.types.AbstractCommand;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -31,9 +31,9 @@ import java.util.List;
 import java.util.UUID;
 
 public final class NPCCommand extends AbstractCommand {
-	private final Main plugin;
+	private final FirstPlugin plugin;
 
-	public NPCCommand(@NotNull final Main plugin) {
+	public NPCCommand(@NotNull final FirstPlugin plugin) {
 		super(
 						"npc",
 						"Spawns a custom player NPC.",

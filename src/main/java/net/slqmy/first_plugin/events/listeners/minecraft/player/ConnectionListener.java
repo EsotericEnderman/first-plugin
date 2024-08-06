@@ -1,6 +1,6 @@
 package net.slqmy.first_plugin.events.listeners.minecraft.player;
 
-import net.slqmy.first_plugin.Main;
+import net.slqmy.first_plugin.FirstPlugin;
 import net.slqmy.first_plugin.managers.PlayerManager;
 import net.slqmy.first_plugin.types.PlayerWrapper;
 import net.slqmy.first_plugin.utility.DebugUtility;
@@ -18,11 +18,11 @@ import java.util.Map;
 import java.util.UUID;
 
 public final class ConnectionListener implements Listener {
-	private final Main plugin;
+	private final FirstPlugin plugin;
 	private final PlayerManager playerManager;
 	private final Map<UUID, UUID> recentMessages;
 
-	public ConnectionListener(@NotNull final Main plugin) {
+	public ConnectionListener(@NotNull final FirstPlugin plugin) {
 		this.plugin = plugin;
 
 		this.playerManager = plugin.getPlayerManager();

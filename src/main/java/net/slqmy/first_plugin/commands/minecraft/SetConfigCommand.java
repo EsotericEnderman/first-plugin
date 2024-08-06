@@ -1,6 +1,6 @@
 package net.slqmy.first_plugin.commands.minecraft;
 
-import net.slqmy.first_plugin.Main;
+import net.slqmy.first_plugin.FirstPlugin;
 import net.slqmy.first_plugin.types.AbstractCommand;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -10,10 +10,10 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public final class SetConfigCommand extends AbstractCommand {
-	private final Main plugin;
+	private final FirstPlugin plugin;
 	private final YamlConfiguration config;
 
-	public SetConfigCommand(@NotNull final Main plugin) {
+	public SetConfigCommand(@NotNull final FirstPlugin plugin) {
 		super(
 						"set-config",
 						"Set data in the config file!",

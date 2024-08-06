@@ -1,6 +1,6 @@
 package net.slqmy.first_plugin.managers;
 
-import net.slqmy.first_plugin.Main;
+import net.slqmy.first_plugin.FirstPlugin;
 import net.slqmy.first_plugin.utility.Utility;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.jetbrains.annotations.NotNull;
@@ -13,7 +13,7 @@ import java.util.Objects;
 public final class ConfigManager {
 	private YamlConfiguration configuration;
 
-	public ConfigManager(@NotNull final Main plugin) {
+	public ConfigManager(@NotNull final FirstPlugin plugin) {
 		final File file = new File(plugin.getDataFolder(), Objects.requireNonNull(plugin.getConfig().getString("Language")) + ".yml");
 
 		if (file.exists()) {

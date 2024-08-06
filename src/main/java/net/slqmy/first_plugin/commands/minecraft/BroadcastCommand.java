@@ -1,6 +1,6 @@
 package net.slqmy.first_plugin.commands.minecraft;
 
-import net.slqmy.first_plugin.Main;
+import net.slqmy.first_plugin.FirstPlugin;
 import net.slqmy.first_plugin.events.custom_events.ServerBroadcastEvent;
 import net.slqmy.first_plugin.types.AbstractCommand;
 import net.wesjd.anvilgui.AnvilGUI;
@@ -25,7 +25,7 @@ public final class BroadcastCommand extends AbstractCommand {
 
 	private final AnvilGUI.Builder builder;
 
-	public BroadcastCommand(@NotNull final Main plugin) {
+	public BroadcastCommand(@NotNull final FirstPlugin plugin) {
 		super(
 						"broadcast",
 						"Broadcast something to everyone on the server.",

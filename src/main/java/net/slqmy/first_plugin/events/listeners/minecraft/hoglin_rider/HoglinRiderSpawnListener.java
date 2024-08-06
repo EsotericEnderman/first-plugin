@@ -1,6 +1,6 @@
 package net.slqmy.first_plugin.events.listeners.minecraft.hoglin_rider;
 
-import net.slqmy.first_plugin.Main;
+import net.slqmy.first_plugin.FirstPlugin;
 import net.slqmy.first_plugin.events.custom_events.HoglinRiderSpawnEvent;
 import net.slqmy.first_plugin.utility.HoglinRiderUtility;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -13,9 +13,9 @@ import java.util.List;
 
 public final class HoglinRiderSpawnListener implements Listener {
 	private final YamlConfiguration config;
-	private final Main plugin;
+	private final FirstPlugin plugin;
 
-	public HoglinRiderSpawnListener(@NotNull final Main plugin) {
+	public HoglinRiderSpawnListener(@NotNull final FirstPlugin plugin) {
 		this.plugin = plugin;
 		this.config = (YamlConfiguration) plugin.getConfig();
 	}

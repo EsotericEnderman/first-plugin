@@ -1,6 +1,6 @@
 package net.slqmy.first_plugin.utility;
 
-import net.slqmy.first_plugin.Main;
+import net.slqmy.first_plugin.FirstPlugin;
 import org.bukkit.*;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.block.Block;
@@ -123,7 +123,7 @@ public final class HoglinRiderUtility {
 		}
 	}
 
-	public static void playParticles(@NotNull final Main plugin, @Nullable final Entity hoglin) {
+	public static void playParticles(@NotNull final FirstPlugin plugin, @Nullable final Entity hoglin) {
 		new BukkitRunnable() {
 			public void run() {
 				if (hoglin != null) {
@@ -143,7 +143,7 @@ public final class HoglinRiderUtility {
 		}.runTaskTimer(plugin, 0L, 5L);
 	}
 
-	public static void manageHoglinRiders(@NotNull final Main plugin) {
+	public static void manageHoglinRiders(@NotNull final FirstPlugin plugin) {
 		final List<String> hoglinRiders = plugin.getConfig().getStringList("HoglinRiders");
 
 		for (final String hoglinUUID : hoglinRiders) {

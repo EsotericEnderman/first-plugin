@@ -1,6 +1,6 @@
 package net.slqmy.first_plugin.commands.minecraft;
 
-import net.slqmy.first_plugin.Main;
+import net.slqmy.first_plugin.FirstPlugin;
 import net.slqmy.first_plugin.types.AbstractCommand;
 import net.slqmy.rank_system.managers.RankManager;
 import net.slqmy.rank_system.types.Rank;
@@ -19,7 +19,7 @@ public final class MessageCommand extends AbstractCommand {
 	private final RankManager rankManager;
 	private final Map<UUID, UUID> recentMessages;
 
-	public MessageCommand(@NotNull final Main plugin) {
+	public MessageCommand(@NotNull final FirstPlugin plugin) {
 		super(
 						"message",
 						"Message another player.",

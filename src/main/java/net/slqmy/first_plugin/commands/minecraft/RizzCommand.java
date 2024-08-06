@@ -3,7 +3,7 @@ package net.slqmy.first_plugin.commands.minecraft;
 import com.xxmicloxx.NoteBlockAPI.model.Song;
 import com.xxmicloxx.NoteBlockAPI.songplayer.EntitySongPlayer;
 import com.xxmicloxx.NoteBlockAPI.utils.NBSDecoder;
-import net.slqmy.first_plugin.Main;
+import net.slqmy.first_plugin.FirstPlugin;
 import net.slqmy.first_plugin.types.AbstractCommand;
 import net.slqmy.first_plugin.utility.Utility;
 import org.bukkit.Bukkit;
@@ -19,7 +19,7 @@ import java.util.List;
 public final class RizzCommand extends AbstractCommand {
 	private final Song whatIsLove;
 
-	public RizzCommand(@NotNull final Main plugin) {
+	public RizzCommand(@NotNull final FirstPlugin plugin) {
 		super(
 						"rizz",
 						"Rizz someone up with this command!",

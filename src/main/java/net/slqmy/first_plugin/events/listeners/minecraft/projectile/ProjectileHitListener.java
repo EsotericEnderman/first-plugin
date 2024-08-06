@@ -1,6 +1,6 @@
 package net.slqmy.first_plugin.events.listeners.minecraft.projectile;
 
-import net.slqmy.first_plugin.Main;
+import net.slqmy.first_plugin.FirstPlugin;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.NamespacedKey;
@@ -24,7 +24,7 @@ public final class ProjectileHitListener implements Listener {
 	private final NamespacedKey isPistolBulletKey;
 	private final NamespacedKey isGatlingGunBulletKey;
 
-	public ProjectileHitListener(@NotNull final Main plugin) {
+	public ProjectileHitListener(@NotNull final FirstPlugin plugin) {
 		isPistolBulletKey = plugin.getIsPistolBulletKey();
 		isGatlingGunBulletKey = plugin.getIsGatlingGunBulletKey();
 	}

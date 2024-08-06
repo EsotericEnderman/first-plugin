@@ -16,7 +16,7 @@ public final class Database {
 	private final String PASSWORD;
 	private HikariDataSource hikari;
 
-	public Database(@NotNull final Main plugin) {
+	public Database(@NotNull final FirstPlugin plugin) {
 		final YamlConfiguration config = (YamlConfiguration) plugin.getConfig();
 
 		this.HOST = config.getString("Host");

@@ -1,6 +1,6 @@
 package net.slqmy.first_plugin.events.listeners.minecraft.player;
 
-import net.slqmy.first_plugin.Main;
+import net.slqmy.first_plugin.FirstPlugin;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
@@ -42,7 +42,7 @@ public final class PlayerInteractListener implements Listener {
 					new PotionEffect(PotionEffectType.WITHER, PotionEffect.INFINITE_DURATION, 1, true, true)
 	};
 
-	private final Main plugin;
+	private final FirstPlugin plugin;
 
 	private final List<UUID> movementDisabled;
 
@@ -51,7 +51,7 @@ public final class PlayerInteractListener implements Listener {
 	private final NamespacedKey isMiniGunBullet;
 	private final NamespacedKey isGatlingGunBullet;
 
-	public PlayerInteractListener(@NotNull final Main plugin) {
+	public PlayerInteractListener(@NotNull final FirstPlugin plugin) {
 		this.plugin = plugin;
 
 		this.movementDisabled = plugin.getMovementDisabled();

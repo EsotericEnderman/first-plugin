@@ -5,7 +5,7 @@ import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.chat.hover.content.Text;
-import net.slqmy.first_plugin.Main;
+import net.slqmy.first_plugin.FirstPlugin;
 import net.slqmy.first_plugin.utility.Utility;
 import org.bukkit.*;
 import org.bukkit.boss.BossBar;
@@ -28,10 +28,10 @@ import org.jetbrains.annotations.NotNull;
 public final class PlayerJoinListener implements Listener {
 	private static final ScoreboardManager SCOREBOARD_MANAGER = Bukkit.getScoreboardManager();
 
-	private final Main plugin;
+	private final FirstPlugin plugin;
 	private final BossBar bossBar;
 
-	public PlayerJoinListener(@NotNull final Main plugin) {
+	public PlayerJoinListener(@NotNull final FirstPlugin plugin) {
 		this.plugin = plugin;
 		this.bossBar = plugin.getBossBar();
 	}

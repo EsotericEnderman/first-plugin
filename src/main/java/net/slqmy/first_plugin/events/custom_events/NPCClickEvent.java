@@ -1,6 +1,6 @@
 package net.slqmy.first_plugin.events.custom_events;
 
-import net.slqmy.first_plugin.Main;
+import net.slqmy.first_plugin.FirstPlugin;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -17,7 +17,7 @@ public final class NPCClickEvent extends Event implements Cancellable {
 
 	private boolean cancelled;
 
-	public NPCClickEvent(@NotNull final Main plugin, @NotNull final Player clicker, final int npcEntityID) {
+	public NPCClickEvent(@NotNull final FirstPlugin plugin, @NotNull final Player clicker, final int npcEntityID) {
 		this.clicker = clicker;
 		// The map is needed because there is no way to get an entity from entity ID sadly.
 		this.npc = Bukkit.getEntity(plugin.getNPCs().get(npcEntityID));

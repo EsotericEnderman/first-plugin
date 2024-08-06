@@ -1,7 +1,7 @@
 package net.slqmy.first_plugin.types;
 
 import com.zaxxer.hikari.HikariDataSource;
-import net.slqmy.first_plugin.Main;
+import net.slqmy.first_plugin.FirstPlugin;
 import net.slqmy.first_plugin.utility.DebugUtility;
 import org.jetbrains.annotations.NotNull;
 
@@ -17,7 +17,7 @@ public final class PlayerWrapper {
 	private String rank;
 	private int coins;
 
-	public PlayerWrapper(@NotNull final Main plugin, @NotNull final UUID uuid) throws SQLException {
+	public PlayerWrapper(@NotNull final FirstPlugin plugin, @NotNull final UUID uuid) throws SQLException {
 		this.hikari = plugin.getDatabase().getConnection();
 		assert hikari != null;
 

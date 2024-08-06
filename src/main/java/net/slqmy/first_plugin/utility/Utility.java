@@ -4,7 +4,7 @@ import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
 import com.mojang.authlib.properties.PropertyMap;
 import net.minecraft.server.level.ServerPlayer;
-import net.slqmy.first_plugin.Main;
+import net.slqmy.first_plugin.FirstPlugin;
 import net.slqmy.first_plugin.utility.types.Pair;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -29,7 +29,7 @@ public final class Utility {
 	private static final String TEXTURES_KEY = "textures";
 
 	@Nullable
-	public static Pair<@NotNull File, @NotNull YamlConfiguration> initiateYAMLFile(@NotNull String name, final @NotNull Main plugin)
+	public static Pair<@NotNull File, @NotNull YamlConfiguration> initiateYAMLFile(@NotNull String name, final @NotNull FirstPlugin plugin)
 					throws IOException {
 		final File pluginDataFolder = plugin.getDataFolder();
 		name += ".yml";

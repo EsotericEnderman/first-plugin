@@ -64,7 +64,7 @@ import java.lang.reflect.Field;
 import java.sql.SQLException;
 import java.util.*;
 
-public final class Main extends JavaPlugin implements PluginMessageListener {
+public final class FirstPlugin extends JavaPlugin implements PluginMessageListener {
 	private static final PluginManager pluginManager = Bukkit.getPluginManager();
 
 	private static final BukkitScheduler SCHEDULER = Bukkit.getScheduler();

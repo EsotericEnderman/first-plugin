@@ -1,6 +1,6 @@
 package net.slqmy.first_plugin.events.listeners.minecraft.projectile;
 
-import net.slqmy.first_plugin.Main;
+import net.slqmy.first_plugin.FirstPlugin;
 import net.slqmy.first_plugin.utility.NumberUtility;
 import net.slqmy.first_plugin.utility.Utility;
 import org.bukkit.*;
@@ -41,9 +41,9 @@ public final class ProjectileLaunchListener implements Listener {
 
 	private final DustTransition DUST_TRANSITION_SILVER = new DustTransition(Color.SILVER, Color.SILVER, 1.25F);
 
-	private final Main plugin;
+	private final FirstPlugin plugin;
 
-	public ProjectileLaunchListener(@NotNull final Main plugin) {
+	public ProjectileLaunchListener(@NotNull final FirstPlugin plugin) {
 		this.plugin = plugin;
 	}
 
