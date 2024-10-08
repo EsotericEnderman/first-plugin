@@ -19,8 +19,8 @@ fun capitalizeFirstLetter(string: String): String {
   return string.first().uppercase() + string.slice(IntRange(1, string.length - 1))
 }
 
-fun snakecase(kebabcaseString: String): String {
-  return kebabcaseString.lowercase().replace(kebabcaseStringSeparator, snakecaseStringSeparator)
+fun snakecase(string: String): String {
+  return string.lowercase().replace(kebabcaseStringSeparator, snakecaseStringSeparator).replace(" ", snakecaseStringSeparator)
 }
 
 fun pascalcase(kebabcaseString: String): String {
@@ -35,14 +35,14 @@ fun pascalcase(kebabcaseString: String): String {
   return pascalCaseString
 }
 
-description = "My first plugin."
+description = "My first Minecraft plugin."
 
-val mainProjectAuthor = "Slqmy"
+val mainProjectAuthor = "Esoteric Enderman"
 val projectAuthors = listOfNotNull(mainProjectAuthor)
 
-val topLevelDomain = "net"
+val topLevelDomain = "dev"
 
-group = topLevelDomain + groupStringSeparator + mainProjectAuthor.lowercase() + groupStringSeparator + snakecase(rootProject.name)
+group = topLevelDomain + groupStringSeparator + snakecase(mainProjectAuthor) + groupStringSeparator + snakecase(rootProject.name)
 version = "1.0.0-SNAPSHOT"
 
 val javaVersion = 21
@@ -64,7 +64,7 @@ repositories {
 }
 
 dependencies {
-  paperweight.paperDevBundle(paperApiVersion + "-R0.1-SNAPSHOT")
+  paperweight.paperDevBundle("$paperApiVersion-R0.1-SNAPSHOT")
   implementation("net.dv8tion", "JDA", "5.0.2")
   implementation("net.wesjd", "anvilgui", "1.10.0-SNAPSHOT")
   implementation("com.zaxxer", "HikariCP", "4.0.3")
@@ -91,6 +91,9 @@ bukkitPluginYaml {
 
   main = project.group.toString() + groupStringSeparator + pascalcase(rootProject.name)
   apiVersion = paperApiVersion
+  description = project.description
+
+  depend.addAll("WorldEdit", "NoteBlockAPI")
 
   load = BukkitPluginYaml.PluginLoadOrder.POSTWORLD
 }
