@@ -1,5 +1,7 @@
 # First Plugin
 
+[![Project Status: Completed](./assets/images/badges/status.svg)](./)
+
 > My first Minecraft plugin.
 
 This project has been abandoned and many features of the plugin do not work.
